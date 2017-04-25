@@ -1,4 +1,5 @@
 <?php
+namespace model;
 //TO MEXENO BY::JUCA
 /**
  * Created by PhpStorm.
@@ -10,13 +11,21 @@ class Voto
 {
 
     /**
+     * Varíavel id do voto.
      * @var
      */
     private $pk_voto;
+
     /**
-     * É a variável que irá guardar o balanço dos votos.
+     * Fk do usuário que fez o voto.
      * @var
      */
-    private $contagem;
+    private $fk_usuario;
+
+    /**
+     * Fk da proposta que recebe o voto.
+     * @var
+     */
+    private $fk_proposta;
 
 }
