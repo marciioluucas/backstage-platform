@@ -1,5 +1,5 @@
 <?php
-
+namespace controller;
 /**
  * Created by PhpStorm.
  * User: lukee
