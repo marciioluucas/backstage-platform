@@ -8,19 +8,19 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema backstage_platform
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema mydb
+-- Schema backstage_platform
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
-USE `mydb` ;
+CREATE SCHEMA IF NOT EXISTS `backstage_platform` DEFAULT CHARACTER SET utf8 ;
+USE `backstage_platform` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`usuario`
+-- Table `backstage_platform`.`usuario`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`usuario` (
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`usuario` (
   `pk_usuario` INT(20) NOT NULL,
   `nome` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
@@ -32,9 +32,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`proposta`
+-- Table `backstage_platform`.`proposta`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`proposta` (
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`proposta` (
   `pk_proposta` INT NOT NULL AUTO_INCREMENT,
   `titulo` VARCHAR(255) NOT NULL,
   `descricao` TEXT NOT NULL,
@@ -44,16 +44,16 @@ CREATE TABLE IF NOT EXISTS `mydb`.`proposta` (
   INDEX `fk_Proposta_usuario_idx` (`fk_usuario` ASC),
   CONSTRAINT `fk_Proposta_usuario`
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `mydb`.`usuario` (`pk_usuario`)
+    REFERENCES `backstage_platform`.`usuario` (`pk_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`equipe`
+-- Table `backstage_platform`.`equipe`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`equipe` (
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`equipe` (
   `pk_equipe` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`pk_equipe`))
@@ -61,9 +61,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`membro`
+-- Table `backstage_platform`.`membro`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`membro` (
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`membro` (
   `pk_membro` INT NOT NULL AUTO_INCREMENT,
   `atuacao` VARCHAR(255) NOT NULL,
   `nivel` VARCHAR(255) NOT NULL,
@@ -76,21 +76,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`membro` (
   INDEX `fk_membro_usuario1_idx` (`fk_usuario` ASC),
   CONSTRAINT `fk_programador_equipe1`
     FOREIGN KEY (`fk_equipe`)
-    REFERENCES `mydb`.`equipe` (`pk_equipe`)
+    REFERENCES `backstage_platform`.`equipe` (`pk_equipe`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_membro_usuario1`
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `mydb`.`usuario` (`pk_usuario`)
+    REFERENCES `backstage_platform`.`usuario` (`pk_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`projeto`
+-- Table `backstage_platform`.`projeto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`projeto` (
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`projeto` (
   `fk_equipe` INT NOT NULL,
   `fk_proposta` INT NOT NULL,
   `status` TINYINT NOT NULL DEFAULT 0,
@@ -99,21 +99,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`projeto` (
   INDEX `fk_equipe_has_proposta_equipe1_idx` (`fk_equipe` ASC),
   CONSTRAINT `fk_equipe_has_proposta_equipe1`
     FOREIGN KEY (`fk_equipe`)
-    REFERENCES `mydb`.`equipe` (`pk_equipe`)
+    REFERENCES `backstage_platform`.`equipe` (`pk_equipe`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_equipe_has_proposta_proposta1`
     FOREIGN KEY (`fk_proposta`)
-    REFERENCES `mydb`.`proposta` (`pk_proposta`)
+    REFERENCES `backstage_platform`.`proposta` (`pk_proposta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`voto`
+-- Table `backstage_platform`.`voto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`voto` (
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`voto` (
   `pk_voto` INT NOT NULL,
   `contagem` INT(11) NOT NULL,
   `fk_usuario` INT(20) NOT NULL,
@@ -123,12 +123,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`voto` (
   INDEX `fk_voto_proposta1_idx` (`fk_proposta` ASC),
   CONSTRAINT `fk_voto_usuario1`
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `mydb`.`usuario` (`pk_usuario`)
+    REFERENCES `backstage_platform`.`usuario` (`pk_usuario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_voto_proposta1`
     FOREIGN KEY (`fk_proposta`)
-    REFERENCES `mydb`.`proposta` (`pk_proposta`)
+    REFERENCES `backstage_platform`.`proposta` (`pk_proposta`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

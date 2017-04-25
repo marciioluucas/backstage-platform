@@ -8,5 +8,5 @@
  */
 class Projeto
 {
-
+    private $pk_
 }
