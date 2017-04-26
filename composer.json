@@ -1,0 +1,20 @@
+{
+    "name": "backstage/platform",
+    "description": "Uma plataforma para a fabrica de software do IFGoiano Campus Morrinhos",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marcio Lucas R Oliveira",
+            "email": "marciioluucas@gmail.com"
+        },
+        {
+            "name": "Juanes Adriano",
+            "email": "juaneshtk50@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "marciioluucas/phiber": "dev-master"
+    }
+}

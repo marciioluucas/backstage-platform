@@ -1,0 +1,62 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "70e15f68f3545d54d11bf8cc9ab29800",
+    "content-hash": "167f82f79e96d8c512b2e25a54191696",
+    "packages": [
+        {
+            "name": "marciioluucas/phiber",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/marciioluucas/phiber.git",
+                "reference": "eba4be71270afc81923a9911c73ff6abb125f9de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/eba4be71270afc81923a9911c73ff6abb125f9de",
+                "reference": "eba4be71270afc81923a9911c73ff6abb125f9de",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpdocumentor/phpdocumentor": "2.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "phiber\\": "/",
+                    "phiber\\bin\\": "bin/",
+                    "phiber\\util\\": "util/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Márcio Lucas",
+                    "email": "marciioluucas@gmail.com"
+                }
+            ],
+            "description": "Simples biblioteca ORM para PHP",
+            "time": "2017-04-25 12:40:27"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "marciioluucas/phiber": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
