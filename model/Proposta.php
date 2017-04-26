@@ -9,11 +9,37 @@ namespace model;
 class Proposta
 {
 
+    /**
+     * Variável do id da proposta.
+     * @var
+     */
     private $pk_proposta;
+    /**
+     * Fk do id do Usuário que submeteu a proposta.
+     * @var
+     */
     private $fk_usuario;
+    /**
+     * Variável que armazena o nome/título da proposta submetida.
+     * @var
+     */
     private $titulo;
+    /**
+     * Variável que armazena a descrição detalhada da proposta submetida.
+     * @var
+     */
     private $descricao;
+    /**
+     * Variável que armazena a data de submissão da proposta.
+     * @var
+     */
     private $data;
+    /**
+     * Variável que armazena o balanço de votos positivos/negativos recebidos pela proposta submetida.
+     * @var
+     */
+    private $contagem;
+
 
     /**
      * @return mixed
@@ -22,6 +48,23 @@ class Proposta
     {
         return $this->pk_proposta;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getContagem()
+    {
+        return $this->contagem;
+    }
+
+    /**
+     * @param mixed $contagem
+     */
+    public function setContagem($contagem)
+    {
+        $this->contagem = $contagem;
+    }
+
 
     /**
      * @param mixed $pk_proposta
