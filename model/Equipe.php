@@ -2,7 +2,7 @@
 namespace model;
 /**
  * Created by PhpStorm.
- * User: juane
+ * User: juanes
  * Date: 18/04/2017
  * Time: 22:17
  */
