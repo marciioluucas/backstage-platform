@@ -17,7 +17,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "phiber\\": "/",
+      "phiber\\": "vendor/marciioluucas/phiber/",
       "model\\": "model/",
       "controller\\": "controller/",
       "dao\\": "dao/",

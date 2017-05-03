@@ -6,7 +6,6 @@
  * Time: 8:16 PM
  */
 require_once 'vendor/autoload.php';
-require 'vendor/marciioluucas/phiber/Phiber.php';
 
 $u = new \model\Usuario();
 $u->setLogin("LALALA");

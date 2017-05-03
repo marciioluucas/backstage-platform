@@ -11,7 +11,7 @@ namespace dao;
 
 
 use model\Usuario;
-use Phiber;
+use phiber\Phiber;
 
 class UsuarioDAO implements IDAO
 {
@@ -69,7 +69,10 @@ class UsuarioDAO implements IDAO
             $criteria->add($restrictions[0]);
         }
 
-    $criteria->show();
+        $criteria->select();
+        print_r($criteria->show());
+
+
     }
 
     function update()
