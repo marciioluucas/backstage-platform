@@ -8,10 +8,10 @@
 require_once 'vendor/autoload.php';
 
 $u = new \model\Usuario();
+//$u->setPkUsuario(3);
 $u->setNome("Marcio");
-//$u->setPkUsuario(5);
 $dao = new \dao\UsuarioDAO($u);
 
-foreach ($dao->retreave() as $usuario){
-    echo "Nome: ". $usuario['nome'] . " Email: " . $usuario['email'] . "\n";
+foreach ($dao->retreave() as $usuario) {
+    echo "ID: " . $usuario['pk_usuario'] . " Nome: " . $usuario['nome'] . " Email: " . $usuario['email'] . "\n";
 }

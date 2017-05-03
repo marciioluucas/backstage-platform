@@ -14,6 +14,7 @@ class Usuario
     private $nome;
     private $matricula;
     private $login;
+    private $email;
     private $senha;
 
     /**
@@ -79,6 +80,24 @@ class Usuario
     {
         $this->login = $login;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+
 
     /**
      * @return mixed

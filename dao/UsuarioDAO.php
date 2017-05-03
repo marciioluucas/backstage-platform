@@ -70,7 +70,6 @@ class UsuarioDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
-        $criteria->add($restrictions[0]);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
