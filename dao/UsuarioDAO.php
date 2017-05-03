@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: lukee
@@ -9,17 +10,66 @@
 namespace dao;
 
 
+use model\Usuario;
+use Phiber;
+
 class UsuarioDAO implements IDAO
 {
 
+
+    /**
+     * @var Usuario
+     */
+    private $usuario;
+
+    function __construct($usuario)
+    {
+        $this->usuario = $usuario;
+    }
+
     function create()
     {
-        // TODO: Implement create() method.
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        if ($criteria->create()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     function retreave()
     {
-        // TODO: Implement retreave() method.
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        $restrictions = [];
+        if ($this->usuario->getNome() != null) {
+            $restrictions[0] = $criteria->restrictions()
+                ->like("nome", $this->usuario->getNome());
+        }
+
+        if ($this->usuario->getLogin() != null) {
+            $restrictions[1] = $criteria->restrictions()
+                ->equals("login", $this->usuario->getLogin());
+        }
+
+        if ($this->usuario->getPkUsuario() != null) {
+            $restrictions[1] = $criteria->restrictions()
+                ->equals("pk_usuario", $this->usuario->getLogin());
+
+        }
+
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            }
+        } else {
+            $criteria->add($restrictions[0]);
+        }
+
+    $criteria->show();
     }
 
     function update()

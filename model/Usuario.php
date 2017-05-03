@@ -1,14 +1,16 @@
 <?php
 
+namespace model;
 /**
  * Created by PhpStorm.
  * User: lukee
  * Date: 4/4/17
  * Time: 8:13 PM
  */
+
 class Usuario
 {
-private $pk_usuario;
+    private $pk_usuario;
     private $nome;
     private $matricula;
     private $login;
@@ -94,5 +96,8 @@ private $pk_usuario;
         $this->senha = $senha;
     }
 
+    public function cadastrar()
+    {
 
+    }
 }

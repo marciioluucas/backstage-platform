@@ -1,20 +1,28 @@
 {
-    "name": "backstage/platform",
-    "description": "Uma plataforma para a fabrica de software do IFGoiano Campus Morrinhos",
-    "type": "project",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Marcio Lucas R Oliveira",
-            "email": "marciioluucas@gmail.com"
-        },
-        {
-            "name": "Juanes Adriano",
-            "email": "juaneshtk50@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "marciioluucas/phiber": "dev-master"
+  "name": "backstage/platform",
+  "description": "Backstage platform plataforma de fabrica de software",
+  "type": "project",
+  "require": {
+    "marciioluucas/phiber": "dev-master"
+  },
+  "require-dev": {
+    "marciioluucas/phiber": "dev-master"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "marciioluucas",
+      "email": "marciioluucas@gmail.com"
     }
+  ],
+  "autoload": {
+    "psr-4": {
+      "phiber\\": "/",
+      "model\\": "model/",
+      "controller\\": "controller/",
+      "dao\\": "dao/",
+      "view\\": "view/"
+    }
+  },
+  "minimum-stability": "dev"
 }

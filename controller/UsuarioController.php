@@ -6,7 +6,22 @@ namespace controller;
  * Date: 4/4/17
  * Time: 8:13 PM
  */
+use \model\Usuario;
 class UsuarioController
 {
 
+
+    /**
+     * UsuarioController constructor.
+     */
+    public function __construct()
+    {
+        if(isset($_POST['action']) && $_POST['action'] == 'cadastrar'){
+            $this->cadastrar();
+        }
+    }
+
+    public function cadastrar(){
+        $usuario = new Usuario();
+    }
 }

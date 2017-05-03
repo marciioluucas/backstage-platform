@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "70e15f68f3545d54d11bf8cc9ab29800",
-    "content-hash": "167f82f79e96d8c512b2e25a54191696",
+    "content-hash": "1e7bc3c596b3794d0aa556e010b757af",
     "packages": [
         {
             "name": "marciioluucas/phiber",
@@ -13,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/marciioluucas/phiber.git",
-                "reference": "eba4be71270afc81923a9911c73ff6abb125f9de"
+                "reference": "d92ab27084c4b6eefb03684572ac3fb5df7a3863"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/eba4be71270afc81923a9911c73ff6abb125f9de",
-                "reference": "eba4be71270afc81923a9911c73ff6abb125f9de",
+                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/d92ab27084c4b6eefb03684572ac3fb5df7a3863",
+                "reference": "d92ab27084c4b6eefb03684572ac3fb5df7a3863",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +45,7 @@
                 }
             ],
             "description": "Simples biblioteca ORM para PHP",
-            "time": "2017-04-25 12:40:27"
+            "time": "2017-04-26 16:49:54"
         }
     ],
     "packages-dev": [],

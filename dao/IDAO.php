@@ -8,7 +8,6 @@
 
 namespace dao;
 
-
 interface IDAO
 {
 
