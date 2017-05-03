@@ -54,8 +54,8 @@ class UsuarioDAO implements IDAO
         }
 
         if ($this->usuario->getPkUsuario() != null) {
-            $restrictions[1] = $criteria->restrictions()
-                ->equals("pk_usuario", $this->usuario->getLogin());
+            $restrictions[2] = $criteria->restrictions()
+                ->equals("pk_usuario", $this->usuario->getPkUsuario());
 
         }
 
@@ -66,12 +66,14 @@ class UsuarioDAO implements IDAO
                     ->and($restrictions[$i], $restrictions[$i + 1]));
             }
         } else {
-            $criteria->add($restrictions[0]);
+            if(!empty($restrictions)){
+                $criteria->add($restrictions[0]);
+            }
         }
-
-        $criteria->select();
-        print_r($criteria->show());
-
+        $criteria->add($restrictions[0]);
+        $r = $criteria->select();
+//        print_r($criteria->show());
+        return $r;
 
     }
 
