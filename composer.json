@@ -11,8 +11,12 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "marciioluucas",
+      "name": "marcio lucas",
       "email": "marciioluucas@gmail.com"
+    },
+    {
+      "name": "Juanes Adriano",
+      "email": "juaneshtk50@gmail.com"
     }
   ],
   "autoload": {
