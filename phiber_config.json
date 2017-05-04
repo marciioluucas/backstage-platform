@@ -3,13 +3,13 @@
     "language": "pt_br",
     "link": {
       "database_technology": "mysql",
-      "database_name": "teste_phiber",
-      "url": "mysql:host=localhost;dbname=teste_phiber",
+      "database_name": "backstage_platform",
+      "url": "mysql:host=localhost;dbname=backstage_platform",
       "user": "root",
       "password": "",
       "connection_cache": true
     },
-    "log": true,
+    "log": false,
     "execute_querys": true,
     "code_sync": false
   }

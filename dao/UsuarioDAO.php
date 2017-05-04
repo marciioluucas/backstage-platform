@@ -66,7 +66,7 @@ class UsuarioDAO implements IDAO
                     ->and($restrictions[$i], $restrictions[$i + 1]));
             }
         } else {
-            if(!empty($restrictions)){
+            if (!empty($restrictions)) {
                 $criteria->add($restrictions[0]);
             }
         }
@@ -78,7 +78,14 @@ class UsuarioDAO implements IDAO
 
     function update()
     {
-        // TODO: Implement update() method.
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        $restrictionID = $criteria->restrictions()->equals("pk_usuario", $this->usuario->getPkUsuario());
+        $criteria->add($restrictionID);
+        if ($criteria->update()) {
+            return true;
+        }
+        return false;
     }
 
     function delete()
