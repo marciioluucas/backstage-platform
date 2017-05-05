@@ -2,6 +2,10 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=utf-8");
 include '../vendor/autoload.php';
+
+$urlSemFiltro = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+
 $url = parse_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 
 if (!isset($url['query'])) {

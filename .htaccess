@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^api\/([^/]*)\/([^/]*)$ api/api.php?classe=$1&metodo=$2 [L]
+RewriteRule ^api/([^/]*)/([^/]*)\/$ api/api.php?classe=$1&metodo=$2 [L]
