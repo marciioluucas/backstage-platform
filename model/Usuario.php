@@ -1,6 +1,8 @@
 <?php
 
 namespace backstage\model;
+use backstage\dao\UsuarioDAO;
+
 /**
  * Created by PhpStorm.
  * User: lukee
@@ -117,6 +119,7 @@ class Usuario
 
     public function cadastrar()
     {
-
+        $dao = new UsuarioDAO($this);
+        return $dao->create();
     }
 }

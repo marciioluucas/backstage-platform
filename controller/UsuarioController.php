@@ -1,5 +1,7 @@
 <?php
+
 namespace backstage\controller;
+
 /**
  * Created by PhpStorm.
  * User: lukee
@@ -7,8 +9,18 @@ namespace backstage\controller;
  * Time: 8:13 PM
  */
 use backstage\model\Usuario;
+
+/**
+ * Class UsuarioController
+ * @package backstage\controller
+ */
 class UsuarioController
 {
+
+    /**
+     * @var Usuario
+     */
+    private $usuario;
 
 
     /**
@@ -16,12 +28,38 @@ class UsuarioController
      */
     public function __construct()
     {
-        if(isset($_POST['action']) && $_POST['action'] == 'cadastrar'){
+        $this->usuario = new Usuario();
+//Para usar sem API;
+        if (isset($_POST['action']) && $_POST['action'] == 'cadastrar') {
             $this->cadastrar();
+        }
+
+    }
+
+    /**
+     * @param array $values
+     */
+    public function cadastrar($values = [])
+    {
+        if ($values != []) {
+            echo json_encode($values);
         }
     }
 
-    public function cadastrar(){
-        $usuario = new Usuario();
+    public function alterar($values = [])
+    {
+
+    }
+
+    public function delete($values = [])
+    {
+
+    }
+
+    public function listar($values = [])
+    {
+
     }
 }
+
+new UsuarioController();
