@@ -21,22 +21,22 @@ if (!isset($url['query'])) {
     }
 
 
+    $class = isset($arrayArgsFiltrado['classe']) ? ucfirst($arrayArgsFiltrado['classe']) . "Controller" : null;
+    $method = isset($arrayArgsFiltrado['metodo']) ? $arrayArgsFiltrado['metodo'] : null;
+
     if (!isset($method)) {
         $response = new \backstage\util\Message(
-            "Erro na API, metodo especificado nao especificada.",
+            "Erro na API, metodo nao especificado.",
             "erro", ["icone" => "error"]
         );
         echo $response->geraJsonMensagem();
     } else if (!isset($class)) {
         $response = new \backstage\util\Message(
-            "Erro na API, classe especificada especificada.",
+            "Erro na API, classe especificada.",
             "erro", ["icone" => "error"]
         );
         echo $response->geraJsonMensagem();
     } else {
-        $class = ucfirst($arrayArgsFiltrado['classe']) . "Controller";
-        $method = $arrayArgsFiltrado['metodo'];
-
         unset($arrayArgsFiltrado['classe']);
         unset($arrayArgsFiltrado['metodo']);
 
