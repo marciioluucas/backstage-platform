@@ -6,8 +6,9 @@
  * Time: 20:45
  */
 
-namespace dao;
+namespace backstage\dao;
 
+include "../vendor/autoload.php";
 
 use phiber\Phiber;
 
@@ -30,7 +31,7 @@ class PropostaDAO implements IDAO
 
            return true;
        }
-        xamppprint_r($criteria->show());
+        print_r($criteria->show());
            return false;
 
 
@@ -88,3 +89,14 @@ class PropostaDAO implements IDAO
 
     }
 }
+
+use backstage\model\Proposta;
+$proposta = new Proposta();
+
+$proposta->setFkUsuario(1);
+$proposta->setTitulo("FEiJAO");
+$proposta->setDescricao("e ce come");
+
+$DAO = new PropostaDAO($proposta);
+
+$DAO->create();

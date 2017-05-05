@@ -7,10 +7,10 @@
  * Time: 10:35 PM
  */
 
-namespace dao;
+namespace backstage\dao;
 
 
-use model\Usuario;
+use backstage\model\Usuario;
 use phiber\Phiber;
 
 class UsuarioDAO implements IDAO

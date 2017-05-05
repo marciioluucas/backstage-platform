@@ -1,12 +1,12 @@
 <?php
-namespace controller;
+namespace backstage\controller;
 /**
  * Created by PhpStorm.
  * User: lukee
  * Date: 4/4/17
  * Time: 8:13 PM
  */
-use \model\Usuario;
+use backstage\model\Usuario;
 class UsuarioController
 {
 

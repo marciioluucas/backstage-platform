@@ -6,7 +6,7 @@
  * Time: 9:54 PM
  */
 
-namespace controller;
+namespace backstage\controller;
 
 
 class ProjetoController

@@ -6,7 +6,7 @@
  * Time: 9:55 PM
  */
 
-namespace controller;
+namespace backstage\controller;
 
 
 class MembroController

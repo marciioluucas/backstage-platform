@@ -1,6 +1,6 @@
 <?php
 
-namespace model;
+namespace backstage\model;
 /**
  * Created by PhpStorm.
  * User: lukee

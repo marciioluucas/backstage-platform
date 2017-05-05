@@ -1,5 +1,5 @@
 <?php
-
+namespace backstage\model;
 /**
  * Created by PhpStorm.
  * User: juane

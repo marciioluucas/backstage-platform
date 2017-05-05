@@ -6,7 +6,7 @@
  * Time: 10:33 PM
  */
 
-namespace dao;
+namespace backstage\dao;
 
 interface IDAO
 {

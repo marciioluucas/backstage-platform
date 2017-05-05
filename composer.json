@@ -22,10 +22,11 @@
   "autoload": {
     "psr-4": {
       "phiber\\": "vendor/marciioluucas/phiber/",
-      "model\\": "model/",
-      "controller\\": "controller/",
-      "dao\\": "dao/",
-      "view\\": "view/"
+      "backstage\\model\\": "model/",
+      "backstage\\controller\\": "controller/",
+      "backstage\\dao\\": "dao/",
+      "backstage\\view\\": "view/",
+      "backstage\\api\\": "api/"
     }
   },
   "minimum-stability": "dev"

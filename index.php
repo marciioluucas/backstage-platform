@@ -26,15 +26,3 @@ require_once 'vendor/autoload.php';
 //foreach ($dao2->retreave() as $usuario) {
 //    echo "ID: " . $usuario['pk_usuario'] . " Nome: " . $usuario['nome'] . " Email: " . $usuario['email'] . "\n";
 //}
-
-use model\Proposta;
-use dao\PropostaDAO;
-include "vendor/autoload.php";
-$proposta = new Proposta();
-
-$proposta->setTitulo("Arroiz");
-$proposta->setDescricao("e ce come");
-
-$DAO = new PropostaDAO($proposta);
-
-$DAO->create();

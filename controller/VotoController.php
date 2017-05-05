@@ -6,7 +6,7 @@
  * Time: 9:56 PM
  */
 
-namespace controller;
+namespace backstage\controller;
 
 
 class VotoController

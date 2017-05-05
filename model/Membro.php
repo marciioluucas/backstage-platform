@@ -6,7 +6,7 @@
  * Time: 8:47 PM
  */
 
-namespace model;
+namespace backstage\model;
 
 class Membro
 {
