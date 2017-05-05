@@ -9,6 +9,7 @@ namespace backstage\controller;
  * Time: 8:13 PM
  */
 use backstage\model\Usuario;
+use backstage\util\Message;
 
 /**
  * Class UsuarioController
@@ -46,10 +47,14 @@ class UsuarioController
             $this->usuario->setEmail($values['email']);
             $this->usuario->setSenha($values['senha']);
             $this->usuario->setNome($values['nome']);
-            $retorno = [];
-            if ($this->usuario->cadastrar()){
+            $this->usuario->setMatricula($values['matricula']);
+            if ($this->usuario->cadastrar()) {
             }
-                echo json_encode($values);
+            echo json_encode(new Message(
+                "Usuario cadastrado com sucesso",
+                "sucesso",
+                ["icone" => "check"]
+            ));
         }
 
     }

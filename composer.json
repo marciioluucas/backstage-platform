@@ -26,7 +26,8 @@
       "backstage\\controller\\": "controller/",
       "backstage\\dao\\": "dao/",
       "backstage\\view\\": "view/",
-      "backstage\\api\\": "api/"
+      "backstage\\api\\": "api/",
+      "backstage\\util\\": "util/"
     }
   },
   "minimum-stability": "dev"

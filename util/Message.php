@@ -24,12 +24,14 @@ class Message
      */
     public function __construct($message,$tipo,$extra = [])
     {
-        return json_encode(
+        return
             [
                 "message" => $message,
                 "tipo" => $tipo,
                 "extra" => $extra
-            ]
-        );
+            ];
     }
+
+
+
 }
