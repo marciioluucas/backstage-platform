@@ -1,0 +1,1 @@
+RewriteRule ^([a-z]+)\/listar\/$ api/api.php?classe=$1&metodo=listar [NC,L]
