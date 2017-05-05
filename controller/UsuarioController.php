@@ -49,12 +49,14 @@ class UsuarioController
             $this->usuario->setNome($values['nome']);
             $this->usuario->setMatricula($values['matricula']);
             if ($this->usuario->cadastrar()) {
+               $r = new Message(
+                    "Usuario cadastrado com sucesso",
+                    "sucesso",
+                    ["icone" => "check"]
+                );
+               echo $r->geraJsonMensagem();
             }
-            echo json_encode(new Message(
-                "Usuario cadastrado com sucesso",
-                "sucesso",
-                ["icone" => "check"]
-            ));
+
         }
 
     }
@@ -71,7 +73,7 @@ class UsuarioController
 
     public function listar($values = [])
     {
-
+        $this->usuario->retraveAll();
     }
 }
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 26-Abr-2017 às 03:26
--- Versão do servidor: 10.1.21-MariaDB
--- PHP Version: 7.1.1
+-- Generation Time: 05-Maio-2017 às 16:37
+-- Versão do servidor: 10.1.19-MariaDB
+-- PHP Version: 7.0.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -89,6 +89,14 @@ CREATE TABLE `usuario` (
   `senha` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`pk_usuario`, `nome`, `email`, `matricula`, `login`, `senha`) VALUES
+(1, 'marcio', 'marciioluucas@gmail.com', 123, 'marcin', '123'),
+(2, 'marcio', 'marciioluucas@gmail.com', 123, 'marcin', '123');
+
 -- --------------------------------------------------------
 
 --
@@ -167,6 +175,16 @@ ALTER TABLE `membro`
 --
 ALTER TABLE `proposta`
   MODIFY `pk_proposta` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `pk_usuario` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `voto`
+--
+ALTER TABLE `voto`
+  MODIFY `pk_voto` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --

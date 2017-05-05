@@ -122,4 +122,9 @@ class Usuario
         $dao = new UsuarioDAO($this);
         return $dao->create();
     }
+
+    public function retraveAll() {
+        $dao = new UsuarioDAO($this);
+        return $dao->retreave();
+    }
 }

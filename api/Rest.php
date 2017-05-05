@@ -13,7 +13,7 @@ class Rest
 {
 
     /**
-     * @var <T>
+     * @var
      */
     /**
      * @var
