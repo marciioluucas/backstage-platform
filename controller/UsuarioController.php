@@ -40,30 +40,45 @@ class UsuarioController
     /**
      * @param array $values
      */
-    public function cadastrar($values = [])
+    public function cadastrar($values = [], $httpMethod = 'GET')
+    {
+        if ($httpMethod == "POST") {
+            if ($values != []) {
+                $this->usuario->setLogin($values['login']);
+                $this->usuario->setEmail($values['email']);
+                $this->usuario->setSenha($values['senha']);
+                $this->usuario->setNome($values['nome']);
+                $this->usuario->setMatricula($values['matricula']);
+                if ($this->usuario->cadastrar()) {
+                    $r = new Message(
+                        "Usuario cadastrado com sucesso",
+                        "sucesso",
+                        ["icone" => "check"]
+                    );
+                    echo $r->geraJsonMensagem();
+                }
+            }
+        }
+    }
+
+    public function alterar($values = [])
     {
         if ($values != []) {
+            $this->usuario->setPkUsuario($values['pk_usuario']);
             $this->usuario->setLogin($values['login']);
             $this->usuario->setEmail($values['email']);
             $this->usuario->setSenha($values['senha']);
             $this->usuario->setNome($values['nome']);
             $this->usuario->setMatricula($values['matricula']);
-            if ($this->usuario->cadastrar()) {
-               $r = new Message(
+            if ($this->usuario->atualizar()) {
+                $r = new Message(
                     "Usuario cadastrado com sucesso",
                     "sucesso",
                     ["icone" => "check"]
                 );
-               echo $r->geraJsonMensagem();
+                echo $r->geraJsonMensagem();
             }
-
         }
-
-    }
-
-    public function alterar($values = [])
-    {
-
     }
 
     public function delete($values = [])
@@ -71,9 +86,17 @@ class UsuarioController
 
     }
 
-    public function listar($values = [])
+    public function listar($values = [], $httpMethod = 'GET')
     {
-        $this->usuario->retraveAll();
+        if ($httpMethod == "GET") {
+            $this->usuario->setPkUsuario(isset($values['pk_usuario']) ? $values['pk_usuario'] : null);
+            $this->usuario->setLogin(isset($values['login']) ? $values['login'] : null);
+            $this->usuario->setEmail(isset($values['email']) ? $values['email'] : null);
+            $this->usuario->setNome(isset($values['nome']) ? $values['nome'] : null);
+            $this->usuario->setMatricula(isset($values['matricula']) ? $values['matricula'] : null);
+
+        }
+        echo json_encode($this->usuario->retraveAll());
     }
 }
 

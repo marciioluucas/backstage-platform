@@ -123,6 +123,11 @@ class Usuario
         return $dao->create();
     }
 
+    public function atualizar(){
+        $dao = new UsuarioDAO(($this));
+        return $dao->update();
+    }
+
     public function retraveAll() {
         $dao = new UsuarioDAO($this);
         return $dao->retreave();

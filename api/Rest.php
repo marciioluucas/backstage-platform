@@ -20,7 +20,7 @@ class Rest
      */
     private $class, $args;
 
-    public function __construct($url)
+    public function __construct($url,$httpMethod)
     {
 
 
@@ -33,47 +33,15 @@ class Rest
 
 
         $class = ucfirst($arrayArgsFiltrado['classe']) . "Controller";
-        require_once '../controller/' . $class . '.php';
+//        require_once '../controller/' . $class . '.php';
         $method = $arrayArgsFiltrado['metodo'];
         unset($arrayArgsFiltrado['classe']);
         unset($arrayArgsFiltrado['metodo']);
         $class = "\backstage\controller\\" . $class;
         $this->class = new $class();
         $this->args = $arrayArgsFiltrado;
-        return $this->$method();
+        return $this->class->$method($this->args, $_SERVER['REQUEST_METHOD']);
     }
-
-    /**
-     *
-     */
-    function criar()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $this->class->cadastrar($this->args);
-        }
-    }
-
-    function alterar()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-            $this->class->alterar($this->args);
-        }
-    }
-
-    function excluir()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
-            $this->class->delete($this->args);
-        }
-    }
-
-    function listar()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $this->class->listar($this->args);
-        }
-    }
-
 }
 
 
