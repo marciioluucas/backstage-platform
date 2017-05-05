@@ -1,1 +1,2 @@
-RewriteRule ^([a-z]+)\/listar\/$ api/api.php?classe=$1&metodo=listar [NC,L]
+RewriteEngine On
+RewriteRule ^api\/([^/]*)\/([^/]*)$ api/api.php?classe=$1&metodo=$2 [L]

@@ -8,8 +8,6 @@
 
 namespace backstage\dao;
 
-include "../vendor/autoload.php";
-
 use phiber\Phiber;
 use backstage\model\Proposta;
 
@@ -94,4 +92,3 @@ class PropostaDAO implements IDAO
 
     }
 }
-

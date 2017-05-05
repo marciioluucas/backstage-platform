@@ -26,3 +26,4 @@ require_once 'vendor/autoload.php';
 //foreach ($dao2->retreave() as $usuario) {
 //    echo "ID: " . $usuario['pk_usuario'] . " Nome: " . $usuario['nome'] . " Email: " . $usuario['email'] . "\n";
 //}
+echo "aqui";
