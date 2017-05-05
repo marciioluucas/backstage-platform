@@ -11,10 +11,15 @@ namespace backstage\dao;
 include "../vendor/autoload.php";
 
 use phiber\Phiber;
+use backstage\model\Proposta;
 
 class PropostaDAO implements IDAO
 {
 
+
+    /**
+     * @var Proposta;
+     */
     private $proposta;
 
     function __construct($proposta)
@@ -41,7 +46,7 @@ class PropostaDAO implements IDAO
     {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
-        $restrictionID = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
+        $restrictionID = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkProposta());
         $criteria->add($restrictionID);
         if($criteria->update()){
 
@@ -90,13 +95,3 @@ class PropostaDAO implements IDAO
     }
 }
 
-use backstage\model\Proposta;
-$proposta = new Proposta();
-
-$proposta->setFkUsuario(1);
-$proposta->setTitulo("FEiJAO");
-$proposta->setDescricao("e ce come");
-
-$DAO = new PropostaDAO($proposta);
-
-$DAO->create();

@@ -9,10 +9,16 @@
 namespace dao;
 
 
+use backstage\dao\IDAO;
 use phiber\Phiber;
+use backstage\model\Membro;
 
-class MembroDAO
+class MembroDAO implements IDAO
 {
+
+    /**
+     * @var Membro;
+     */
     private $membro;
 
     function __construct($membro)
