@@ -4,7 +4,6 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a6624a1540c8ec56dcc52f7c08415523",
     "content-hash": "1e7bc3c596b3794d0aa556e010b757af",
     "packages": [
         {
@@ -13,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/marciioluucas/phiber.git",
-                "reference": "517e7eac6abecb48614e75bf3ffcaccd3de30286"
+                "reference": "e324dab96fbdcb5ef80d87fb30ce38d2c6686d54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/517e7eac6abecb48614e75bf3ffcaccd3de30286",
-                "reference": "517e7eac6abecb48614e75bf3ffcaccd3de30286",
+                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/e324dab96fbdcb5ef80d87fb30ce38d2c6686d54",
+                "reference": "e324dab96fbdcb5ef80d87fb30ce38d2c6686d54",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +45,7 @@
                 }
             ],
             "description": "Simples biblioteca ORM para PHP",
-            "time": "2017-05-04 01:32:29"
+            "time": "2017-05-04 23:19:43"
         }
     ],
     "packages-dev": [],
