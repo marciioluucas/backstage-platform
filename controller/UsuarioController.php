@@ -42,8 +42,16 @@ class UsuarioController
     public function cadastrar($values = [])
     {
         if ($values != []) {
-            echo json_encode($values);
+            $this->usuario->setLogin($values['login']);
+            $this->usuario->setEmail($values['email']);
+            $this->usuario->setSenha($values['senha']);
+            $this->usuario->setNome($values['nome']);
+            $retorno = [];
+            if ($this->usuario->cadastrar()){
+            }
+                echo json_encode($values);
         }
+
     }
 
     public function alterar($values = [])

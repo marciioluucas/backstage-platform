@@ -48,7 +48,7 @@ class Rest
      */
     function criar()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $this->class->cadastrar($this->args);
         }
     }
