@@ -17,21 +17,38 @@ class Message
 {
 
     /**
+     * @var
+     */
+    /**
+     * @var
+     */
+    /**
+     * @var
+     */
+    private $message, $tipo, $extra;
+
+    /**
      * Message constructor.
      * @param $message
      * @param $tipo
-     * @param array $extra
+     * @param $extra
      */
-    public function __construct($message,$tipo,$extra = [])
+    public function __construct($message, $tipo, $extra = [])
     {
-        return
-            [
-                "message" => $message,
-                "tipo" => $tipo,
-                "extra" => $extra
-            ];
+        $this->message = $message;
+        $this->tipo = $tipo;
+        $this->extra = $extra;
     }
 
+    public function geraJsonMensagem()
+    {
+        return json_encode(
+            [
+                "message" => $this->message,
+                "tipo" => $this->tipo,
+                "extra" => $this->extra
+            ]);
+    }
 
 
 }
