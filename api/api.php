@@ -3,48 +3,50 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=utf-8");
 include '../vendor/autoload.php';
 
-$urlSemFiltro = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$urlSemFiltro = "$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+$arrayUrl = explode("/", $urlSemFiltro);
+$apiBaseIndex = array_search('api', $arrayUrl);
 
 $url = parse_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+//if (!isset($url['query'])) {
+//    $response = new \backstage\util\Message(
+//        "Erro na API, requisição sem parâmetros",
+//        "erro", ["icone" => "error"]
+//    );
+//    echo $response->geraJsonMensagem();
+//} else {
 
-if (!isset($url['query'])) {
+if (isset($url['query'])) {
+
+    $arrayArgsSemFiltro = explode('&', $url['query']);
+    $args = [];
+    foreach ($arrayArgsSemFiltro as $arg) {
+        $x = explode('=', $arg);
+        $args[$x[0]] = $x[1];
+    }
+}else{
+    $args = null;
+}
+//    $class = isset($args['classe']) ? ucfirst($args['classe']) . "Controller" : null;
+$class = $arrayUrl[$apiBaseIndex + 1] ? ucfirst($arrayUrl[$apiBaseIndex + 1]) . "Controller" : null;
+$method = $arrayUrl[$apiBaseIndex + 2] ? $arrayUrl[$apiBaseIndex + 2] : null;
+
+if (!isset($method)) {
     $response = new \backstage\util\Message(
-        "Erro na API, requisição sem parâmetros",
+        "Erro na API, metodo nao especificado.",
+        "erro", ["icone" => "error"]
+    );
+    echo $response->geraJsonMensagem();
+} else if (!isset($class)) {
+    $response = new \backstage\util\Message(
+        "Erro na API, classe especificada.",
         "erro", ["icone" => "error"]
     );
     echo $response->geraJsonMensagem();
 } else {
 
+    new \backstage\api\Rest($class, $method, $args, $_SERVER['REQUEST_METHOD']);
 
-    $arrayArgsSemFiltro = explode('&', $url['query']);
-    $arrayArgsFiltrado = [];
-    foreach ($arrayArgsSemFiltro as $arg) {
-        $x = explode('=', $arg);
-        $arrayArgsFiltrado[$x[0]] = $x[1];
-    }
-
-
-    $class = isset($arrayArgsFiltrado['classe']) ? ucfirst($arrayArgsFiltrado['classe']) . "Controller" : null;
-    $method = isset($arrayArgsFiltrado['metodo']) ? $arrayArgsFiltrado['metodo'] : null;
-
-    if (!isset($method)) {
-        $response = new \backstage\util\Message(
-            "Erro na API, metodo nao especificado.",
-            "erro", ["icone" => "error"]
-        );
-        echo $response->geraJsonMensagem();
-    } else if (!isset($class)) {
-        $response = new \backstage\util\Message(
-            "Erro na API, classe especificada.",
-            "erro", ["icone" => "error"]
-        );
-        echo $response->geraJsonMensagem();
-    } else {
-        unset($arrayArgsFiltrado['classe']);
-        unset($arrayArgsFiltrado['metodo']);
-
-        new \backstage\api\Rest($class, $method, $arrayArgsFiltrado, $_SERVER['REQUEST_METHOD']);
-
-    }
+//    }
 }

@@ -40,10 +40,10 @@ class UsuarioController
     /**
      * @param array $values
      */
-    public function cadastrar($values = [], $httpMethod = 'GET')
+    public function cadastrar($values = null, $httpMethod = 'GET')
     {
         if ($httpMethod == "POST") {
-            if ($values != []) {
+            if ($values != null) {
                 $this->usuario->setLogin($values['login']);
                 $this->usuario->setEmail($values['email']);
                 $this->usuario->setSenha($values['senha']);
@@ -61,9 +61,9 @@ class UsuarioController
         }
     }
 
-    public function alterar($values = [])
+    public function alterar($values = null)
     {
-        if ($values != []) {
+        if ($values != null) {
             $this->usuario->setPkUsuario($values['pk_usuario']);
             $this->usuario->setLogin($values['login']);
             $this->usuario->setEmail($values['email']);
@@ -81,12 +81,12 @@ class UsuarioController
         }
     }
 
-    public function delete($values = [])
+    public function delete($values = null)
     {
 
     }
 
-    public function listar($values = [], $httpMethod = 'GET')
+    public function listar($values = null, $httpMethod = 'GET')
     {
         if ($httpMethod == "GET") {
             $this->usuario->setPkUsuario(isset($values['pk_usuario']) ? $values['pk_usuario'] : null);

@@ -15,7 +15,7 @@ class Rest
 {
 
 
-    public function __construct($class, $method, $args, $httpMethod)
+    public function __construct($class, $method, $args = [], $httpMethod)
     {
         $class = "\\backstage\\controller\\" . $class;
         if (!class_exists($class)) {
