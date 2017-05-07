@@ -8,6 +8,8 @@
 
 namespace backstage\model;
 
+use dao\MembroDAO;
+
 class Membro
 {
     private $pk_membro;
@@ -130,4 +132,24 @@ class Membro
         $this->carga = $carga;
     }
 
+    //métodos do controller
+
+    public function cadastrar()
+    {
+        $dao = new MembroDAO();
+        return $dao->create();
+    }
+
+    public function atualizar()
+    {
+        $dao = new MembroDAO();
+        return $dao->update();
+    }
+
+    public function retreaveAll()
+    {
+        $dao = new MembroDAO();
+        return $dao->retreave();
+
+    }
 }
