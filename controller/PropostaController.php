@@ -34,9 +34,9 @@ class PropostaController
         }
 
     }
-    public function cadastrar($values = null, $httpmethod = 'GET')
+    public function cadastrar($values = null, $httpMethod = 'GET')
     {
-        if ($httpmethod == 'POST') {
+        if ($httpMethod == 'POST') {
             if ($values != null) {
                 $this->proposta->setTitulo($values['titulo']);
                 $this->proposta->setData($values['data']);
@@ -76,9 +76,9 @@ class PropostaController
 
     }
 
-    public function listar($values = null, $httpmethod = "GET")
+    public function listar($values = null, $httpMethod = "GET")
     {
-        if ($httpmethod == "POST") {
+        if ($httpMethod == "POST") {
             $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
             $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
             $this->proposta->setContagem(isset($values['contagem']) ? $values['contagem'] : null);

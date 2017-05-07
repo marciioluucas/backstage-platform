@@ -1,5 +1,8 @@
 <?php
 namespace backstage\model;
+
+use backstage\dao\ProjetoDAO;
+
 /**
  * Created by PhpStorm.
  * User: juane
@@ -75,6 +78,23 @@ class Projeto
     public function setStatus($status)
     {
         $this->status = $status;
+    }
+
+    //métodos do controller
+
+    public function cadastrar(){
+        $dao = new ProjetoDAO();
+        return $dao->create();
+    }
+
+    public function atualizar(){
+        $dao = new ProjetoDAO();
+        return $dao->update();
+    }
+
+    public function retreaveAll(){
+        $dao = new ProjetoDAO();
+        return $dao->retreave();
     }
 
 }
