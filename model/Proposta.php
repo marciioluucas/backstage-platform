@@ -1,5 +1,7 @@
 <?php
 namespace backstage\model;
+use backstage\dao\PropostaDAO;
+
 /**
  * Created by PhpStorm.
  * User: juane
@@ -137,6 +139,25 @@ class Proposta
     {
         $this->data = $data;
     }
+
+
+    //métodos controller
+
+    public function cadastrar(){
+        $dao = new PropostaDAO(($this));
+        return $dao->create();
+    }
+
+    public function atualizar(){
+        $dao = new PropostaDAO(($this));
+        return $dao->update();
+    }
+
+    public function retreaveAll(){
+        $dao = new PropostaDAO(($this));
+        return $dao->retreave();
+    }
+
 
 
 
