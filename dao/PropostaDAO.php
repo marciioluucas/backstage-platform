@@ -27,15 +27,15 @@ class PropostaDAO implements IDAO
 
     function create()
     {
-       $phiber = new Phiber();
-       $criteria = $phiber->openPersist($this->proposta);
-       if ($criteria->create()){
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->proposta);
+        if ($criteria->create()) {
 
 
-           return true;
-       }
+            return true;
+        }
         print_r($criteria->show());
-           return false;
+        return false;
 
 
     }
@@ -46,34 +46,45 @@ class PropostaDAO implements IDAO
         $criteria = $phiber->openPersist($this->proposta);
         $restrictionID = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkProposta());
         $criteria->add($restrictionID);
-        if($criteria->update()){
+        if ($criteria->update()) {
 
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
     function retreave()
     {
-       $phiber = new Phiber();
-       $criteria = $phiber->openPersist($this->proposta);
-       $restrictions = [];
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->proposta);
+        $restrictions = [];
 
-       if($this->proposta->getTitulo() != null){
-           $restrictions[0] = $criteria->restrictions()->like("titulo", $this->getTitulo());
-       }
-
-        if($this->proposta->getFkusuario() != null){
-            $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->getFkusuario());
+        if ($this->proposta->getTitulo() != null) {
+            $restrictions[0] = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
         }
 
-        if($this->proposta->getPkproposta() !=null){
-            $restrictions[3] = $criteria->restrictions()->equals("pk_proposta", $this->getPkproposta());
+        if ($this->proposta->getFkusuario() != null) {
+            $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkusuario());
         }
-        if($this->proposta->getData() !=null){
-            $restrictions[4] = $criteria->restrictions()->like("data", $this->getData());
+
+        if ($this->proposta->getPkproposta() != null) {
+            $restrictions[3] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
         }
+        if ($this->proposta->getData() != null) {
+            $restrictions[4] = $criteria->restrictions()->like("data", $this->proposta->getData());
+        }
+
+    }
+
+    function retreaveCondicaoCadastrar($campo, $campoValor)
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->proposta);
+        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+        $criteria->add($restriction);
+        return $criteria->select();
+
 
     }
 
