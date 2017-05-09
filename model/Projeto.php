@@ -83,17 +83,20 @@ class Projeto
     //métodos do controller
 
     public function cadastrar(){
-        $dao = new ProjetoDAO();
+
+
+
+        $dao = new ProjetoDAO(($this));
         return $dao->create();
     }
 
     public function atualizar(){
-        $dao = new ProjetoDAO();
+        $dao = new ProjetoDAO(($this));
         return $dao->update();
     }
 
     public function retreaveAll(){
-        $dao = new ProjetoDAO();
+        $dao = new ProjetoDAO(($this));
         return $dao->retreave();
     }
 

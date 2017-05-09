@@ -55,6 +55,15 @@ class MembroDAO implements IDAO
 
     }
 
+    function retreaveCondicaoCadastrar($campo, $campoValor)
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->membro);
+        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+        $criteria->add($restriction);
+        return $criteria->select();
+    }
+
     function update(){
 
         $phiber = new Phiber();
