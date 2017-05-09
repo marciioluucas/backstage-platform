@@ -1,5 +1,6 @@
 <?php
 namespace backstage\model;
+
 use backstage\dao\PropostaDAO;
 use backstage\util\Message;
 
@@ -144,23 +145,23 @@ class Proposta
 
     //métodos controller
 
-    public function cadastrar(){
+    public function cadastrar()
+    {
 
 
-
-        if(empty($this->getTitulo())){
-            $msg = new Message("Preencha um Título para sua proposta!", "erro",["icone" => "clean"]);
+        if (empty($this->getTitulo())) {
+            $msg = new Message("Preencha um Título para sua proposta!", "erro", ["icone" => "clean"]);
             return $msg->geraJsonMensagem();
         }
 
-        if(empty($this->getDescricao())){
+        if (empty($this->getDescricao())) {
             $msg = new Message("Defina uma descrição explicativa da sua proposta!", "erro", ["icone" => "clean"]);
             return $msg->geraJsonMensagem();
         }
 
         $dao = new PropostaDAO(($this));
 
-        if(count($dao->retreaveCondicaoCadastrar("titulo", $this->titulo)) > 0){
+        if (count($dao->retreaveCondicaoCadastrar("titulo", $this->titulo)) > 0) {
             $msg = new Message("Titulo de proposta já usado, Tente utilzar outro.", "erro", ["icone" => "clean"]);
             return $msg->geraJsonMensagem();
         }
@@ -170,20 +171,36 @@ class Proposta
         return $dao->create();
     }
 
-    public function atualizar(){
+    public function atualizar()
+    {
 
+        if (empty($this->getTitulo())) {
+            $msg = new Message("Preencha um Título para sua proposta!", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getDescricao())) {
+            $msg = new Message("Defina uma descrição explicativa da sua proposta!", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        $dao = new PropostaDAO(($this));
+
+        if (count($dao->retreaveCondicaoCadastrar("titulo", $this->titulo)) > 0) {
+            $msg = new Message("Titulo de proposta já usado, Tente utilzar outro.", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
 
 
         $dao = new PropostaDAO(($this));
         return $dao->update();
     }
 
-    public function retreaveAll(){
+    public function retreaveAll()
+    {
         $dao = new PropostaDAO(($this));
         return $dao->retreave();
     }
-
-
 
 
 }
