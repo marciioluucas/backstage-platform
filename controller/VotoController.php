@@ -40,7 +40,7 @@ class VotoController
                 echo $r->geraJsonMensagem();
         }
     }
-
+//aaaaa
 
     public function alterar ($values = null){
         if($values != null){
@@ -50,6 +50,7 @@ class VotoController
             if ($this->voto->atualizar()){
                 $r= new Message("Voto alterado com sucesso!","sucesso", ["icone" => "check"]);
                 echo $r->geraJsonMensagem();
+
             }
         }
     }
