@@ -69,6 +69,18 @@ class Equipe
 
     public function atualizar()
     {
+        if (empty($this->nome)) {
+            $msg = new Message("Defina um nome para a equipe!", "error", ["icone" => "clear"]);
+            $msg->geraJsonMensagem();
+        }
+
+        $dao = new EquipeDAO(($this));
+        if (count($dao->retreaveCondicaoCadastrar("nome", $this->nome)) > 0) {
+            $msg = new Message("Nome de equipe já existente, tente outro.", "error", ["icone" => "clear"]);
+            $msg->geraJsonMensagem();
+        }
+
+
         $dao = new EquipeDAO(($this));
         return $dao->update();
     }
