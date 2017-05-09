@@ -76,6 +76,18 @@ class UsuarioDAO implements IDAO
 
     }
 
+    function retreaveCondicaoCadastrar($campo, $campoValor)
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+        $criteria->add($restriction);
+        return $criteria->select();
+
+
+    }
+
+
     function update()
     {
         $phiber = new Phiber();

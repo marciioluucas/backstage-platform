@@ -1,7 +1,9 @@
 <?php
 
 namespace backstage\model;
+
 use backstage\dao\UsuarioDAO;
+use backstage\util\Message;
 
 /**
  * Created by PhpStorm.
@@ -9,7 +11,6 @@ use backstage\dao\UsuarioDAO;
  * Date: 4/4/17
  * Time: 8:13 PM
  */
-
 class Usuario
 {
     private $pk_usuario;
@@ -100,7 +101,6 @@ class Usuario
     }
 
 
-
     /**
      * @return mixed
      */
@@ -119,17 +119,56 @@ class Usuario
 
     public function cadastrar()
     {
+
+        if (empty($this->getNome())) {
+            $msg = new Message("Nome deve ser preenchido", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getEmail())) {
+            $msg = new Message("Email deve ser preenchido", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getSenha())) {
+            $msg = new Message("Senha deve ser preenchida", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getLogin())) {
+            $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
         $dao = new UsuarioDAO($this);
+
+        if (count($dao->retreaveCondicaoCadastrar("login", $this->login)) > 0) {
+            $msg = new Message("Login já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (count($dao->retreaveCondicaoCadastrar("email", $this->email)) > 0) {
+            $msg = new Message("Login já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
         return $dao->create();
     }
 
-    public function atualizar(){
+    public function atualizar()
+    {
         $dao = new UsuarioDAO(($this));
         return $dao->update();
     }
 
-    public function retraveAll() {
+    public function retrave()
+    {
         $dao = new UsuarioDAO($this);
         return $dao->retreave();
+    }
+
+    public function delete()
+    {
+        $dao = new UsuarioDAO($this);
+        return $dao->update();
     }
 }

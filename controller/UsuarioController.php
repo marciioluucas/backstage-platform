@@ -95,7 +95,7 @@ class UsuarioController
             $this->usuario->setNome(isset($values['nome']) ? $values['nome'] : null);
             $this->usuario->setMatricula(isset($values['matricula']) ? $values['matricula'] : null);
         }
-        echo json_encode($this->usuario->retraveAll());
+        echo json_encode($this->usuario->retrave());
     }
 }
 
