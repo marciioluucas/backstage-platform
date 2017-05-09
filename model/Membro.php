@@ -136,19 +136,19 @@ class Membro
 
     public function cadastrar()
     {
-        $dao = new MembroDAO();
+        $dao = new MembroDAO(($this));
         return $dao->create();
     }
 
     public function atualizar()
     {
-        $dao = new MembroDAO();
+        $dao = new MembroDAO(($this));
         return $dao->update();
     }
 
     public function retreaveAll()
     {
-        $dao = new MembroDAO();
+        $dao = new MembroDAO(($this));
         return $dao->retreave();
 
     }

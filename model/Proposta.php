@@ -171,6 +171,9 @@ class Proposta
     }
 
     public function atualizar(){
+
+
+
         $dao = new PropostaDAO(($this));
         return $dao->update();
     }
