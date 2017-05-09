@@ -1,6 +1,5 @@
 <?php
 namespace backstage\model;
-use backstage\dao\ProjetoDAO;
 use backstage\dao\VotoDAO;
 use backstage\util\Message;
 
@@ -85,12 +84,12 @@ class Voto
     }
 
     public function atualizar(){
-        $dao = new ProjetoDAO(($this));
+        $dao = new VotoDAO(($this));
         return $dao->update();
     }
 
     public function retreaveAll(){
-        $dao = new ProjetoDAO(($this));
+        $dao = new VotoDAO(($this));
         return $dao->retreave();
     }
 
