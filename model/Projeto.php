@@ -83,9 +83,6 @@ class Projeto
     //métodos do controller
 
     public function cadastrar(){
-
-
-
         $dao = new ProjetoDAO(($this));
         return $dao->create();
     }

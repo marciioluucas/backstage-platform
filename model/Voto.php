@@ -1,8 +1,11 @@
 <?php
 namespace backstage\model;
+use backstage\dao\ProjetoDAO;
+use backstage\dao\VotoDAO;
+use backstage\util\Message;
 
 /**
- * Created by PhpStorm.
+ * Created by PhpStorm.                 Sadrak Fazendo..
  * User: ifgoiano
  * Date: 25/04/2017
  * Time: 19:48
@@ -76,6 +79,20 @@ class Voto
         $this->fk_proposta = $fk_proposta;
     }
 
+    public function cadastrar(){
+        $dao = new VotoDAO(($this));
+        return $dao->create();
+    }
+
+    public function atualizar(){
+        $dao = new ProjetoDAO(($this));
+        return $dao->update();
+    }
+
+    public function retreaveAll(){
+        $dao = new ProjetoDAO(($this));
+        return $dao->retreave();
+    }
 
 
 }
