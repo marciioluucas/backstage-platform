@@ -8,6 +8,7 @@
 
 namespace backstage\model;
 
+use backstage\util\Message;
 use dao\MembroDAO;
 
 class Membro
@@ -136,12 +137,56 @@ class Membro
 
     public function cadastrar()
     {
+
+        if(empty($this->getAtuacao())){
+            $msg = new Message("Defina uma atuação para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if(empty($this->getFuncao())){
+            $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if(empty($this->getNivel())){
+            $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if(empty($this->getCarga())){
+            $msg = new Message("Defina uma Carga para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+
+
+
         $dao = new MembroDAO(($this));
         return $dao->create();
     }
 
     public function atualizar()
     {
+        if(empty($this->getAtuacao())){
+            $msg = new Message("Defina uma atuação para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if(empty($this->getFuncao())){
+            $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if(empty($this->getNivel())){
+            $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if(empty($this->getCarga())){
+            $msg = new Message("Defina uma Carga para o membro!", "erro", ["icone" => "clear"]);
+            return $msg->geraJsonMensagem();
+        }
+
         $dao = new MembroDAO(($this));
         return $dao->update();
     }
