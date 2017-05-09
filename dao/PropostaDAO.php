@@ -84,8 +84,6 @@ class PropostaDAO implements IDAO
         $restriction = $criteria->restrictions()->equals($campo, $campoValor);
         $criteria->add($restriction);
         return $criteria->select();
-
-
     }
 
     function delete()
