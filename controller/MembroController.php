@@ -51,7 +51,7 @@ class MembroController
                 $this->membro->setFuncao($values['funcao']);
                 $this->membro->setNivel($values['nivel']);
                 if($this->membro->cadastrar()){
-                    $r = new Message("Membro cadastrado com Sucesso!", ["icone" => "check"]);
+                    $r = new Message("Membro cadastrado com Sucesso!","sucesso", ["icone" => "check"]);
                     echo $r->geraJsonMensagem();
                 }
 
