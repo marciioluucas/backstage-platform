@@ -65,15 +65,31 @@ class PropostaDAO implements IDAO
         }
 
         if ($this->proposta->getFkusuario() != null) {
-            $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkusuario());
+            $restrictions[1] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkusuario());
         }
 
         if ($this->proposta->getPkproposta() != null) {
-            $restrictions[3] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
+            $restrictions[2] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
         }
         if ($this->proposta->getData() != null) {
-            $restrictions[4] = $criteria->restrictions()->like("data", $this->proposta->getData());
+            $restrictions[3] = $criteria->restrictions()->like("data", $this->proposta->getData());
         }
+
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            }
+        } else {
+            if (!empty($restrictions)) {
+                $criteria->add($restrictions[0]);
+            }
+        }
+        $r = $criteria->select();
+//        print_r($criteria->show());
+        return $r;
+
 
     }
 

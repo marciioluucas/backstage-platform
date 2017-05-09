@@ -52,6 +52,22 @@ class ProjetoDAO
         if($this->projeto->getFkProposta() !=null){
             $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->projeto->getFkProposta());
         }
+
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            }
+        } else {
+            if (!empty($restrictions)) {
+                $criteria->add($restrictions[0]);
+            }
+        }
+        $r = $criteria->select();
+//        print_r($criteria->show());
+        return $r;
+
     }
 
     function update()

@@ -1,5 +1,9 @@
 <?php
 namespace backstage\model;
+
+use backstage\dao\EquipeDAO;
+use backstage\util\Message;
+
 /**
  * Created by PhpStorm.
  * User: juanes
@@ -43,5 +47,36 @@ class Equipe
         $this->pk_equipe = $pk_equipe;
     }
 
+
+    public function cadastrar()
+    {
+
+        if (empty($this->nome)) {
+            $msg = new Message("Defina um nome para a equipe!", "error", ["icone" => "clear"]);
+            $msg->geraJsonMensagem();
+        }
+
+        $dao = new EquipeDAO(($this));
+        if (count($dao->retreaveCondicaoCadastrar("nome", $this->nome)) > 0) {
+            $msg = new Message("Nome de equipe já existente, tente outro.", "error", ["icone" => "clear"]);
+            $msg->geraJsonMensagem();
+        }
+
+
+        $dao = new EquipeDAO(($this));
+        return $dao->create();
+    }
+
+    public function atualizar()
+    {
+        $dao = new EquipeDAO(($this));
+        return $dao->update();
+    }
+
+    public function retreave()
+    {
+        $dao = new EquipeDAO(($this));
+        return $dao->retreave();
+    }
 
 }

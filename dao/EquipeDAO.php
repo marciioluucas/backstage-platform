@@ -6,11 +6,11 @@
  * Time: 18:07
  */
 
-namespace dao;
+namespace backstage\dao;
 
-
-use backstage\dao\IDAO;
+use phiber\Phiber;
 use backstage\model\Equipe;
+
 
 class EquipeDAO implements IDAO
 {
@@ -68,6 +68,15 @@ class EquipeDAO implements IDAO
 
     }
 
+    function retreaveCondicaoCadastrar($campo, $campoValor)
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->equipe);
+        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+        $criteria->add($restriction);
+        return $criteria->select();
+    }
+
     function update()
     {
         $phiber = new Phiber();
@@ -83,7 +92,7 @@ class EquipeDAO implements IDAO
     function delete()
     {
         $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->proposta);
+        $criteria = $phiber->openPersist($this->equipe);
         $restrictionID = $criteria->restrictions()->equals("pk_equipe", $this->equipe->getPkEquipe());
         $criteria->add($restrictionID);
         if ($criteria->delete()) {

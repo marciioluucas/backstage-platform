@@ -26,32 +26,50 @@ class MembroDAO implements IDAO
         $this->membro = $membro;
     }
 
-    function create(){
+    function create()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->membro);
-        if($criteria->create()){
+        if ($criteria->create()) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
     }
 
-    function retreave(){
+    function retreave()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->membro);
         $restrictions = [];
 
-        if($this->membro->getFkusuario()){
+        if ($this->membro->getFkusuario()) {
             $restrictions[0] = $criteria->restrictions()->equals("fk_usuario", $this->getFkusuario());
         }
 
-        if($this->membro->getNivel()){
+        if ($this->membro->getNivel()) {
             $restrictions[1] = $criteria->restrictions()->like("nivel", $this->getNivel());
         }
-        if($this->membro->getFuncao()){
+        if ($this->membro->getFuncao()) {
             $restrictions[2] = $criteria->restrictions()->like("funcao", $this->getFuncao());
         }
+
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            }
+        } else {
+            if (!empty($restrictions)) {
+                $criteria->add($restrictions[0]);
+            }
+        }
+        $r = $criteria->select();
+//        print_r($criteria->show());
+        return $r;
+
 
     }
 
@@ -64,22 +82,24 @@ class MembroDAO implements IDAO
         return $criteria->select();
     }
 
-    function update(){
+    function update()
+    {
 
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->membro);
         $restrictionID = $criteria->restrictions()->equals("pk_membro", $this->getPkmembro());
         $criteria->add($restrictionID);
-        if($criteria->update()){
+        if ($criteria->update()) {
 
             return true;
         }
-            return false;
+        return false;
 
 
     }
 
-    function delete(){
+    function delete()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->membro);
         $restrictionID = $criteria->restrictions()->equals("pk_membro", $this->membro->getPkmembro());
@@ -87,7 +107,7 @@ class MembroDAO implements IDAO
         if ($criteria->delete()) {
             return true;
         }
-            return false;
+        return false;
 
     }
 }

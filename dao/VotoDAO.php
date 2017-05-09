@@ -6,10 +6,10 @@
  * Time: 18:30
  */
 
-namespace dao;
+namespace backstage\dao;
 
 
-use backstage\dao\IDAO;
+use phiber\Phiber;
 use backstage\model\Voto;
 
 class VotoDAO implements IDAO
@@ -51,6 +51,22 @@ class VotoDAO implements IDAO
         if($this->voto->getFkProposta() !=null){
             $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->projeto->getFkProposta());
         }
+
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            }
+        } else {
+            if (!empty($restrictions)) {
+                $criteria->add($restrictions[0]);
+            }
+        }
+        $r = $criteria->select();
+//        print_r($criteria->show());
+        return $r;
+
     }
 
     function update()
