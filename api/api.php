@@ -17,6 +17,8 @@ $url = parse_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 //    echo $response->geraJsonMensagem();
 //} else {
 
+var_dump($url);
+
 if (isset($url['query'])) {
 
     $arrayArgsSemFiltro = explode('&', $url['query']);
@@ -30,15 +32,15 @@ if (isset($url['query'])) {
 }
 //    $class = isset($args['classe']) ? ucfirst($args['classe']) . "Controller" : null;
 $class = $arrayUrl[$apiBaseIndex + 1] ? ucfirst($arrayUrl[$apiBaseIndex + 1]) . "Controller" : null;
-$method = $arrayUrl[$apiBaseIndex + 2] ? $arrayUrl[$apiBaseIndex + 2] : null;
+//$method = $arrayUrl[$apiBaseIndex + 2] ? $arrayUrl[$apiBaseIndex + 2] : null;
 
-if (!isset($method)) {
-    $response = new \backstage\util\Message(
-        "Erro na API, metodo nao especificado.",
-        "erro", ["icone" => "error"]
-    );
-    echo $response->geraJsonMensagem();
-} else if (!isset($class)) {
+//if (!isset($method)) {
+//    $response = new \backstage\util\Message(
+//        "Erro na API, metodo nao especificado.",
+//        "erro", ["icone" => "error"]
+//    );
+//    echo $response->geraJsonMensagem();
+if (!isset($class)) {
     $response = new \backstage\util\Message(
         "Erro na API, classe especificada.",
         "erro", ["icone" => "error"]
@@ -46,7 +48,7 @@ if (!isset($method)) {
     echo $response->geraJsonMensagem();
 } else {
 
-    new \backstage\api\Rest($class, $method, $args, $_SERVER['REQUEST_METHOD']);
+    new \backstage\api\Rest($class, $args, $_SERVER['REQUEST_METHOD']);
 
 //    }
 }

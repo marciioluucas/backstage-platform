@@ -15,7 +15,7 @@ class Rest
 {
 
 
-    public function __construct($class, $method, $args = [], $httpMethod)
+    public function __construct($class, $args = [], $httpMethod)
     {
         $class = "\\backstage\\controller\\" . $class;
         if (!class_exists($class)) {
@@ -24,13 +24,12 @@ class Rest
         echo $r->geraJsonMensagem();
         return false;
         }
-        $class = new $class();
-        if(!method_exists($class,$method)) {
-            $r =new Message("Metodo nao encontrado, favor passar um metodo valido pelo parametro",
-                "erro", ["icone" => "error"]);
-            echo $r->geraJsonMensagem();
-            return false;
-        }
-        return $class->$method($args, $_SERVER['REQUEST_METHOD']);
+//        if(!method_exists($class,$method)) {
+//            $r =new Message("Metodo nao encontrado, favor passar um metodo valido pelo parametro",
+//                "erro", ["icone" => "error"]);
+//            echo $r->geraJsonMensagem();
+//            return false;
+//        }
+        return new $class($args, $_SERVER['REQUEST_METHOD']);
     }
 }
