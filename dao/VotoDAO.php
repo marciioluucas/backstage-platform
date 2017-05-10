@@ -49,7 +49,7 @@ class VotoDAO implements IDAO
             $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->voto->getFkUsuario());
         }
         if($this->voto->getFkProposta() !=null){
-            $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->projeto->getFkProposta());
+            $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->voto->getFkProposta());
         }
 
         $restrictions = array_values($restrictions);
@@ -73,7 +73,7 @@ class VotoDAO implements IDAO
     {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->voto);
-        $restrictionsID = $criteria->restrictions()->equals("pk_voto", $this->projeto->getPkVoto());
+        $restrictionsID = $criteria->restrictions()->equals("pk_voto", $this->voto->getPkVoto());
         $criteria->add($restrictionsID);
         if($criteria->update()){
             return true;

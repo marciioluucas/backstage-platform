@@ -56,7 +56,6 @@ class UsuarioDAO implements IDAO
         if ($this->usuario->getPkUsuario() != null) {
             $restrictions[2] = $criteria->restrictions()
                 ->equals("pk_usuario", $this->usuario->getPkUsuario());
-
         }
 
         $restrictions = array_values($restrictions);
