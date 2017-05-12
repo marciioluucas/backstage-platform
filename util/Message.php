@@ -42,6 +42,8 @@ class Message
 
     public function geraJsonMensagem()
     {
+        header("Access-Control-Allow-Origin: *");
+        header("Content-Type: application/json; charset=utf-8");
         return json_encode(
             [
                 "message" => $this->message,

@@ -75,15 +75,26 @@ class UsuarioDAO implements IDAO
 
     }
 
-    function retreaveCondicaoCadastrar($campo, $campoValor)
+    function retreaveCondicaoLoginExistente()
     {
+
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
-        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+        $restriction = $criteria->restrictions()
+            ->equals("login", $this->usuario->getLogin());
         $criteria->add($restriction);
         return $criteria->select();
+    }
 
+    function retreaveCondicaoEmailExistente()
+    {
 
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        $restriction = $criteria->restrictions()
+            ->equals("email", $this->usuario->getEmail());
+        $criteria->add($restriction);
+        return $criteria->select();
     }
 
 

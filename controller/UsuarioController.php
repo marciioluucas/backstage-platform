@@ -60,14 +60,7 @@ class UsuarioController
             $this->usuario->setSenha($values['senha']);
             $this->usuario->setNome($values['nome']);
             $this->usuario->setMatricula($values['matricula']);
-            if ($this->usuario->cadastrar()) {
-                $r = new Message(
-                    "Usuario cadastrado com sucesso",
-                    "sucesso",
-                    ["icone" => "check"]
-                );
-                echo $r->geraJsonMensagem();
-            }
+            echo $this->usuario->cadastrar();
         }
     }
 

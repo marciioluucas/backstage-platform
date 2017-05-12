@@ -139,19 +139,29 @@ class Usuario
             $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "clean"]);
             return $msg->geraJsonMensagem();
         }
+        if (empty($this->getMatricula())) {
+            $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "clean"]);
+            return $msg->geraJsonMensagem();
+        }
 
         $dao = new UsuarioDAO($this);
 
-        if (count($dao->retreaveCondicaoCadastrar("login", $this->login)) > 0) {
+        if (count($dao->retreaveCondicaoLoginExistente()) > 0) {
             $msg = new Message("Login já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
             return $msg->geraJsonMensagem();
         }
 
-        if (count($dao->retreaveCondicaoCadastrar("email", $this->email)) > 0) {
-            $msg = new Message("Login já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
+        if (count($dao->retreaveCondicaoEmailExistente()) > 0) {
+            $msg = new Message("Email já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
             return $msg->geraJsonMensagem();
         }
-        return $dao->create();
+        $dao->create();
+        $r = new Message(
+            "Usuario cadastrado com sucesso",
+            "sucesso",
+            ["icone" => "check"]
+        );
+        return $r->geraJsonMensagem();
     }
 
     public function atualizar()

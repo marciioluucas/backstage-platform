@@ -17,7 +17,6 @@ $url = parse_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
 //    echo $response->geraJsonMensagem();
 //} else {
 
-var_dump($url);
 
 if (isset($url['query'])) {
 
