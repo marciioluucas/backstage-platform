@@ -64,7 +64,6 @@ class UsuarioDAO implements IDAO
         }
 
 
-
         $restrictions = array_values($restrictions);
         if (count($restrictions) > 1) {
             for ($i = 0; $i < count($restrictions) - 1; $i++) {
@@ -123,25 +122,25 @@ class UsuarioDAO implements IDAO
         // TODO: Implement delete() method.
     }
 
-    function logar() {
+    function logar()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
 
-        $restriction = $criteria->restrictions()
-            ->equals("login", $this->usuario->getLogin());
-
-
+        if (!empty($this->usuario->getLogin())) {
+            $restriction1 = $criteria->restrictions()
+                ->equals("login", $this->usuario->getLogin());
+        } else {
+            $restriction1 = $criteria->restrictions()
+                ->equals("email", $this->usuario->getEmail());
+        }
         $restriction2 = $criteria->restrictions()
-            ->equals("email", $this->usuario->getEmail());
+            ->equals("senha", $this->usuario->getSenha());
 
-        $restriction3= $criteria->restrictions()
-            ->equals("senha",$this->usuario->getSenha());
-
-        $condOr = $criteria->restrictions()->either($restriction,$restriction2);
-        $condAnd = $criteria->restrictions()->and($condOr,$restriction3);
+        $condAnd = $criteria->restrictions()->and($restriction1, $restriction2);
 
         $criteria->add($condAnd);
-        if(count($criteria->select()) > 0){
+        if (count($criteria->select()) > 0) {
             return true;
         }
         return false;
