@@ -182,4 +182,12 @@ class Usuario
         $dao = new UsuarioDAO($this);
         return $dao->update();
     }
+
+    public function logar() {
+        $dao = new UsuarioDAO($this);
+        if($dao->logar()){
+            return json_encode(["isPermitido"=>true]);
+        }
+        return json_encode(["isPermitido"=>false]);
+    }
 }

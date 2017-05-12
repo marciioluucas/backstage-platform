@@ -122,4 +122,28 @@ class UsuarioDAO implements IDAO
     {
         // TODO: Implement delete() method.
     }
+
+    function logar() {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+
+        $restriction = $criteria->restrictions()
+            ->equals("login", $this->usuario->getLogin());
+
+
+        $restriction2 = $criteria->restrictions()
+            ->equals("email", $this->usuario->getEmail());
+
+        $restriction3= $criteria->restrictions()
+            ->equals("senha",$this->usuario->getSenha());
+
+        $condOr = $criteria->restrictions()->either($restriction,$restriction2);
+        $condAnd = $criteria->restrictions()->and($condOr,$restriction3);
+
+        $criteria->add($condAnd);
+        if(count($criteria->select()) > 0){
+            return true;
+        }
+        return false;
+    }
 }
