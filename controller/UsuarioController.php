@@ -55,11 +55,12 @@ class UsuarioController
     {
         $values == null ? $values = $_POST : null;
         if ($values != null) {
-            $this->usuario->setLogin($values['login']);
-            $this->usuario->setEmail($values['email']);
-            $this->usuario->setSenha($values['senha']);
-            $this->usuario->setNome($values['nome']);
-            $this->usuario->setMatricula($values['matricula']);
+            if(isset($values['login'])) $this->usuario->setLogin($values['login']);
+            if(isset($values['email'])) $this->usuario->setEmail($values['email']);
+            if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
+            if(isset($values['nome'])) $this->usuario->setNome($values['nome']);
+            if(isset($values['matricula'])) $this->usuario->setMatricula($values['matricula']);
+//            echo $values['email'];
             echo $this->usuario->cadastrar();
         }
     }

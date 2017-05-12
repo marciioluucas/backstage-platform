@@ -50,7 +50,7 @@ class UsuarioDAO implements IDAO
 
         if ($this->usuario->getLogin() != null) {
             $restrictions[1] = $criteria->restrictions()
-                ->equals("login", $this->usuario->getLogin());
+                ->like("login", $this->usuario->getLogin());
         }
 
         if ($this->usuario->getPkUsuario() != null) {
@@ -80,15 +80,16 @@ class UsuarioDAO implements IDAO
 
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
+
         $restriction = $criteria->restrictions()
             ->equals("login", $this->usuario->getLogin());
+
         $criteria->add($restriction);
         return $criteria->select();
     }
 
     function retreaveCondicaoEmailExistente()
     {
-
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
         $restriction = $criteria->restrictions()

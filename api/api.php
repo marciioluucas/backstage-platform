@@ -24,7 +24,7 @@ if (isset($url['query'])) {
     $args = [];
     foreach ($arrayArgsSemFiltro as $arg) {
         $x = explode('=', $arg);
-        $args[$x[0]] = $x[1];
+        $args[urldecode($x[0])] = urldecode($x[1]);
     }
 }else{
     $args = null;

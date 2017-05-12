@@ -121,38 +121,39 @@ class Usuario
     {
 
         if (empty($this->getNome())) {
-            $msg = new Message("Nome deve ser preenchido", "erro", ["icone" => "clean"]);
+            $msg = new Message("Nome deve ser preenchido", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
 
         if (empty($this->getEmail())) {
-            $msg = new Message("Email deve ser preenchido", "erro", ["icone" => "clean"]);
+            $msg = new Message("Email deve ser preenchido", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
 
         if (empty($this->getSenha())) {
-            $msg = new Message("Senha deve ser preenchida", "erro", ["icone" => "clean"]);
+            $msg = new Message("Senha deve ser preenchida", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
 
         if (empty($this->getLogin())) {
-            $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "clean"]);
+            $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
         if (empty($this->getMatricula())) {
-            $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "clean"]);
+            $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
 
         $dao = new UsuarioDAO($this);
 
-        if (count($dao->retreaveCondicaoLoginExistente()) > 0) {
-            $msg = new Message("Login já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
+        if (count($dao->retreaveCondicaoLoginExistente()) > 0 ) {
+            $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
+        $dao2 = new UsuarioDAO($this);
+        if (count($dao2->retreaveCondicaoEmailExistente()) > 0) {
 
-        if (count($dao->retreaveCondicaoEmailExistente()) > 0) {
-            $msg = new Message("Email já utilizado, tente utilzar outro.", "erro", ["icone" => "clean"]);
+            $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
         $dao->create();
