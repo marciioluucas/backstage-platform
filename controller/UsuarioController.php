@@ -92,6 +92,7 @@ class UsuarioController
 
     public function listar($values = null)
     {
+
         $this->usuario->setPkUsuario(isset($values['pk_usuario']) ? $values['pk_usuario'] : null);
         $this->usuario->setLogin(isset($values['login']) ? $values['login'] : null);
         $this->usuario->setEmail(isset($values['email']) ? $values['email'] : null);

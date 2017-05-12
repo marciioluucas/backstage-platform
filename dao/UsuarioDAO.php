@@ -48,15 +48,22 @@ class UsuarioDAO implements IDAO
                 ->like("nome", $this->usuario->getNome());
         }
 
+        if ($this->usuario->getEmail() != null) {
+            $restrictions[2] = $criteria->restrictions()
+                ->like("email", $this->usuario->getEmail());
+        }
+
+        if ($this->usuario->getMatricula() != null) {
+            $restrictions[2] = $criteria->restrictions()
+                ->like("matricula", $this->usuario->getMatricula());
+        }
+
         if ($this->usuario->getLogin() != null) {
             $restrictions[1] = $criteria->restrictions()
                 ->like("login", $this->usuario->getLogin());
         }
 
-        if ($this->usuario->getPkUsuario() != null) {
-            $restrictions[2] = $criteria->restrictions()
-                ->equals("pk_usuario", $this->usuario->getPkUsuario());
-        }
+
 
         $restrictions = array_values($restrictions);
         if (count($restrictions) > 1) {
