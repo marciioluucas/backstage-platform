@@ -45,7 +45,7 @@ class UsuarioDAO implements IDAO
         $restrictions = [];
         if ($this->usuario->getNome() != null) {
             $restrictions[0] = $criteria->restrictions()
-                ->like("pk_usuario", $this->usuario->getPkUsuario());
+                ->equals("pk_usuario", $this->usuario->getPkUsuario());
         }
 
         if ($this->usuario->getNome() != null) {
