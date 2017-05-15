@@ -45,6 +45,11 @@ class UsuarioDAO implements IDAO
         $restrictions = [];
         if ($this->usuario->getNome() != null) {
             $restrictions[0] = $criteria->restrictions()
+                ->like("pk_usuario", $this->usuario->getPkUsuario());
+        }
+
+        if ($this->usuario->getNome() != null) {
+            $restrictions[1] = $criteria->restrictions()
                 ->like("nome", $this->usuario->getNome());
         }
 
@@ -54,12 +59,12 @@ class UsuarioDAO implements IDAO
         }
 
         if ($this->usuario->getMatricula() != null) {
-            $restrictions[2] = $criteria->restrictions()
+            $restrictions[3] = $criteria->restrictions()
                 ->like("matricula", $this->usuario->getMatricula());
         }
 
         if ($this->usuario->getLogin() != null) {
-            $restrictions[1] = $criteria->restrictions()
+            $restrictions[4] = $criteria->restrictions()
                 ->like("login", $this->usuario->getLogin());
         }
 
