@@ -43,8 +43,14 @@ class UsuarioDAO implements IDAO
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
         $restrictions = [];
-        if ($this->usuario->getNome() != null) {
+
+
+        if ($this->usuario->getPkUsuario() != null) {
             $restrictions[0] = $criteria->restrictions()
+                ->equals("pk_usuario", $this->usuario->getPkUsuario());
+        }
+        if ($this->usuario->getNome() != null) {
+            $restrictions[1] = $criteria->restrictions()
                 ->like("nome", $this->usuario->getNome());
         }
 
@@ -54,15 +60,14 @@ class UsuarioDAO implements IDAO
         }
 
         if ($this->usuario->getMatricula() != null) {
-            $restrictions[2] = $criteria->restrictions()
+            $restrictions[3] = $criteria->restrictions()
                 ->like("matricula", $this->usuario->getMatricula());
         }
 
         if ($this->usuario->getLogin() != null) {
-            $restrictions[1] = $criteria->restrictions()
+            $restrictions[4] = $criteria->restrictions()
                 ->like("login", $this->usuario->getLogin());
         }
-
 
 
         $restrictions = array_values($restrictions);
@@ -123,7 +128,8 @@ class UsuarioDAO implements IDAO
         // TODO: Implement delete() method.
     }
 
-    function logar() {
+    function logar()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
 
@@ -134,14 +140,14 @@ class UsuarioDAO implements IDAO
         $restriction2 = $criteria->restrictions()
             ->equals("email", $this->usuario->getEmail());
 
-        $restriction3= $criteria->restrictions()
-            ->equals("senha",$this->usuario->getSenha());
+        $restriction3 = $criteria->restrictions()
+            ->equals("senha", $this->usuario->getSenha());
 
-        $condOr = $criteria->restrictions()->either($restriction,$restriction2);
-        $condAnd = $criteria->restrictions()->and($condOr,$restriction3);
+        $condOr = $criteria->restrictions()->either($restriction, $restriction2);
+        $condAnd = $criteria->restrictions()->and($condOr, $restriction3);
 
         $criteria->add($condAnd);
-        if(count($criteria->select()) > 0){
+        if (count($criteria->select()) > 0) {
             return true;
         }
         return false;
