@@ -26,12 +26,21 @@ class MembroController
     /**
      * MembroController constructor.
      */
-    public function __construct()
+    public function __construct($args, $requestMethod)
     {
         $this->membro = new Membro();
 
-        if(isset($_POST['action']) && $_POST['action'] == "cadastrar"){
-            $this->cadastrar();
+        if($requestMethod == 'POST'){
+            $this->cadastrar($args);
+        }
+        if($requestMethod == 'GET'){
+            $this->listar($args);
+        }
+        if($requestMethod == 'PUT'){
+            $this->alterar($args);
+        }
+        if($requestMethod == 'DELETE'){
+            $this->delete($args);
         }
     }
 
@@ -39,29 +48,30 @@ class MembroController
      * @param null $values
      * @param string $httpMethod
      */
-    public function cadastrar($values = null, $httpMethod = "GET")
+    public function cadastrar($values = null)
     {
-        if($httpMethod == "POST"){
+        $values == null ? $values = $_POST : null;
             if($values !=null){
-                $this->membro->setPkMembro($values['pk_membro']);
-                $this->membro->setFkEquipe($values['fk_equipe']);
-                $this->membro->setFkUsuario($values['fk_usuario']);
-                $this->membro->setAtuacao($values['atuacao']);
-                $this->membro->setCarga($values['carga']);
-                $this->membro->setFuncao($values['funcao']);
-                $this->membro->setNivel($values['nivel']);
-                if($this->membro->cadastrar()){
-                    $r = new Message("Membro cadastrado com Sucesso!","sucesso", ["icone" => "check"]);
-                    echo $r->geraJsonMensagem();
-                }
+                if(isset($values['pk_membro'])) $this->membro->setPkMembro($values['pk_membro']);
+                if(isset($values['fk_equipe'])) $this->membro->setFkEquipe($values['fk_equipe']);
+                if(isset($values['fk_usuario'])) $this->membro->setFkUsuario($values['fk_usuario']);
+                if(isset($values['atuacao'])) $this->membro->setAtuacao($values['atuacao']);
+                if(isset($values['carga'])) $this->membro->setCarga($values['carga']);
+                if(isset($values['funcao'])) $this->membro->setFuncao($values['funcao']);
+                if(isset($values['nivel'])) $this->membro->setNivel($values['nivel']);
+
+                echo $this->membro->cadastrar();
 
 
             }
-        }
+
     }
 
     public function alterar($values = null){
-        if($values !=null){
+
+
+            parse_str(file_get_contents('php://input'), $_PUT);
+            $values == null ? $values = $_PUT : null;
             $this->membro->setPkMembro($values['pk_membro']);
             $this->membro->setFkEquipe($values['fk_equipe']);
             $this->membro->setFkUsuario($values['fk_usuario']);
@@ -70,17 +80,17 @@ class MembroController
             $this->membro->setFuncao($values['funcao']);
             $this->membro->setNivel($values['nivel']);
             if($this->membro->atualizar()){
-                $r = new Message("Membro Alterado com Sucesso!", ["icone" => "check"]);
+                $r = new Message("Membro Alterado com Sucesso!", "sucesso", ["icone" => "check"]);
                 echo $r->geraJsonMensagem();
             }
 
 
-        }
+
     }
 
-    public function listar($values = null, $httpMethod = "GET")
+    public function listar($values = null)
     {
-        if($httpMethod = "POST"){
+
             $this->membro->setPkMembro(isset($values['pk_membro']) ? $values['pk_membro'] : null);
             $this->membro->setFkEquipe(isset($values['fk_equipe']) ? $values['fk_equipe'] : null);
             $this->membro->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
@@ -89,9 +99,13 @@ class MembroController
             $this->membro->setFuncao(isset($values['funcao']) ? $values['funcao'] : null);
             $this->membro->setNivel(isset($values['nivel']) ? $values['nivel'] : null);
 
-        }
+
         echo json_encode($this->membro->retreaveAll());
     }
 
+    public function delete($values = null)
+    {
+        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+    }
+
 }
-new MembroController();
