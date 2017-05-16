@@ -146,8 +146,9 @@ class Usuario
 
         $dao = new UsuarioDAO($this);
 
-        if (count($dao->retreaveCondicaoLoginExistente()) > 0 ) {
+        if (count($dao->retreaveCondicaoLoginExistente()) != 0 ) {
             $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
+            echo count($dao->retreaveCondicaoLoginExistente());
             return $msg->geraJsonMensagem();
         }
         $dao2 = new UsuarioDAO($this);

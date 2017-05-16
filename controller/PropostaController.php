@@ -26,39 +26,49 @@ class PropostaController
     /**
      * PropostaController constructor.
      */
-    public function __construct()
+    public function __construct($args, $requestmethod)
     {
         $this->proposta = new Proposta();
-        if(isset($_POST['action']) && $_POST['action'] == "cadastrar"){
-            $this->cadastrar();
+
+        if($requestmethod == 'POST'){
+            $this->cadastrar($args);
+        }
+
+        if($requestmethod == 'PUT'){
+            $this->alterar($args);
+        }
+
+        if($requestmethod == 'GET'){
+            $this->listar($args);
+        }
+
+        if($requestmethod == 'DELETE'){
+            $this->delete($args);
         }
 
     }
-    public function cadastrar($values = null, $httpMethod = 'GET')
+    public function cadastrar($values = null)
     {
-        if ($httpMethod == 'POST') {
+        $values == null ? $values = $_POST : null;
             if ($values != null) {
-                $this->proposta->setTitulo($values['titulo']);
-                $this->proposta->setData($values['data']);
-                $this->proposta->setContagem($values['contagem']);
-                $this->proposta->setDescricao($values['descricao']);
-                $this->proposta->setFkUsuario($values['fk_usuario']);
-                $this->proposta->setPkProposta($values['pk_proposta']);
-                if ($this->proposta->cadastrar()) {
-                    $r = new Message(
-                        "Proposta cadastrada com sucesso!", ["icone" => "check"]
-                    );
-                    echo $r->geraJsonMensagem();
-                }
+                if(isset($values['titulo'])) $this->proposta->setTitulo($values['titulo']);
+                if(isset($values['data'])) $this->proposta->setData($values['data']);
+                if(isset($values['contagem'])) $this->proposta->setContagem($values['contagem']);
+                if(isset($values['descricao'])) $this->proposta->setDescricao($values['descricao']);
+                if(isset($values['fk_usuario'])) $this->proposta->setFkUsuario($values['fk_usuario']);
+                if(isset($values['pk_proposta'])) $this->proposta->setPkProposta($values['pk_proposta']);
+
+                echo $this->proposta->cadastrar();
             }
         }
 
-    }
+
 
     public function alterar($values = null)
     {
 
-        if ($values != null) {
+        parse_str(file_get_contents('php://input'), $_PUT);
+        $values == null ? $values = $_PUT : null;
             $this->proposta->setTitulo($values['titulo']);
             $this->proposta->setData($values['data']);
             $this->proposta->setContagem($values['contagem']);
@@ -67,28 +77,32 @@ class PropostaController
             $this->proposta->setPkProposta($values['pk_proposta']);
             if ($this->proposta->atualizar()) {
                 $r = new Message(
-                    "Proposta Alterada com sucesso!", ["icone" => "check"]
+                    "Proposta Alterada com sucesso!","sucesso", ["icone" => "check"]
                 );
                 echo $r->geraJsonMensagem();
             }
-        }
+
 
 
     }
 
-    public function listar($values = null, $httpMethod = "GET")
+    public function listar($values = null)
     {
-        if ($httpMethod == "POST") {
+
             $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
             $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
             $this->proposta->setContagem(isset($values['contagem']) ? $values['contagem'] : null);
             $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
             $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
             $this->proposta->setPkProposta(isset($values['pk_proposta']) ? $values['pk_proposta'] : null);
-        }
+
         echo json_encode($this->proposta->retreaveAll());
 
     }
+
+    public function delete($values = null)
+    {
+        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+    }
 }
 
-new PropostaController();
