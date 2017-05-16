@@ -43,7 +43,8 @@ class UsuarioDAO implements IDAO
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
         $restrictions = [];
-        if ($this->usuario->getNome() != null) {
+
+        if ($this->usuario->getPkUsuario() != null) {
             $restrictions[0] = $criteria->restrictions()
                 ->equals("pk_usuario", $this->usuario->getPkUsuario());
         }
@@ -81,7 +82,6 @@ class UsuarioDAO implements IDAO
             }
         }
         $r = $criteria->select();
-//        print_r($criteria->show());
         return $r;
 
     }
