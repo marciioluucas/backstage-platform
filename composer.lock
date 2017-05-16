@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/marciioluucas/phiber.git",
-                "reference": "5eeb9bcc4cab3832de538b9d75bbb5af82a32e1b"
+                "reference": "f531e1b38cdffc4a250352ea18d304e7f7520c53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/5eeb9bcc4cab3832de538b9d75bbb5af82a32e1b",
-                "reference": "5eeb9bcc4cab3832de538b9d75bbb5af82a32e1b",
+                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/f531e1b38cdffc4a250352ea18d304e7f7520c53",
+                "reference": "f531e1b38cdffc4a250352ea18d304e7f7520c53",
                 "shasum": ""
             },
             "require": {
@@ -45,7 +45,7 @@
                 }
             ],
             "description": "Simples biblioteca ORM para PHP",
-            "time": "2017-05-15 13:33:28"
+            "time": "2017-05-16 01:23:38"
         }
     ],
     "packages-dev": [],
