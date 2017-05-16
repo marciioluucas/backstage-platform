@@ -58,12 +58,7 @@ class PropostaController
                 if(isset($values['fk_usuario'])) $this->proposta->setFkUsuario($values['fk_usuario']);
                 if(isset($values['pk_proposta'])) $this->proposta->setPkProposta($values['pk_proposta']);
 
-                if ($this->proposta->cadastrar()) {
-                    $r = new Message(
-                        "Proposta cadastrada com sucesso!", "sucesso", ["icone" => "check"]
-                    );
-                    echo $r->geraJsonMensagem();
-                }
+                echo $this->proposta->cadastrar();
             }
         }
 

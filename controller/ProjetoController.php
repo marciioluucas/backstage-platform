@@ -28,28 +28,37 @@ class ProjetoController
     /**
      * ProjetoController constructor.
      */
-    public function __construct()
+    public function __construct($args, $requestmethod)
     {
         $this->projeto = new Projeto();
 
-        if (isset($_POST['action']) && $_POST['action'] == "cadastrar") {
-            $this->cadastrar();
+        if($requestmethod == 'POST'){
+            $this->cadastrar($args);
+        }
+
+        if($requestmethod == 'PUT'){
+            $this->alterar($args);
+        }
+
+        if($requestmethod == 'GET'){
+            $this->listar($args);
+        }
+
+        if($requestmethod == 'DELETE'){
+            $this->delete($args);
         }
     }
 
-    public function cadastrar($values = null, $httpMethod = "GET")
+    public function cadastrar($values = null)
     {
-        if ($httpMethod == "POST") {
+        $values == null ? $values = $_POST : null;
             if ($values != null) {
-                $this->projeto->setPkProjeto($values['pk_projeto']);
-                $this->projeto->setFkEquipe($values['fk_equipe']);
-                $this->projeto->setFkProposta($values['fk_proposta']);
-                $this->projeto->setStatus($values['status']);
-                if ($this->projeto->cadastrar()) {
-                    $r = new Message("Projeto Cadastrado com sucesso!", ["icone" => "check"]);
-                    echo $r->geraJsonMensagem();
-                }
-            }
+                if(isset($values['pk_projeto'])) $this->projeto->setPkProjeto($values['pk_projeto']);
+                if(isset($values['fk_equipe'])) $this->projeto->setFkEquipe($values['fk_equipe']);
+                if(isset($values['fk_proposta'])) $this->projeto->setFkProposta($values['fk_proposta']);
+                if(isset($values['status'])) $this->projeto->setStatus($values['status']);
+                echo $this->projeto->cadastrar();
+
         }
 
     }
@@ -58,29 +67,35 @@ class ProjetoController
     public function alterar($values = null)
     {
 
-        if ($values != null) {
+        parse_str(file_get_contents('php://input'), $_PUT);
+        $values == null ? $values = $_PUT : null;
             $this->projeto->setPkProjeto($values['pk_projeto']);
             $this->projeto->setFkEquipe($values['fk_equipe']);
             $this->projeto->setFkProposta($values['fk_proposta']);
             $this->projeto->setStatus($values['status']);
             if ($this->projeto->atualizar()) {
-                $r = new Message("Projeto Cadastrado com sucesso!", ["icone" => "check"]);
+                $r = new Message("Projeto Cadastrado com sucesso!","sucesso", ["icone" => "check"]);
                 echo $r->geraJsonMensagem();
-            }
+
         }
 
     }
 
-    public function listar($values = null, $httpMethod = "GET")
+    public function listar($values = null)
     {
-        if($httpMethod = "POST"){
+
             $this->projeto->setPkProjeto(isset($values['pk_projeto']) ? $values['pk_projeto'] : null);
             $this->projeto->setFkEquipe(isset($values['fk_equipe']) ? $values['fk_equipe'] : null);
             $this->projeto->setFkProposta(isset($values['fk_proposta']) ? $values['fk_proposta'] : null);
             $this->projeto->setStatus(isset($values['status']) ? $values['status'] : null);
-        }
+
         echo json_encode($this->projeto->retreaveAll());
     }
+
+    public function delete($values = null)
+    {
+        echo "DELETE = PARAMS >>>>" . $_GET['pk_projeto'];
+    }
 }
-new PropostaDAO();
+
 
