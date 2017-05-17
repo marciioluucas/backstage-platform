@@ -174,13 +174,24 @@ class Usuario
             $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
-        $dao->create();
+        if($dao->create()){
         $r = new Message(
             "Usuario cadastrado com sucesso",
             "sucesso",
             ["icone" => "check"]
         );
         return $r->geraJsonMensagem();
+    }
+        else{
+
+            $r = new Message(
+                "Erro ao criar Usuario",
+                "erro",
+                ["icone" => "error"]
+            );
+            return $r->geraJsonMensagem();
+
+    }
     }
 
     public function atualizar()
@@ -221,13 +232,21 @@ class Usuario
             $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
-        $dao->update();
+        if($dao->update()){
         $r = new Message(
             "Usuario alterado com sucesso",
             "sucesso",
             ["icone" => "check"]
         );
-        return $r->geraJsonMensagem();
+        return $r->geraJsonMensagem();}
+        else{
+            $r = new Message(
+                "Erro ao Alterar Usuario",
+                "erro",
+                ["icone" => "error"]
+            );
+            return $r->geraJsonMensagem();
+        }
     }
 
     public function retreave()
