@@ -162,7 +162,13 @@ class Membro
 
 
         $dao = new MembroDAO(($this));
-        return $dao->create();
+        if ($dao->create()){
+            $r = new Message("Membro Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterar Membro", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function atualizar()
@@ -188,7 +194,13 @@ class Membro
         }
 
         $dao = new MembroDAO(($this));
-        return $dao->update();
+        if ($dao->update()){
+            $r = new Message("Membro Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterar Membro", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function retreaveAll()

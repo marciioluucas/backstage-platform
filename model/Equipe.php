@@ -64,7 +64,13 @@ class Equipe
 
 
         $dao = new EquipeDAO(($this));
-        return $dao->create();
+        if ($dao->create()){
+            $r = new Message("Equipe cadastrada com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterar Equipe", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function atualizar()
@@ -82,7 +88,13 @@ class Equipe
 
 
         $dao = new EquipeDAO(($this));
-        return $dao->update();
+        if ($dao->update()){
+            $r = new Message("Projeto alterado com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterado Projeto", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function retreave()

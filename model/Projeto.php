@@ -2,6 +2,7 @@
 namespace backstage\model;
 
 use backstage\dao\ProjetoDAO;
+use backstage\util\Message;
 
 /**
  * Created by PhpStorm.
@@ -84,12 +85,25 @@ class Projeto
 
     public function cadastrar(){
         $dao = new ProjetoDAO(($this));
-        return $dao->create();
+        if ($dao->create()){
+            $r = new Message("Projeto cadastrado com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao cadastrar Projeto", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
+
     }
 
     public function atualizar(){
         $dao = new ProjetoDAO(($this));
-        return $dao->update();
+        if ($dao->update()){
+            $r = new Message("Projeto Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterar Projeto", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function retreaveAll(){

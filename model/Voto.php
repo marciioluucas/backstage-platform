@@ -1,5 +1,6 @@
 <?php
 namespace backstage\model;
+
 use backstage\dao\VotoDAO;
 use backstage\util\Message;
 
@@ -78,17 +79,32 @@ class Voto
         $this->fk_proposta = $fk_proposta;
     }
 
-    public function cadastrar(){
+    public function cadastrar()
+    {
         $dao = new VotoDAO(($this));
-        return $dao->create();
+        if ($dao->create()) {
+            $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();
+        } else {
+            $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
-    public function atualizar(){
+    public function atualizar()
+    {
         $dao = new VotoDAO(($this));
-        return $dao->update();
+        if ($dao->update()) {
+            $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();
+        } else {
+            $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
-    public function retreaveAll(){
+    public function retreaveAll()
+    {
         $dao = new VotoDAO(($this));
         return $dao->retreave();
     }

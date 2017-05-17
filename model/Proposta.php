@@ -168,7 +168,14 @@ class Proposta
 
 
         $dao = new PropostaDAO(($this));
-        return $dao->create();
+
+        if ($dao->create()){
+            $r = new Message("Proposta Criada com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterar Proposta", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function atualizar()
@@ -193,7 +200,13 @@ class Proposta
 
 
         $dao = new PropostaDAO(($this));
-        return $dao->update();
+        if ($dao->update()){
+            $r = new Message("Projeto Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
+            return $r->geraJsonMensagem();}
+        else{
+            $r = new Message("Erro inesperado ao alterar Projeto", "erro",["icone" => "error"]);
+            $r->geraJsonMensagem();
+        }
     }
 
     public function retreaveAll()
