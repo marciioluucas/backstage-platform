@@ -97,4 +97,11 @@ class Projeto
         return $dao->retreave();
     }
 
+    public function delete()
+    {
+        $this->ativado = 0;
+        $dao = new ProjetoDAO($this);
+        return $dao->update();
+    }
+
 }

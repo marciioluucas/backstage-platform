@@ -91,4 +91,11 @@ class Equipe
         return $dao->retreave();
     }
 
+    public function delete()
+    {
+        $this->ativado = 0;
+        $dao = new EquipeDAO($this);
+        return $dao->update();
+    }
+
 }
