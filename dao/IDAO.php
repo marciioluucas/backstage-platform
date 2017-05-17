@@ -14,6 +14,5 @@ interface IDAO
     function create();
     function retreave();
     function update();
-    function delete();
 
 }
