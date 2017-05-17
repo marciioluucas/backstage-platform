@@ -43,13 +43,13 @@ class ProjetoDAO
         $criteria = $phiber->openPersist($this->projeto);
         $restrictions = [];
 
-        if($this->projeto->getPkProjeto() !=null){
+        if ($this->projeto->getPkProjeto() != null) {
             $restrictions[0] = $criteria->restrictions()->equals("pk_projeto", $this->projeto->getPkProjeto());
         }
-        if($this->projeto->getFkEquipe() !=null){
+        if ($this->projeto->getFkEquipe() != null) {
             $restrictions[2] = $criteria->restrictions()->equals("fk_equipe", $this->projeto->getFkEquipe());
         }
-        if($this->projeto->getFkProposta() !=null){
+        if ($this->projeto->getFkProposta() != null) {
             $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->projeto->getFkProposta());
         }
 
@@ -64,6 +64,7 @@ class ProjetoDAO
                 $criteria->add($restrictions[0]);
             }
         }
+        $criteria->returnArray(true);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
@@ -76,23 +77,11 @@ class ProjetoDAO
         $criteria = $phiber->openPersist($this->projeto);
         $restrictionsID = $criteria->restrictions()->equals("pk_projeto", $this->projeto->getPkProjeto());
         $criteria->add($restrictionsID);
-        if($criteria->update()){
+        if ($criteria->update()) {
             return true;
         }
         return false;
     }
 
-    function delete()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->projeto);
-        $restrictionsID = $criteria->restrictions()->equals("pk_projeto", $this->projeto->getPkProjeto());
-        $criteria->add($restrictionsID);
-        if($criteria->delete()){
-            return true;
-        }
-        return false;
-
-    }
 
 }

@@ -102,7 +102,10 @@ class PropostaController
 
     public function delete($values = null)
     {
-        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+        $values == null ? $values = $_GET : null;
+        if ($values != null) {
+            if (isset($values['pk_proposta'])) $this->proposta->setPkProposta($values['pk_proposta']);
+        }
     }
 }
 

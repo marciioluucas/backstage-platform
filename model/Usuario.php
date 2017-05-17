@@ -232,7 +232,7 @@ class Usuario
         return $r->geraJsonMensagem();
     }
 
-    public function retrave()
+    public function retreave()
     {
         $dao = new UsuarioDAO($this);
         return $dao->retreave();

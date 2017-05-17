@@ -34,7 +34,7 @@ class PropostaDAO implements IDAO
 
             return true;
         }
-        print_r($criteria->show());
+
         return false;
 
 
@@ -86,6 +86,7 @@ class PropostaDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
+        $criteria->returnArray(true);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
@@ -102,18 +103,5 @@ class PropostaDAO implements IDAO
         return $criteria->select();
     }
 
-    function delete()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->proposta);
-        $restrictionID = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
-        $criteria->add($restrictionID);
-        if ($criteria->delete()) {
-            return true;
-        } else {
-            return false;
-        }
 
-
-    }
 }

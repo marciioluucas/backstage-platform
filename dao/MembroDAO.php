@@ -66,6 +66,7 @@ class MembroDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
+        $criteria->returnArray(true);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
@@ -98,16 +99,5 @@ class MembroDAO implements IDAO
 
     }
 
-    function delete()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->membro);
-        $restrictionID = $criteria->restrictions()->equals("pk_membro", $this->membro->getPkmembro());
-        $criteria->add($restrictionID);
-        if ($criteria->delete()) {
-            return true;
-        }
-        return false;
 
-    }
 }

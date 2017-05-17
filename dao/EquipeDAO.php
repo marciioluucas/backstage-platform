@@ -62,6 +62,7 @@ class EquipeDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
+        $criteria->returnArray(true);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
@@ -89,17 +90,5 @@ class EquipeDAO implements IDAO
         return false;
     }
 
-    function delete()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->equipe);
-        $restrictionID = $criteria->restrictions()->equals("pk_equipe", $this->equipe->getPkEquipe());
-        $criteria->add($restrictionID);
-        if ($criteria->delete()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
 }

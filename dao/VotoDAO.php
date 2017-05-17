@@ -63,6 +63,7 @@ class VotoDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
+        $criteria->returnArray(true);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
@@ -81,17 +82,6 @@ class VotoDAO implements IDAO
         return false;
     }
 
-    function delete()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->voto);
-        $restrictionsID = $criteria->restrictions()->equals("pk_voto", $this->voto->getPkVoto());
-        $criteria->add($restrictionsID);
-        if($criteria->delete()){
-            return true;
-        }
-        return false;
 
-    }
 
 }
