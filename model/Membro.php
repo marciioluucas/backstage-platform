@@ -197,4 +197,11 @@ class Membro
         return $dao->retreave();
 
     }
+
+    public function delete()
+    {
+        $this->ativado = 0;
+        $dao = new MembroDAO($this);
+        return $dao->update();
+    }
 }
