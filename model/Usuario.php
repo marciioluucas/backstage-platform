@@ -135,7 +135,6 @@ class Usuario
     }
 
 
-
     public function cadastrar()
     {
 
@@ -165,7 +164,7 @@ class Usuario
 
         $dao = new UsuarioDAO($this);
 
-        if (count($dao->retreaveCondicaoLoginExistenteCadastrar()) != 0 ) {
+        if (count($dao->retreaveCondicaoLoginExistenteCadastrar()) != 0) {
             $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
@@ -212,8 +211,7 @@ class Usuario
         }
 //
         $dao = new UsuarioDAO($this);
-
-        if (count($dao->retreaveCondicaoLoginExistenteAlterar()) != 0 ) {
+        if (count($dao->retreaveCondicaoLoginExistenteAlterar()) > 0) {
             $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
@@ -242,14 +240,30 @@ class Usuario
     {
         $this->ativado = 0;
         $dao = new UsuarioDAO($this);
-        return $dao->update();
+        $rSuccess = new Message(
+            "Usuario excluido com sucesso",
+            "sucesso",
+            ["icone" => "check"]
+        );
+        $rFailure = new Message(
+            "Ocorreu um erro ao tentar excluir o usuário",
+            "erro",
+            ["icone" => "error"]
+        );
+        $return = $rFailure;
+        if ($dao->update()) {
+            $return = $rSuccess;
+        }
+        echo $return->geraJsonMensagem();
+
     }
 
-    public function logar() {
+    public function logar()
+    {
         $dao = new UsuarioDAO($this);
-        if($dao->logar()){
-            return json_encode(["isPermitido"=>true]);
+        if ($dao->logar()) {
+            return json_encode(["isPermitido" => true]);
         }
-        return json_encode(["isPermitido"=>false]);
+        return json_encode(["isPermitido" => false]);
     }
 }

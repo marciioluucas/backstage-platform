@@ -77,7 +77,10 @@ class UsuarioDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
+
         $criteria->returnArray(true);
+
+
         $r = $criteria->select();
         return $r;
 
@@ -116,10 +119,10 @@ class UsuarioDAO implements IDAO
             ->equals("login", $this->usuario->getLogin());
 
         $restriction2 = $criteria->restrictions()
-            ->different("pk_usuario",$this->usuario->getPkUsuario());
+            ->different("pk_usuario", $this->usuario->getPkUsuario());
 
         $condAnd = $criteria->restrictions()
-            ->and($restriction1,$restriction2);
+            ->and($restriction1, $restriction2);
         $criteria->add($condAnd);
         return $criteria->select();
     }
@@ -133,10 +136,10 @@ class UsuarioDAO implements IDAO
             ->equals("email", $this->usuario->getLogin());
 
         $restriction2 = $criteria->restrictions()
-            ->different("pk_usuario",$this->usuario->getPkUsuario());
+            ->different("pk_usuario", $this->usuario->getPkUsuario());
 
         $condAnd = $criteria->restrictions()
-            ->and($restriction1,$restriction2);
+            ->and($restriction1, $restriction2);
         $criteria->add($condAnd);
         return $criteria->select();
     }
@@ -149,7 +152,6 @@ class UsuarioDAO implements IDAO
         $restrictionID = $criteria->restrictions()->equals("pk_usuario", $this->usuario->getPkUsuario());
         $criteria->add($restrictionID);
         if ($criteria->update()) {
-//            echo $criteria->show();
             return true;
         }
         return false;

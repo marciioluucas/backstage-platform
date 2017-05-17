@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/marciioluucas/phiber.git",
-                "reference": "076e93ef434729093ad0522bf57a7178e5ba30a0"
+                "reference": "21205219d076a5800aa6a84e61e06a14820fc44f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/076e93ef434729093ad0522bf57a7178e5ba30a0",
-                "reference": "076e93ef434729093ad0522bf57a7178e5ba30a0",
+                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/21205219d076a5800aa6a84e61e06a14820fc44f",
+                "reference": "21205219d076a5800aa6a84e61e06a14820fc44f",
                 "shasum": ""
             },
             "require": {
@@ -52,7 +52,7 @@
                 "php framework",
                 "php orm"
             ],
-            "time": "2017-05-17 13:14:23"
+            "time": "2017-05-17 15:31:34"
         }
     ],
     "packages-dev": [],

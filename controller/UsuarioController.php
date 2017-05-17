@@ -44,7 +44,7 @@ class UsuarioController
         }
 
         if ($requestMethod == 'DELETE') {
-            $this->alterar($args);
+            $this->delete($args);
         }
     }
 
@@ -87,6 +87,7 @@ class UsuarioController
         if ($values != null) {
             if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
         }
+        echo $this->usuario->delete();
     }
 
     public function listar($values = null)
