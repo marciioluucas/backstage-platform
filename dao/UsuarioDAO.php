@@ -66,7 +66,6 @@ class UsuarioDAO implements IDAO
         }
 
 
-
         $restrictions = array_values($restrictions);
         if (count($restrictions) > 1) {
             for ($i = 0; $i < count($restrictions) - 1; $i++) {
@@ -78,13 +77,14 @@ class UsuarioDAO implements IDAO
                 $criteria->add($restrictions[0]);
             }
         }
+        $criteria->returnArray(true);
         $r = $criteria->select();
 //        print_r($criteria->show());
         return $r;
 
     }
 
-    function retreaveCondicaoLoginExistente()
+    function retreaveCondicaoLoginExistenteCadastrar()
     {
 
         $phiber = new Phiber();
@@ -97,13 +97,48 @@ class UsuarioDAO implements IDAO
         return $criteria->select();
     }
 
-    function retreaveCondicaoEmailExistente()
+    function retreaveCondicaoEmailExistenteCadastrar()
     {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
         $restriction = $criteria->restrictions()
             ->equals("email", $this->usuario->getEmail());
         $criteria->add($restriction);
+        return $criteria->select();
+    }
+
+    function retreaveCondicaoLoginExistenteAlterar()
+    {
+
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+
+        $restriction1 = $criteria->restrictions()
+            ->equals("login", $this->usuario->getLogin());
+
+        $restriction2 = $criteria->restrictions()
+            ->different("pk_usuario",$this->usuario->getPkUsuario());
+
+        $condAnd = $criteria->restrictions()
+            ->and($restriction1,$restriction2);
+        $criteria->add($condAnd);
+        return $criteria->select();
+    }
+
+    function retreaveCondicaoEmailExistenteAlterar()
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+
+        $restriction1 = $criteria->restrictions()
+            ->equals("email", $this->usuario->getLogin());
+
+        $restriction2 = $criteria->restrictions()
+            ->different("pk_usuario",$this->usuario->getPkUsuario());
+
+        $condAnd = $criteria->restrictions()
+            ->and($restriction1,$restriction2);
+        $criteria->add($condAnd);
         return $criteria->select();
     }
 
@@ -115,6 +150,7 @@ class UsuarioDAO implements IDAO
         $restrictionID = $criteria->restrictions()->equals("pk_usuario", $this->usuario->getPkUsuario());
         $criteria->add($restrictionID);
         if ($criteria->update()) {
+//            echo $criteria->show();
             return true;
         }
         return false;
@@ -125,7 +161,8 @@ class UsuarioDAO implements IDAO
         // TODO: Implement delete() method.
     }
 
-    function logar() {
+    function logar()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
 
@@ -136,14 +173,14 @@ class UsuarioDAO implements IDAO
         $restriction2 = $criteria->restrictions()
             ->equals("email", $this->usuario->getEmail());
 
-        $restriction3= $criteria->restrictions()
-            ->equals("senha",$this->usuario->getSenha());
+        $restriction3 = $criteria->restrictions()
+            ->equals("senha", $this->usuario->getSenha());
 
-        $condOr = $criteria->restrictions()->either($restriction,$restriction2);
-        $condAnd = $criteria->restrictions()->and($condOr,$restriction3);
+        $condOr = $criteria->restrictions()->either($restriction, $restriction2);
+        $condAnd = $criteria->restrictions()->and($condOr, $restriction3);
 
         $criteria->add($condAnd);
-        if(count($criteria->select()) > 0){
+        if (count($criteria->select()) > 0) {
             return true;
         }
         return false;

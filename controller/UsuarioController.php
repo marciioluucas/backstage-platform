@@ -69,19 +69,15 @@ class UsuarioController
     {
         parse_str(file_get_contents('php://input'), $_PUT);
         $values == null ? $values = $_PUT : null;
-        $this->usuario->setPkUsuario($values['pk_usuario']);
-        $this->usuario->setLogin($values['login']);
-        $this->usuario->setEmail($values['email']);
-        $this->usuario->setSenha($values['senha']);
-        $this->usuario->setNome($values['nome']);
-        $this->usuario->setMatricula($values['matricula']);
-        if ($this->usuario->atualizar()) {
-            $r = new Message(
-                "Usuario alterado com sucesso",
-                "sucesso",
-                ["icone" => "check"]
-            );
-            echo $r->geraJsonMensagem();
+        if ($values != null) {
+
+            if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
+            if (isset($values['login'])) $this->usuario->setLogin($values['login']);
+            if (isset($values['email'])) $this->usuario->setEmail($values['email']);
+            if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
+            if (isset($values['nome'])) $this->usuario->setNome($values['nome']);
+            if (isset($values['matricula'])) $this->usuario->setMatricula($values['matricula']);
+            echo $this->usuario->atualizar();
         }
     }
 

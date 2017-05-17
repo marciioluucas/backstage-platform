@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/marciioluucas/phiber.git",
-                "reference": "f531e1b38cdffc4a250352ea18d304e7f7520c53"
+                "reference": "ecb7654daf441314494f7bf7982cb245050220f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/f531e1b38cdffc4a250352ea18d304e7f7520c53",
-                "reference": "f531e1b38cdffc4a250352ea18d304e7f7520c53",
+                "url": "https://api.github.com/repos/marciioluucas/phiber/zipball/ecb7654daf441314494f7bf7982cb245050220f1",
+                "reference": "ecb7654daf441314494f7bf7982cb245050220f1",
                 "shasum": ""
             },
             "require": {
@@ -44,8 +44,15 @@
                     "email": "marciioluucas@gmail.com"
                 }
             ],
-            "description": "Simples biblioteca ORM para PHP",
-            "time": "2017-05-16 01:23:38"
+            "description": "Simple PHP ORM",
+            "keywords": [
+                "Simple ORM",
+                "automatize sql writing",
+                "orm",
+                "php framework",
+                "php orm"
+            ],
+            "time": "2017-05-17 02:25:54"
         }
     ],
     "packages-dev": [],

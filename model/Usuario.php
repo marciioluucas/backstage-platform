@@ -146,13 +146,12 @@ class Usuario
 
         $dao = new UsuarioDAO($this);
 
-        if (count($dao->retreaveCondicaoLoginExistente()) != 0 ) {
+        if (count($dao->retreaveCondicaoLoginExistenteCadastrar()) != 0 ) {
             $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
-            echo count($dao->retreaveCondicaoLoginExistente());
             return $msg->geraJsonMensagem();
         }
         $dao2 = new UsuarioDAO($this);
-        if (count($dao2->retreaveCondicaoEmailExistente()) > 0) {
+        if (count($dao2->retreaveCondicaoEmailExistenteCadastrar()) > 0) {
 
             $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
@@ -168,8 +167,50 @@ class Usuario
 
     public function atualizar()
     {
-        $dao = new UsuarioDAO(($this));
-        return $dao->update();
+
+        if (empty($this->getNome())) {
+            $msg = new Message("Nome deve ser preenchido", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getEmail())) {
+            $msg = new Message("Email deve ser preenchido", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getSenha())) {
+            $msg = new Message("Senha deve ser preenchida", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+
+        if (empty($this->getLogin())) {
+            $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+        if (empty($this->getMatricula())) {
+            $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+//
+        $dao = new UsuarioDAO($this);
+
+        if (count($dao->retreaveCondicaoLoginExistenteAlterar()) != 0 ) {
+            $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+        $dao2 = new UsuarioDAO($this);
+        if (count($dao2->retreaveCondicaoEmailExistenteAlterar()) > 0) {
+
+            $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
+            return $msg->geraJsonMensagem();
+        }
+        $dao->update();
+        $r = new Message(
+            "Usuario alterado com sucesso",
+            "sucesso",
+            ["icone" => "check"]
+        );
+        return $r->geraJsonMensagem();
     }
 
     public function retrave()
