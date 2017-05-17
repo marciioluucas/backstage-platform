@@ -83,7 +83,10 @@ class UsuarioController
 
     public function delete($values = null)
     {
-        echo "DELETE = PARAMS >>>>" . $_GET['pk_usuario'];
+        $values == null ? $values = $_GET : null;
+        if ($values != null) {
+            if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
+        }
     }
 
     public function listar($values = null)

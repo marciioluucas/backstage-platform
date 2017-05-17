@@ -18,6 +18,7 @@ class Usuario
     private $matricula;
     private $login;
     private $email;
+    private $ativado;
     private $senha;
 
     /**
@@ -116,6 +117,24 @@ class Usuario
     {
         $this->senha = $senha;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getAtivado()
+    {
+        return $this->ativado;
+    }
+
+    /**
+     * @param mixed $ativado
+     */
+    public function setAtivado($ativado)
+    {
+        $this->ativado = $ativado;
+    }
+
+
 
     public function cadastrar()
     {
@@ -221,6 +240,7 @@ class Usuario
 
     public function delete()
     {
+        $this->ativado = 0;
         $dao = new UsuarioDAO($this);
         return $dao->update();
     }

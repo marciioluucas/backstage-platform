@@ -156,11 +156,6 @@ class UsuarioDAO implements IDAO
         return false;
     }
 
-    function delete()
-    {
-        // TODO: Implement delete() method.
-    }
-
     function logar()
     {
         $phiber = new Phiber();
