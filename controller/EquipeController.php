@@ -25,38 +25,64 @@ class EquipeController
      * EquipeController constructor.
      * @param $equipe
      */
-    public function __construct($equipe)
+    public function __construct($args, $requestmethod)
     {
         $this->equipe = new Equipe();
-        if (isset($_POST['action']) && $_POST['action'] == "cadastrar"){
-            $this->cadastrar();
+
+        if ($requestmethod == 'POST') {
+            $this->cadastrar($args);
+        }
+
+        if ($requestmethod == 'PUT') {
+            $this->alterar($args);
+        }
+
+        if ($requestmethod == 'GET') {
+            $this->listar($args);
+        }
+
+        if ($requestmethod == 'DELETE') {
+            $this->delete($args);
+        }
+
+    }
+
+    public function cadastrar($values = null)
+    {
+        $values == null ? $values = $_POST : null;
+
+        if ($values != null) {
+            if (isset($values['pk_equipe'])) $this->equipe->setPkEquipe($values['pk_equipe']);
+            if (isset($values['nome'])) $this->equipe->setNome($values['nome']);
+
+            echo $this->equipe->cadastrar();
         }
     }
 
-    public function cadastrar($values = null, $httpMethod = "GET"){
-        if ($httpMethod == "POST"){
-            $this->equipe->setPkEquipe($values['pk_equipe']);
-            $this->equipe->setNome($values['nome']);
-                $r = new Message("Equipe Cadastrada com sucesso!", "sucesso", ["icone"=>"check"]);
-                echo $r->geraJsonMensagem();
+    public function alterar($values = null)
+    {
+        parse_str(file_get_contents('php://input'), $_PUT);
+        $values == null ? $values = $_PUT : null;
+
+        $this->equipe->setPkEquipe($values['pk_equipe']);
+        $this->equipe->setNome($values['nome']);
+        if ($this->equipe->atualizar()) {
+            $r = new Message("Equipe alterada com sucesso!", "sucesso", ["icone" => "check"]);
+            echo $r->geraJsonMensagem();
         }
     }
 
-    public function alterar($values = null){
-        if ($values != null){
-            $this->equipe->setPkEquipe($values['pk_equipe']);
-            $this->equipe->setNome($values['nome']);
-                $r = new Message("Equipe alterada com sucesso!", "sucesso", ["icone" => "check" ]);
-                echo $r->geraJsonMensagem();
-        }
-    }
+    public function listar($values = null)
+    {
 
-    public function listar($values = null, $httpMethod = "GET"){
-        if ($httpMethod = "POST"){
-            $this->equipe(isset($values['pk_equipe']) ? $values['pk_equipe'] : null);
-            $this->equipe(isset($values['nome']) ? $values['nome'] : null);
-        }
+        $this->equipe(isset($values['pk_equipe']) ? $values['pk_equipe'] : null);
+        $this->equipe(isset($values['nome']) ? $values['nome'] : null);
+
         echo json_encode($this->equipe->retreaveAll());
     }
+
+    public function delete($values = null)
+    {
+        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+    }
 }
-new EquipeController();
