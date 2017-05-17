@@ -79,7 +79,6 @@ class UsuarioDAO implements IDAO
         }
         $criteria->returnArray(true);
         $r = $criteria->select();
-//        print_r($criteria->show());
         return $r;
 
     }
