@@ -46,10 +46,10 @@ class VotoDAO implements IDAO
             $restrictions[0] = $criteria->restrictions()->equals("pk_voto", $this->voto->getPkVoto());
         }
         if ($this->voto->getFkProposta() != null) {
-            $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->voto->getFkUsuario());
+            $restrictions[1] = $criteria->restrictions()->equals("fk_usuario", $this->voto->getFkUsuario());
         }
         if ($this->voto->getFkProposta() != null) {
-            $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->voto->getFkProposta());
+            $restrictions[2] = $criteria->restrictions()->equals("fk_proposta", $this->voto->getFkProposta());
         }
 
         $restrictions = array_values($restrictions);
