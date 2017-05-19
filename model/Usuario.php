@@ -286,9 +286,4 @@ class Usuario
         }
         return json_encode(["isPermitido" => false]);
     }
-
-    public function votar($fk_usuario, $fk_proposta) {
-        $voto = new Voto($fk_usuario, $fk_proposta);
-        return $voto->cadastrar();
-    }
 }

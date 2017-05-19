@@ -105,7 +105,6 @@ class Voto
 
         if ($dao->create()) {
             $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
-
         }
         return $r->geraJsonMensagem();
 
