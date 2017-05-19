@@ -98,7 +98,10 @@ class Voto
         $dao = new VotoDAO($this);
         $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
 
-
+        if(count($dao->retreaveByFkUsuarioAndFkProposta()) > 0){
+            $r = new Message("Usuário com voto já submetido para esta proposta", "erro", ["icone" => "error"]);
+            return $r->geraJsonMensagem();
+        }
 
         if ($dao->create()) {
             $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
@@ -108,22 +111,9 @@ class Voto
 
     }
 
-    public function atualizar()
-    {
-        $dao = new VotoDAO(($this));
-        if ($dao->update()) {
-            $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
-            return $r->geraJsonMensagem();
-        } else {
-            $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
-            $r->geraJsonMensagem();
-        }
-    }
-
-    public function retreaveAll()
-    {
-        $dao = new VotoDAO(($this));
-        return $dao->retreave();
+    public function qntVotosPorProposta() {
+        $dao = new VotoDAO($this);
+        return count($dao->retreaveByFkProposta());
     }
 
 

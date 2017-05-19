@@ -82,14 +82,29 @@ class VotoDAO implements IDAO
         return false;
     }
 
-    function retreaveByFkUsuario()
+    function retreaveByFkUsuarioAndFkProposta()
     {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->voto);
 
-        $restriction = $criteria->restrictions()
+        $restriction1 = $criteria->restrictions()
             ->equals("fk_usuario", $this->voto->getFkUsuario());
 
+        $restriction2 = $criteria->restrictions()
+            ->equals("fk_proposta", $this->voto->getFkProposta());
+
+        $condAnd = $criteria->restrictions()
+            ->and($restriction1, $restriction2);
+        $criteria->add($condAnd);
+        return $criteria->select();
+    }
+
+    function retreaveByFkProposta()
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->voto);
+        $restriction = $criteria->restrictions()
+            ->equals("fk_proposta", $this->voto->getFkProposta());
         $criteria->add($restriction);
         return $criteria->select();
     }
