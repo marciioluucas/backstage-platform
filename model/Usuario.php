@@ -3,6 +3,7 @@
 namespace backstage\model;
 
 use backstage\dao\UsuarioDAO;
+use backstage\dao\VotoDAO;
 use backstage\util\Message;
 
 /**
@@ -273,7 +274,7 @@ class Usuario
         if ($dao->update()) {
             $return = $rSuccess;
         }
-        echo $return->geraJsonMensagem();
+        return $return->geraJsonMensagem();
 
     }
 
@@ -284,5 +285,10 @@ class Usuario
             return json_encode(["isPermitido" => true]);
         }
         return json_encode(["isPermitido" => false]);
+    }
+
+    public function votar($fk_usuario, $fk_proposta) {
+        $voto = new Voto($fk_usuario, $fk_proposta);
+        return $voto->cadastrar();
     }
 }

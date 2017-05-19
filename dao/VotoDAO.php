@@ -9,8 +9,8 @@
 namespace backstage\dao;
 
 
-use phiber\Phiber;
 use backstage\model\Voto;
+use phiber\Phiber;
 
 class VotoDAO implements IDAO
 {
@@ -42,13 +42,13 @@ class VotoDAO implements IDAO
         $criteria = $phiber->openPersist($this->voto);
         $restrictions = [];
 
-        if($this->voto->getPkVoto() !=null){
+        if ($this->voto->getPkVoto() != null) {
             $restrictions[0] = $criteria->restrictions()->equals("pk_voto", $this->voto->getPkVoto());
         }
-        if($this->voto->getFkProposta() !=null){
+        if ($this->voto->getFkProposta() != null) {
             $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->voto->getFkUsuario());
         }
-        if($this->voto->getFkProposta() !=null){
+        if ($this->voto->getFkProposta() != null) {
             $restrictions[3] = $criteria->restrictions()->equals("fk_proposta", $this->voto->getFkProposta());
         }
 
@@ -76,12 +76,23 @@ class VotoDAO implements IDAO
         $criteria = $phiber->openPersist($this->voto);
         $restrictionsID = $criteria->restrictions()->equals("pk_voto", $this->voto->getPkVoto());
         $criteria->add($restrictionsID);
-        if($criteria->update()){
+        if ($criteria->update()) {
             return true;
         }
         return false;
     }
 
+    function retreaveByFkUsuario()
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->voto);
+
+        $restriction = $criteria->restrictions()
+            ->equals("fk_usuario", $this->voto->getFkUsuario());
+
+        $criteria->add($restriction);
+        return $criteria->select();
+    }
 
 
 }

@@ -1,11 +1,12 @@
 <?php
+
 namespace backstage\model;
 
 use backstage\dao\VotoDAO;
 use backstage\util\Message;
 
 /**
- * Created by PhpStorm.                 Sadrak Fazendo..
+ * Created by PhpStorm.
  * User: ifgoiano
  * Date: 25/04/2017
  * Time: 19:48
@@ -30,6 +31,19 @@ class Voto
      * @var
      */
     private $fk_proposta;
+
+    /**
+     * Voto constructor.
+     * @param $pk_voto
+     * @param $fk_usuario
+     * @param $fk_proposta
+     */
+    public function __construct($fk_usuario, $fk_proposta)
+    {
+        $this->fk_usuario = $fk_usuario;
+        $this->fk_proposta = $fk_proposta;
+    }
+
 
     /**
      * @return mixed
@@ -81,14 +95,17 @@ class Voto
 
     public function cadastrar()
     {
-        $dao = new VotoDAO(($this));
+        $dao = new VotoDAO($this);
+        $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
+
+
+
         if ($dao->create()) {
             $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
-            return $r->geraJsonMensagem();
-        } else {
-            $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
-            $r->geraJsonMensagem();
+
         }
+        return $r->geraJsonMensagem();
+
     }
 
     public function atualizar()
@@ -107,13 +124,6 @@ class Voto
     {
         $dao = new VotoDAO(($this));
         return $dao->retreave();
-    }
-
-    public function delete()
-    {
-        $this->ativado = 0;
-        $dao = new VotoDAO($this);
-        return $dao->update();
     }
 
 
