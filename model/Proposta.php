@@ -45,6 +45,26 @@ class Proposta
     private $contagem;
 
 
+    private $aprovado;
+
+    /**
+     * @return mixed
+     */
+    public function getAprovado()
+    {
+        return $this->aprovado;
+    }
+
+    /**
+     * @param mixed $aprovado
+     */
+    public function setAprovado($aprovado)
+    {
+        $this->aprovado = $aprovado;
+    }
+
+
+
     /**
      * @return mixed
      */
