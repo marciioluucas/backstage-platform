@@ -30,14 +30,9 @@ class PropostaDAO implements IDAO
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
         if ($criteria->create()) {
-
-
             return true;
         }
-
         return false;
-
-
     }
 
     function update()
@@ -47,7 +42,6 @@ class PropostaDAO implements IDAO
         $restrictionID = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkProposta());
         $criteria->add($restrictionID);
         if ($criteria->update()) {
-
             return true;
         } else {
             return false;
@@ -88,9 +82,7 @@ class PropostaDAO implements IDAO
         }
         $criteria->returnArray(true);
         $r = $criteria->select();
-//        print_r($criteria->show());
         return $r;
-
 
     }
 

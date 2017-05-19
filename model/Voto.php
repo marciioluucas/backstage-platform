@@ -34,7 +34,6 @@ class Voto
 
     /**
      * Voto constructor.
-     * @param $pk_voto
      * @param $fk_usuario
      * @param $fk_proposta
      */
@@ -98,7 +97,7 @@ class Voto
         $dao = new VotoDAO($this);
         $r = new Message("Erro inesperado ao submeter voto", "erro", ["icone" => "error"]);
 
-        if(count($dao->retreaveByFkUsuarioAndFkProposta()) > 0){
+        if(count($dao->retreaveByFkUsuarioAndFkProposta()) > 0) {
             $r = new Message("Usuário com voto já submetido para esta proposta", "erro", ["icone" => "error"]);
             return $r->geraJsonMensagem();
         }
@@ -107,7 +106,6 @@ class Voto
             $r = new Message("Voto submetido com sucesso!", "Sucesso", ["icone" => "check"]);
         }
         return $r->geraJsonMensagem();
-
     }
 
     public function qntVotosPorProposta() {
