@@ -65,7 +65,6 @@ class VotoDAO implements IDAO
         }
         $criteria->returnArray(true);
         $r = $criteria->select();
-//        print_r($criteria->show());
         return $r;
 
     }
@@ -108,6 +107,4 @@ class VotoDAO implements IDAO
         $criteria->add($restriction);
         return $criteria->select();
     }
-
-
 }
