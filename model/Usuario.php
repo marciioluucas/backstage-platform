@@ -286,4 +286,18 @@ class Usuario
         }
         return json_encode(["isPermitido" => false]);
     }
+
+    public function retreaveGraphUsuarioAtivo(){
+        $this->setAtivado('1');
+        $dao = new UsuarioDAO($this);
+
+        return $dao->retreaveUsuarioForGraph();
+    }
+
+    public function retreaveGraphUsuarioInativo(){
+        $this->setAtivado("'0'");
+        $dao = new UsuarioDAO($this);
+
+        return $dao->retreaveUsuarioForGraph();
+    }
 }

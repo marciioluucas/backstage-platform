@@ -44,24 +44,27 @@ class UsuarioDAO implements IDAO
         $criteria = $phiber->openPersist($this->usuario);
         $restrictions = [];
 
+        $restrictions[0] = $criteria->restrictions()
+            ->equals("ativado", '1');
+
         if ($this->usuario->getPkUsuario() != null) {
-            $restrictions[0] = $criteria->restrictions()
+            $restrictions[1] = $criteria->restrictions()
                 ->equals("pk_usuario", $this->usuario->getPkUsuario());
         }
         if ($this->usuario->getNome() != null) {
-            $restrictions[1] = $criteria->restrictions()
+            $restrictions[2] = $criteria->restrictions()
                 ->like("nome", $this->usuario->getNome());
         }
         if ($this->usuario->getEmail() != null) {
-            $restrictions[2] = $criteria->restrictions()
+            $restrictions[3] = $criteria->restrictions()
                 ->like("email", $this->usuario->getEmail());
         }
         if ($this->usuario->getMatricula() != null) {
-            $restrictions[3] = $criteria->restrictions()
+            $restrictions[4] = $criteria->restrictions()
                 ->like("matricula", $this->usuario->getMatricula());
         }
         if ($this->usuario->getLogin() != null) {
-            $restrictions[4] = $criteria->restrictions()
+            $restrictions[5] = $criteria->restrictions()
                 ->like("login", $this->usuario->getLogin());
         }
 
@@ -78,10 +81,8 @@ class UsuarioDAO implements IDAO
             }
         }
 
-        $criteria->returnArray(true);
-
-
         $r = $criteria->select();
+        $criteria->returnArray(true);
         return $r;
 
     }
@@ -180,5 +181,20 @@ class UsuarioDAO implements IDAO
             return true;
         }
         return false;
+    }
+
+    function retreaveUsuarioForGraph()
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        $restriction = $criteria->restrictions()
+            ->equals("ativado", $this->usuario->getAtivado());
+
+        $criteria->add($criteria->restrictions()->fields(["pk_usuario"]));
+        $criteria->add($restriction);
+
+        $criteria->returnArray(true);
+        return $criteria->select();
+
     }
 }

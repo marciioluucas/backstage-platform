@@ -36,7 +36,17 @@ class UsuarioController
         }
 
         if ($requestMethod == 'GET') {
-            $this->listar($args);
+            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioAtivo'){
+                $this->retreaveGraphUsuarioAtivo();
+            }
+
+            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioInativo'){
+                $this->retreaveGraphUsuarioInativo();
+            }
+
+            if(!isset($args['method'])){
+                $this->listar($args);
+            }
         }
 
         if ($requestMethod == 'PUT') {
@@ -99,6 +109,13 @@ class UsuarioController
         $this->usuario->setNome(isset($values['nome']) ? $values['nome'] : null);
         $this->usuario->setMatricula(isset($values['matricula']) ? $values['matricula'] : null);
         echo json_encode($this->usuario->retreave());
+    }
 
+    public function retreaveGraphUsuarioAtivo(){
+        echo json_encode($this->usuario->retreaveGraphUsuarioAtivo());
+    }
+
+    public function retreaveGraphUsuarioInativo(){
+        echo json_encode($this->usuario->retreaveGraphUsuarioInativo());
     }
 }

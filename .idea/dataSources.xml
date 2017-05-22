@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="backstage_platform@localhost" uuid="bf52df19-3001-4678-935f-fed35da98288">
+    <data-source source="LOCAL" name="backstage_platform@localhost" uuid="a417161d-f27d-46c3-afcb-6662c2c84be7">
       <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
