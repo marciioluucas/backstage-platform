@@ -300,4 +300,11 @@ class Usuario
 
         return $dao->retreaveUsuarioForGraph();
     }
+
+    public function retreaveParaAlterar() {
+
+        $dao = new UsuarioDAO($this);
+
+        return $dao->retreaveParaAlterar();
+    }
 }

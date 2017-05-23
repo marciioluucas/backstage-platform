@@ -35,15 +35,19 @@ class UsuarioController
         }
 
         if ($requestMethod == 'GET') {
-            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioAtivo'){
+            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioAtivo') {
                 $this->retreaveGraphUsuarioAtivo();
             }
 
-            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioInativo'){
+            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioInativo') {
                 $this->retreaveGraphUsuarioInativo();
             }
 
-            if(!isset($args['method'])){
+            if(isset($args['method']) and $args['method'] == 'retreaveParaAlterar') {
+                $this->retreaveParaAlterar($args);
+            }
+
+            if(!isset($args['method'])) {
                 $this->listar($args);
             }
         }
@@ -117,5 +121,10 @@ class UsuarioController
 
     public function retreaveGraphUsuarioInativo(){
         echo json_encode($this->usuario->retreaveGraphUsuarioInativo());
+    }
+
+    public function retreaveParaAlterar($values = null) {
+        $this->usuario->setPkUsuario($values['pk_usuario']);
+        echo json_encode($this->usuario->retreaveParaAlterar());
     }
 }
