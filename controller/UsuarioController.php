@@ -9,7 +9,6 @@ namespace backstage\controller;
  * Time: 8:13 PM
  */
 use backstage\model\Usuario;
-use backstage\util\Message;
 
 /**
  * Class UsuarioController
@@ -93,7 +92,8 @@ class UsuarioController
 
     public function delete($values = null)
     {
-        $values == null ? $values = $_GET : null;
+        parse_str(file_get_contents('php://input'), $_DELETE);
+        $values == null ? $values = $_DELETE : null;
         if ($values != null) {
             if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
         }

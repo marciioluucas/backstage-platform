@@ -258,7 +258,7 @@ class Usuario
 
     public function delete()
     {
-        $this->ativado = 0;
+        $this->ativado = "'0'";
         $dao = new UsuarioDAO($this);
         $rSuccess = new Message(
             "Usuario excluido com sucesso",

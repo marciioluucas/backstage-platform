@@ -1,5 +1,7 @@
 <?php
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: POST, GET, DELETE, PUT");
+
 header("Content-Type: application/json; charset=utf-8");
 include '../vendor/autoload.php';
 
