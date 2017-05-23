@@ -47,6 +47,26 @@ class Proposta
 
     private $aprovado;
 
+    private $ativado;
+
+    /**
+     * @return mixed
+     */
+    public function getAtivado()
+    {
+        return $this->ativado;
+    }
+
+    /**
+     * @param mixed $ativado
+     */
+    public function setAtivado($ativado)
+    {
+        $this->ativado = $ativado;
+    }
+
+
+
     /**
      * @return mixed
      */

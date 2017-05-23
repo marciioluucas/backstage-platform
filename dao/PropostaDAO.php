@@ -53,40 +53,41 @@ class PropostaDAO implements IDAO
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
         $restrictions = [];
+        $restrictions[0] = $criteria->restrictions()->equals("ativado",1);
 
-        if ($this->proposta->getTitulo() != null) {
-            $restrictions[0] = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
-        }
-
-        if ($this->proposta->getAprovado() != null) {
-            $restrictions[1] = $criteria->restrictions()->like("aprovado", $this->proposta->getAprovado());
-        }
-
-        if ($this->proposta->getFkusuario() != null) {
-            $restrictions[2] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkusuario());
-        }
-
-        if ($this->proposta->getPkproposta() != null) {
-            $restrictions[3] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
-        }
-        if ($this->proposta->getData() != null) {
-            $restrictions[4] = $criteria->restrictions()->like("data", $this->proposta->getData());
-        }
-
-        $restrictions = array_values($restrictions);
-        if (count($restrictions) > 1) {
-            for ($i = 0; $i < count($restrictions) - 1; $i++) {
-                $criteria->add($criteria->restrictions()
-                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            if ($this->proposta->getTitulo() != null) {
+                $restrictions[1] = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
             }
-        } else {
-            if (!empty($restrictions)) {
-                $criteria->add($restrictions[0]);
+
+            if ($this->proposta->getAprovado() != null) {
+                $restrictions[2] = $criteria->restrictions()->like("aprovado", $this->proposta->getAprovado());
             }
-        }
-        $criteria->returnArray(true);
-        $r = $criteria->select();
-        return $r;
+
+            if ($this->proposta->getFkusuario() != null) {
+                $restrictions[3] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkusuario());
+            }
+
+            if ($this->proposta->getPkproposta() != null) {
+                $restrictions[4] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
+            }
+            if ($this->proposta->getData() != null) {
+                $restrictions[5] = $criteria->restrictions()->like("data", $this->proposta->getData());
+            }
+
+            $restrictions = array_values($restrictions);
+            if (count($restrictions) > 1) {
+                for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                    $criteria->add($criteria->restrictions()
+                        ->and($restrictions[$i], $restrictions[$i + 1]));
+                }
+            } else {
+                if (!empty($restrictions)) {
+                    $criteria->add($restrictions[0]);
+                }
+            }
+            $criteria->returnArray(true);
+            $r = $criteria->select();
+            return $r;
 
     }
 
@@ -97,6 +98,21 @@ class PropostaDAO implements IDAO
         $restriction = $criteria->restrictions()->equals($campo, $campoValor);
         $criteria->add($restriction);
         return $criteria->select();
+    }
+
+    function retreavePorData()
+    {
+        $restrictions = [];
+        $selects = [];
+        for ($i = 1; $i == 7; $i++){
+            $phiber = new Phiber();
+            $criteria = $phiber->openPersist($this->proposta);
+            $mes = date('d-m-Y', strtotime('-'.$i.'month'));
+
+            $restrictions[$i-1] = $criteria->restrictions()->equals("data", $mes);
+
+
+    }
     }
 
 
