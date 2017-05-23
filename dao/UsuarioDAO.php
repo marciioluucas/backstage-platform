@@ -82,8 +82,11 @@ class UsuarioDAO implements IDAO
         }
 
         $criteria->returnArray(true);
-        $r = $criteria->select();
-        return $r;
+        $slct = $criteria->select();
+        if($criteria->rowCount() == 1) {
+            return [$slct];
+        }
+        return $slct;
 
     }
 
@@ -205,7 +208,12 @@ class UsuarioDAO implements IDAO
         $criteria->add($restriction);
 
         $criteria->returnArray(true);
-        return $criteria->select();
+        $slct = $criteria->select();
+        $qntReg = count($slct);
+        if($qntReg == 1){
+            return [$slct];
+        }
+        return $slct;
 
     }
 }
