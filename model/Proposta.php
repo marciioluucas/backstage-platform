@@ -262,5 +262,11 @@ class Proposta
         return $dao->update();
     }
 
+    public function retreavePorData(){
+
+        $dao = new PropostaDAO(($this));
+        return $dao->retreavePorData();
+    }
+
 
 }

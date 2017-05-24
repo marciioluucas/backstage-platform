@@ -87,6 +87,7 @@ class PropostaDAO implements IDAO
             }
             $criteria->returnArray(true);
             $r = $criteria->select();
+
             return $r;
 
     }
@@ -104,15 +105,30 @@ class PropostaDAO implements IDAO
     {
         $restrictions = [];
         $selects = [];
-        for ($i = 1; $i == 7; $i++){
+        for ($a = 1; $a == 7; $a++){
             $phiber = new Phiber();
             $criteria = $phiber->openPersist($this->proposta);
-            $mes = date('d-m-Y', strtotime('-'.$i.'month'));
-
-            $restrictions[$i-1] = $criteria->restrictions()->equals("data", $mes);
+            $criteria->returnArray(true);
 
 
-    }
+            $mes = date('m', strtotime('-'.$a.'month'));
+            $restrictions[$a-1] = $criteria->restrictions()->equals("data", $mes);
+
+            $restrictions = array_values($restrictions);
+            if (count($restrictions) > 1) {
+                for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                    $criteria->add($criteria->restrictions()
+                        ->and($restrictions[$i], $restrictions[$i + 1]));
+                }
+            } else {
+                if (!empty($restrictions)) {
+                    $criteria->add($restrictions[0]);
+                }
+            }
+            $selects[$a] = $criteria->select();
+
+        }
+        return $selects;
     }
 
 

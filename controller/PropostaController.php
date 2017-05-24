@@ -103,6 +103,10 @@ class PropostaController
 
     }
 
+    public function retreavePorData(){
+        json_encode($this->proposta->retreavePorData());
+    }
+
     public function delete($values = null)
     {
         $values == null ? $values = $_GET : null;
