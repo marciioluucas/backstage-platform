@@ -42,7 +42,7 @@ class Proposta
      * Variável que armazena o balanço de votos positivos/negativos recebidos pela proposta submetida.
      * @var
      */
-    private $contagem;
+
 
 
     private $aprovado;
@@ -96,18 +96,7 @@ class Proposta
     /**
      * @return mixed
      */
-    public function getContagem()
-    {
-        return $this->contagem;
-    }
 
-    /**
-     * @param mixed $contagem
-     */
-    public function setContagem($contagem)
-    {
-        $this->contagem = $contagem;
-    }
 
 
     /**

@@ -53,7 +53,7 @@ class PropostaController
             if ($values != null) {
                 if(isset($values['titulo'])) $this->proposta->setTitulo($values['titulo']);
                 if(isset($values['data'])) $this->proposta->setData($values['data']);
-                if(isset($values['contagem'])) $this->proposta->setContagem($values['contagem']);
+
                 if(isset($values['aprovado'])) $this->proposta->setAprovado($values['aprovado']);
                 if(isset($values['descricao'])) $this->proposta->setDescricao($values['descricao']);
                 if(isset($values['fk_usuario'])) $this->proposta->setFkUsuario($values['fk_usuario']);
@@ -72,7 +72,7 @@ class PropostaController
         $values == null ? $values = $_PUT : null;
             $this->proposta->setTitulo($values['titulo']);
             $this->proposta->setData($values['data']);
-            $this->proposta->setContagem($values['contagem']);
+
             $this->proposta->setAprovado($values['aprovado']);
             $this->proposta->setDescricao($values['descricao']);
             $this->proposta->setFkUsuario($values['fk_usuario']);
@@ -93,7 +93,7 @@ class PropostaController
 
             $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
             $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
-            $this->proposta->setContagem(isset($values['contagem']) ? $values['contagem'] : null);
+
             $this->proposta->setAprovado(isset($values['aprovado']) ? $values['aprovado'] : null);
             $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
             $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
