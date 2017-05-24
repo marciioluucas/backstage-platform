@@ -260,7 +260,7 @@ class Proposta
 
 
     public function contaVoto(){
-        $dao = new VotoDAO(($this));
+        $dao = new Voto($this->fk_usuario,$this->pk_proposta);
         return $dao->contar();
     }
 

@@ -90,5 +90,15 @@ class VotoController
     {
         echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
     }
+
+
+    public function contaVoto()
+    {
+        $this->voto->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
+        $this->voto->setFkProposta(isset($values['fk_proposta']) ? $values['fk_proposta'] : null);
+        echo json_encode($this->voto->contar());
+
+    }
+
 }
 

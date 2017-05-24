@@ -110,9 +110,9 @@ class Voto
         return $r->geraJsonMensagem();
     }
 
-    public function qntVotosPorProposta() {
+    public function contar() {
         $dao = new VotoDAO($this);
-        return count($dao->retreaveByFkProposta());
+        return count($dao->contar());
     }
 
 

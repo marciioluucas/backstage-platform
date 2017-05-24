@@ -107,13 +107,7 @@ class PropostaController
         echo json_encode($this->proposta->retreavePorData());
     }
 
-    public function contaVoto()
-    {
-        $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
-        $this->proposta->setPkProposta(isset($values['pk_proposta']) ? $values['pk_proposta'] : null);
-        echo json_encode($this->proposta->contaVoto());
 
-    }
 
     public function delete($values = null)
     {

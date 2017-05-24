@@ -102,15 +102,7 @@ class VotoDAO implements IDAO
 
     }
 
-    function retreaveByFkProposta()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->voto);
-        $restriction = $criteria->restrictions()
-            ->equals("fk_proposta", $this->voto->getFkProposta());
-        $criteria->add($restriction);
-        return $criteria->select();
-    }
+
 
     public function contar(){
 
