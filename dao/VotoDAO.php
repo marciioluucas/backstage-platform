@@ -9,8 +9,10 @@
 namespace backstage\dao;
 
 
+use backstage\model\Usuario;
 use backstage\model\Voto;
 use phiber\Phiber;
+
 
 class VotoDAO implements IDAO
 {
@@ -96,6 +98,8 @@ class VotoDAO implements IDAO
             ->and($restriction1, $restriction2);
         $criteria->add($condAnd);
         return $criteria->select();
+
+
     }
 
     function retreaveByFkProposta()
@@ -106,5 +110,19 @@ class VotoDAO implements IDAO
             ->equals("fk_proposta", $this->voto->getFkProposta());
         $criteria->add($restriction);
         return $criteria->select();
+    }
+
+    public function contar(){
+
+
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->voto);
+        $restriction = $criteria->restrictions()->equals("fk_proposta", $this->voto->getFkProposta());
+        $criteria->add($restriction);
+
+        $criteria->select();
+        return $criteria->rowCount();
+
+
     }
 }

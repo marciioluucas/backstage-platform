@@ -8,8 +8,10 @@
 
 namespace backstage\dao;
 
+use backstage\model\Voto;
 use phiber\Phiber;
 use backstage\model\Proposta;
+use backstage\model\Usuario;
 
 class PropostaDAO implements IDAO
 {
@@ -130,6 +132,8 @@ class PropostaDAO implements IDAO
         }
         return $selects;
     }
+
+
 
 
 }
