@@ -24,22 +24,25 @@ class VotoController
      */
     public function __construct($args, $requestedMethod)
     {
-        $this->voto = new Voto($args['fk_proposta'], $args['fk_usuario']);
-
-        if ($requestedMethod = 'POST') {
-            $this->cadastrar();
+        $this->voto = new Voto($args['fk_proposta']);
+        if(isset($args['fk_usuario'])){
+            $this->voto = new Voto($args['fk_proposta'], $args['fk_usuario']);
         }
 
-        if ($requestedMethod = 'GET') {
+        if ($requestedMethod == 'POST') {
+            $this->cadastrar($args);
+        }
+
+        if ($requestedMethod == 'GET') {
             if(isset($args['method']) and $args['method'] == 'contaVoto') {
-                $this->contaVoto();
+                $this->contaVoto($args);
             }
 
         }
 
 
 
-        if ($requestedMethod = 'DELETE') {
+        if ($requestedMethod == 'DELETE') {
             $this->delete();
         }
 
@@ -65,9 +68,9 @@ class VotoController
     }
 
 
-    public function contaVoto()
+    public function contaVoto($values = null)
     {
-        $this->voto->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
+
         $this->voto->setFkProposta(isset($values['fk_proposta']) ? $values['fk_proposta'] : null);
         echo json_encode($this->voto->contar());
 

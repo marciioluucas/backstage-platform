@@ -37,7 +37,7 @@ class Voto
      * @param $fk_usuario
      * @param $fk_proposta
      */
-    public function __construct($fk_usuario, $fk_proposta)
+    public function __construct($fk_proposta, $fk_usuario = null)
     {
         $this->fk_usuario = $fk_usuario;
         $this->fk_proposta = $fk_proposta;
@@ -112,7 +112,7 @@ class Voto
 
     public function contar() {
         $dao = new VotoDAO($this);
-        return count($dao->contar());
+        return ["contagem" => $dao->contar()];
     }
 
 
