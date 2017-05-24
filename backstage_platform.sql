@@ -1,221 +1,145 @@
--- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
---
--- Host: 127.0.0.1
--- Generation Time: 05-Maio-2017 às 16:37
--- Versão do servidor: 10.1.19-MariaDB
--- PHP Version: 7.0.13
+-- MySQL Workbench Forward Engineering
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Schema backstage_platform
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema backstage_platform
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `backstage_platform` DEFAULT CHARACTER SET latin1 ;
+USE `backstage_platform` ;
+
+-- -----------------------------------------------------
+-- Table `backstage_platform`.`equipe`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`equipe` (
+  `pk_equipe` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`pk_equipe`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+-- -----------------------------------------------------
+-- Table `backstage_platform`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`usuario` (
+  `pk_usuario` INT(20) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `matricula` INT(40) NOT NULL,
+  `senha` VARCHAR(255) NOT NULL,
+  `nivel` INT(1) NOT NULL DEFAULT '1',
+  `ativado` TINYINT(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`pk_usuario`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 11
+DEFAULT CHARACTER SET = latin1;
 
---
--- Database: `backstage_platform`
---
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `backstage_platform`.`membro`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`membro` (
+  `pk_membro` INT(11) NOT NULL AUTO_INCREMENT,
+  `fk_equipe` INT(11) NOT NULL,
+  `funcao` VARCHAR(50) NOT NULL,
+  `fk_usuario` INT(20) NOT NULL,
+  `is_ocupado` TINYINT(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pk_membro`, `fk_equipe`, `fk_usuario`),
+  INDEX `fk_programador_equipe1_idx` (`fk_equipe` ASC),
+  INDEX `fk_membro_usuario1_idx` (`fk_usuario` ASC),
+  CONSTRAINT `fk_membro_usuario1`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `backstage_platform`.`usuario` (`pk_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_programador_equipe1`
+    FOREIGN KEY (`fk_equipe`)
+    REFERENCES `backstage_platform`.`equipe` (`pk_equipe`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
---
--- Estrutura da tabela `equipe`
---
 
-CREATE TABLE `equipe` (
-  `pk_equipe` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- -----------------------------------------------------
+-- Table `backstage_platform`.`proposta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`proposta` (
+  `pk_proposta` INT(11) NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(255) NOT NULL,
+  `descricao` TEXT NOT NULL,
+  `fk_usuario` INT(20) NOT NULL,
+  `data` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`pk_proposta`, `fk_usuario`),
+  INDEX `fk_Proposta_usuario_idx` (`fk_usuario` ASC),
+  CONSTRAINT `fk_Proposta_usuario`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `backstage_platform`.`usuario` (`pk_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 5
+DEFAULT CHARACTER SET = latin1;
 
--- --------------------------------------------------------
 
---
--- Estrutura da tabela `membro`
---
+-- -----------------------------------------------------
+-- Table `backstage_platform`.`projeto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`projeto` (
+  `fk_equipe` INT(11) NOT NULL,
+  `fk_proposta` INT(11) NOT NULL,
+  `status` TINYINT(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`fk_equipe`, `fk_proposta`),
+  INDEX `fk_equipe_has_proposta_proposta1_idx` (`fk_proposta` ASC),
+  INDEX `fk_equipe_has_proposta_equipe1_idx` (`fk_equipe` ASC),
+  CONSTRAINT `fk_equipe_has_proposta_equipe1`
+    FOREIGN KEY (`fk_equipe`)
+    REFERENCES `backstage_platform`.`equipe` (`pk_equipe`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_equipe_has_proposta_proposta1`
+    FOREIGN KEY (`fk_proposta`)
+    REFERENCES `backstage_platform`.`proposta` (`pk_proposta`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
-CREATE TABLE `membro` (
-  `pk_membro` int(11) NOT NULL,
-  `atuacao` varchar(255) NOT NULL,
-  `nivel` varchar(255) NOT NULL,
-  `fk_equipe` int(11) NOT NULL,
-  `funcao` varchar(50) NOT NULL,
-  `fk_usuario` int(20) NOT NULL,
-  `carga` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
+-- -----------------------------------------------------
+-- Table `backstage_platform`.`voto`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `backstage_platform`.`voto` (
+  `pk_voto` INT(11) NOT NULL AUTO_INCREMENT,
+  `fk_usuario` INT(20) NOT NULL,
+  `fk_proposta` INT(11) NOT NULL,
+  PRIMARY KEY (`pk_voto`, `fk_usuario`, `fk_proposta`),
+  INDEX `fk_voto_usuario1_idx` (`fk_usuario` ASC),
+  INDEX `fk_voto_proposta1_idx` (`fk_proposta` ASC),
+  CONSTRAINT `fk_voto_proposta1`
+    FOREIGN KEY (`fk_proposta`)
+    REFERENCES `backstage_platform`.`proposta` (`pk_proposta`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_voto_usuario1`
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `backstage_platform`.`usuario` (`pk_usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = latin1;
 
---
--- Estrutura da tabela `projeto`
---
 
-CREATE TABLE `projeto` (
-  `fk_equipe` int(11) NOT NULL,
-  `fk_proposta` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `proposta`
---
-
-CREATE TABLE `proposta` (
-  `pk_proposta` int(11) NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `descricao` text NOT NULL,
-  `fk_usuario` int(20) NOT NULL,
-  `data` datetime NOT NULL,
-  `contagem` int(11) DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `usuario`
---
-
-CREATE TABLE `usuario` (
-  `pk_usuario` int(20) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `matricula` int(40) NOT NULL,
-  `login` varchar(255) NOT NULL,
-  `senha` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Extraindo dados da tabela `usuario`
---
-
-INSERT INTO `usuario` (`pk_usuario`, `nome`, `email`, `matricula`, `login`, `senha`) VALUES
-(1, 'marcio', 'marciioluucas@gmail.com', 123, 'marcin', '123'),
-(2, 'marcio', 'marciioluucas@gmail.com', 123, 'marcin', '123');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `voto`
---
-
-CREATE TABLE `voto` (
-  `pk_voto` int(11) NOT NULL,
-  `fk_usuario` int(20) NOT NULL,
-  `fk_proposta` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `equipe`
---
-ALTER TABLE `equipe`
-  ADD PRIMARY KEY (`pk_equipe`);
-
---
--- Indexes for table `membro`
---
-ALTER TABLE `membro`
-  ADD PRIMARY KEY (`pk_membro`,`fk_equipe`,`fk_usuario`),
-  ADD KEY `fk_programador_equipe1_idx` (`fk_equipe`),
-  ADD KEY `fk_membro_usuario1_idx` (`fk_usuario`);
-
---
--- Indexes for table `projeto`
---
-ALTER TABLE `projeto`
-  ADD PRIMARY KEY (`fk_equipe`,`fk_proposta`),
-  ADD KEY `fk_equipe_has_proposta_proposta1_idx` (`fk_proposta`),
-  ADD KEY `fk_equipe_has_proposta_equipe1_idx` (`fk_equipe`);
-
---
--- Indexes for table `proposta`
---
-ALTER TABLE `proposta`
-  ADD PRIMARY KEY (`pk_proposta`,`fk_usuario`),
-  ADD KEY `fk_Proposta_usuario_idx` (`fk_usuario`);
-
---
--- Indexes for table `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`pk_usuario`);
-
---
--- Indexes for table `voto`
---
-ALTER TABLE `voto`
-  ADD PRIMARY KEY (`pk_voto`,`fk_usuario`,`fk_proposta`),
-  ADD KEY `fk_voto_usuario1_idx` (`fk_usuario`),
-  ADD KEY `fk_voto_proposta1_idx` (`fk_proposta`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `equipe`
---
-ALTER TABLE `equipe`
-  MODIFY `pk_equipe` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `membro`
---
-ALTER TABLE `membro`
-  MODIFY `pk_membro` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `proposta`
---
-ALTER TABLE `proposta`
-  MODIFY `pk_proposta` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `pk_usuario` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- AUTO_INCREMENT for table `voto`
---
-ALTER TABLE `voto`
-  MODIFY `pk_voto` int(11) NOT NULL AUTO_INCREMENT;
---
--- Constraints for dumped tables
---
-
---
--- Limitadores para a tabela `membro`
---
-ALTER TABLE `membro`
-  ADD CONSTRAINT `fk_membro_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`pk_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_programador_equipe1` FOREIGN KEY (`fk_equipe`) REFERENCES `equipe` (`pk_equipe`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `projeto`
---
-ALTER TABLE `projeto`
-  ADD CONSTRAINT `fk_equipe_has_proposta_equipe1` FOREIGN KEY (`fk_equipe`) REFERENCES `equipe` (`pk_equipe`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_equipe_has_proposta_proposta1` FOREIGN KEY (`fk_proposta`) REFERENCES `proposta` (`pk_proposta`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `proposta`
---
-ALTER TABLE `proposta`
-  ADD CONSTRAINT `fk_Proposta_usuario` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`pk_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Limitadores para a tabela `voto`
---
-ALTER TABLE `voto`
-  ADD CONSTRAINT `fk_voto_proposta1` FOREIGN KEY (`fk_proposta`) REFERENCES `proposta` (`pk_proposta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_voto_usuario1` FOREIGN KEY (`fk_usuario`) REFERENCES `usuario` (`pk_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

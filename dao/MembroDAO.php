@@ -44,16 +44,10 @@ class MembroDAO implements IDAO
         $criteria = $phiber->openPersist($this->membro);
         $restrictions = [];
 
-        if ($this->membro->getFkusuario()) {
-            $restrictions[0] = $criteria->restrictions()->equals("fk_usuario", $this->getFkusuario());
+        if ($this->membro->getFkUsuario()) {
+            $restrictions[0] = $criteria->restrictions()->equals("fk_usuario", $this->membro->getFkUsuario());
         }
 
-        if ($this->membro->getNivel()) {
-            $restrictions[1] = $criteria->restrictions()->like("nivel", $this->getNivel());
-        }
-        if ($this->membro->getFuncao()) {
-            $restrictions[2] = $criteria->restrictions()->like("funcao", $this->getFuncao());
-        }
 
         $restrictions = array_values($restrictions);
         if (count($restrictions) > 1) {
@@ -88,7 +82,7 @@ class MembroDAO implements IDAO
 
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->membro);
-        $restrictionID = $criteria->restrictions()->equals("pk_membro", $this->getPkmembro());
+        $restrictionID = $criteria->restrictions()->equals("pk_membro", $this->membro->getPkMembro());
         $criteria->add($restrictionID);
         if ($criteria->update()) {
 

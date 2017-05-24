@@ -69,7 +69,7 @@ class Equipe
             return $r->geraJsonMensagem();}
         else{
             $r = new Message("Erro inesperado ao alterar Equipe", "erro",["icone" => "error"]);
-            $r->geraJsonMensagem();
+            return $r->geraJsonMensagem();
         }
     }
 
@@ -93,7 +93,7 @@ class Equipe
             return $r->geraJsonMensagem();}
         else{
             $r = new Message("Erro inesperado ao alterado Projeto", "erro",["icone" => "error"]);
-            $r->geraJsonMensagem();
+            return $r->geraJsonMensagem();
         }
     }
 

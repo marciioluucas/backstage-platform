@@ -134,10 +134,11 @@ class Membro
         $dao = new MembroDAO(($this));
         if ($dao->create()){
             $r = new Message("Membro Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
-            return $r->geraJsonMensagem();}
+            return $r->geraJsonMensagem();
+        }
         else{
             $r = new Message("Erro inesperado ao alterar Membro", "erro",["icone" => "error"]);
-            $r->geraJsonMensagem();
+            return $r->geraJsonMensagem();
         }
     }
 
@@ -159,7 +160,7 @@ class Membro
             return $r->geraJsonMensagem();}
         else{
             $r = new Message("Erro inesperado ao alterar Membro", "erro",["icone" => "error"]);
-            $r->geraJsonMensagem();
+            return $r->geraJsonMensagem();
         }
     }
 

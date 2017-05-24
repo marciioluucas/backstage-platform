@@ -65,12 +65,12 @@ class PropostaDAO implements IDAO
                 $restrictions[2] = $criteria->restrictions()->like("aprovado", $this->proposta->getAprovado());
             }
 
-            if ($this->proposta->getFkusuario() != null) {
-                $restrictions[3] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkusuario());
+            if ($this->proposta->getFkUsuario() != null) {
+                $restrictions[3] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
             }
 
-            if ($this->proposta->getPkproposta() != null) {
-                $restrictions[4] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkproposta());
+            if ($this->proposta->getPkProposta() != null) {
+                $restrictions[4] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkProposta());
             }
             if ($this->proposta->getData() != null) {
                 $restrictions[5] = $criteria->restrictions()->like("data", $this->proposta->getData());

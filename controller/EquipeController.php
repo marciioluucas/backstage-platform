@@ -75,10 +75,10 @@ class EquipeController
     public function listar($values = null)
     {
 
-        $this->equipe(isset($values['pk_equipe']) ? $values['pk_equipe'] : null);
-        $this->equipe(isset($values['nome']) ? $values['nome'] : null);
+        $this->equipe->setPkEquipe(isset($values['pk_equipe']) ? $values['pk_equipe'] : null);
+        $this->equipe->setNome(isset($values['nome']) ? $values['nome'] : null);
 
-        echo json_encode($this->equipe->retreaveAll());
+        echo json_encode($this->equipe->retreave());
     }
 
     public function delete($values = null)

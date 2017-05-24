@@ -24,19 +24,20 @@ class VotoController
      */
     public function __construct($args, $requestedMethod)
     {
-        $this->voto = new Voto();
+        $this->voto = new Voto($args['fk_proposta'], $args['fk_usuario']);
 
         if ($requestedMethod = 'POST') {
             $this->cadastrar();
         }
 
         if ($requestedMethod = 'GET') {
-            $this->listar();
+            if(isset($args['method']) and $args['method'] == 'contaVoto') {
+                $this->contaVoto();
+            }
+
         }
 
-        if ($requestedMethod = 'PUT') {
-            $this->alterar();
-        }
+
 
         if ($requestedMethod = 'DELETE') {
             $this->delete();
@@ -56,34 +57,6 @@ class VotoController
 
             echo $this->voto->cadastrar();
         }
-    }
-
-//aaaaa
-
-    public function alterar($values = null)
-    {
-
-        parse_str(file_get_contents('php://input'), $_PUT);
-        $values == null ? $values = $_PUT : null;
-        $this->voto->setPkVoto($values['pk_voto']);
-        $this->voto->setFkUsuario($values['fk_usuario']);
-        $this->voto->setFkProposta($values['fk_proposta']);
-        if ($this->voto->atualizar()) {
-            $r = new Message("Voto alterado com sucesso!", "sucesso", ["icone" => "check"]);
-            echo $r->geraJsonMensagem();
-
-
-        }
-    }
-
-    public function listar($values = null)
-    {
-
-        $this->voto->setPkVoto(isset($values['pk_voto']) ? $values['pk_voto'] : null);
-        $this->voto->setFkUsuario(isset($values['fk_usuario']) ? $values ['fk_usuario'] : null);
-        $this->voto->setFkProposta(isset($values['fk_proposta']) ? $values ['fk_proposta'] : null);
-
-        echo json_encode($this->voto->retreaveAll());
     }
 
     public function delete($values = null)
