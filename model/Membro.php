@@ -15,11 +15,10 @@ class Membro
 {
     private $pk_membro;
     private $atuacao;
-    private $nivel;
     private $fk_equipe;
     private $funcao;
     private $fk_usuario;
-    private $carga;
+    private $is_ocupado;
 
     /**
      * @return mixed
@@ -51,22 +50,6 @@ class Membro
     public function setAtuacao($atuacao)
     {
         $this->atuacao = $atuacao;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getNivel()
-    {
-        return $this->nivel;
-    }
-
-    /**
-     * @param mixed $nivel
-     */
-    public function setNivel($nivel)
-    {
-        $this->nivel = $nivel;
     }
 
     /**
@@ -120,17 +103,17 @@ class Membro
     /**
      * @return mixed
      */
-    public function getCarga()
+    public function getIsOcupado()
     {
-        return $this->carga;
+        return $this->is_ocupado;
     }
 
     /**
-     * @param mixed $carga
+     * @param mixed $is_ocupado
      */
-    public function setCarga($carga)
+    public function setIsOcupado($is_ocupado)
     {
-        $this->carga = $carga;
+        $this->is_ocupado = $is_ocupado;
     }
 
     //métodos do controller
@@ -147,19 +130,6 @@ class Membro
             $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
             return $msg->geraJsonMensagem();
         }
-
-        if(empty($this->getNivel())){
-            $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
-            return $msg->geraJsonMensagem();
-        }
-
-        if(empty($this->getCarga())){
-            $msg = new Message("Defina uma Carga para o membro!", "erro", ["icone" => "clear"]);
-            return $msg->geraJsonMensagem();
-        }
-
-
-
 
         $dao = new MembroDAO(($this));
         if ($dao->create()){
@@ -180,16 +150,6 @@ class Membro
 
         if(empty($this->getFuncao())){
             $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
-            return $msg->geraJsonMensagem();
-        }
-
-        if(empty($this->getNivel())){
-            $msg = new Message("Defina uma Função para o membro!", "erro", ["icone" => "clear"]);
-            return $msg->geraJsonMensagem();
-        }
-
-        if(empty($this->getCarga())){
-            $msg = new Message("Defina uma Carga para o membro!", "erro", ["icone" => "clear"]);
             return $msg->geraJsonMensagem();
         }
 

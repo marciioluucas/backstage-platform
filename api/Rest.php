@@ -1,14 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: lukee
- * Date: 5/4/17
- * Time: 8:53 PM
- */
 
 namespace backstage\api;
-
-
 use backstage\util\Message;
 
 class Rest
