@@ -42,10 +42,30 @@ class Proposta
      * Variável que armazena o balanço de votos positivos/negativos recebidos pela proposta submetida.
      * @var
      */
-    private $contagem;
+
 
 
     private $aprovado;
+
+    private $ativado;
+
+    /**
+     * @return mixed
+     */
+    public function getAtivado()
+    {
+        return $this->ativado;
+    }
+
+    /**
+     * @param mixed $ativado
+     */
+    public function setAtivado($ativado)
+    {
+        $this->ativado = $ativado;
+    }
+
+
 
     /**
      * @return mixed
@@ -76,18 +96,7 @@ class Proposta
     /**
      * @return mixed
      */
-    public function getContagem()
-    {
-        return $this->contagem;
-    }
 
-    /**
-     * @param mixed $contagem
-     */
-    public function setContagem($contagem)
-    {
-        $this->contagem = $contagem;
-    }
 
 
     /**
@@ -240,6 +249,12 @@ class Proposta
         $this->ativado = 0;
         $dao = new PropostaDAO($this);
         return $dao->update();
+    }
+
+    public function retreavePorData(){
+
+        $dao = new PropostaDAO(($this));
+        return $dao->retreavePorData();
     }
 
 
