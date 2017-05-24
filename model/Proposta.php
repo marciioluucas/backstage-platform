@@ -2,6 +2,7 @@
 namespace backstage\model;
 
 use backstage\dao\PropostaDAO;
+use backstage\dao\VotoDAO;
 use backstage\util\Message;
 
 /**
@@ -255,6 +256,12 @@ class Proposta
 
         $dao = new PropostaDAO(($this));
         return $dao->retreavePorData();
+    }
+
+
+    public function contaVoto(){
+        $dao = new VotoDAO(($this));
+        return $dao->contar();
     }
 
 
