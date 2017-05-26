@@ -115,6 +115,7 @@ class PropostaController
         if ($values != null) {
             if (isset($values['pk_proposta'])) $this->proposta->setPkProposta($values['pk_proposta']);
         }
+        echo json_encode($this->proposta->delete());
     }
 }
 

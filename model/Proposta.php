@@ -204,7 +204,7 @@ class Proposta
             return $r->geraJsonMensagem();}
         else{
             $r = new Message("Erro inesperado ao alterar Proposta", "erro",["icone" => "error"]);
-            $r->geraJsonMensagem();
+            return $r->geraJsonMensagem();
         }
     }
 
@@ -235,7 +235,7 @@ class Proposta
             return $r->geraJsonMensagem();}
         else{
             $r = new Message("Erro inesperado ao alterar Projeto", "erro",["icone" => "error"]);
-            $r->geraJsonMensagem();
+            return $r->geraJsonMensagem();
         }
     }
 
@@ -249,7 +249,7 @@ class Proposta
     {
         $this->ativado = 0;
         $dao = new PropostaDAO($this);
-        return $dao->update();
+        return $dao->delete();
     }
 
     public function retreavePorData(){

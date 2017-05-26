@@ -9,6 +9,7 @@
 namespace backstage\dao;
 
 use backstage\model\Voto;
+use backstage\util\Message;
 use phiber\Phiber;
 use backstage\model\Proposta;
 use backstage\model\Usuario;
@@ -55,42 +56,42 @@ class PropostaDAO implements IDAO
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
         $restrictions = [];
-        $restrictions[0] = $criteria->restrictions()->equals("ativado",1);
+        $restrictions[0] = $criteria->restrictions()->equals("ativado", 1);
 
-            if ($this->proposta->getTitulo() != null) {
-                $restrictions[1] = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
-            }
+        if ($this->proposta->getTitulo() != null) {
+            $restrictions[1] = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
+        }
 
-            if ($this->proposta->getAprovado() != null) {
-                $restrictions[2] = $criteria->restrictions()->like("aprovado", $this->proposta->getAprovado());
-            }
+        if ($this->proposta->getAprovado() != null) {
+            $restrictions[2] = $criteria->restrictions()->like("aprovado", $this->proposta->getAprovado());
+        }
 
-            if ($this->proposta->getFkUsuario() != null) {
-                $restrictions[3] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
-            }
+        if ($this->proposta->getFkUsuario() != null) {
+            $restrictions[3] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
+        }
 
-            if ($this->proposta->getPkProposta() != null) {
-                $restrictions[4] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkProposta());
-            }
-            if ($this->proposta->getData() != null) {
-                $restrictions[5] = $criteria->restrictions()->like("data", $this->proposta->getData());
-            }
+        if ($this->proposta->getPkProposta() != null) {
+            $restrictions[4] = $criteria->restrictions()->equals("pk_proposta", $this->proposta->getPkProposta());
+        }
+        if ($this->proposta->getData() != null) {
+            $restrictions[5] = $criteria->restrictions()->like("data", $this->proposta->getData());
+        }
 
-            $restrictions = array_values($restrictions);
-            if (count($restrictions) > 1) {
-                for ($i = 0; $i < count($restrictions) - 1; $i++) {
-                    $criteria->add($criteria->restrictions()
-                        ->and($restrictions[$i], $restrictions[$i + 1]));
-                }
-            } else {
-                if (!empty($restrictions)) {
-                    $criteria->add($restrictions[0]);
-                }
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
             }
-            $criteria->returnArray(true);
-            $r = $criteria->select();
+        } else {
+            if (!empty($restrictions)) {
+                $criteria->add($restrictions[0]);
+            }
+        }
+        $criteria->returnArray(true);
+        $r = $criteria->select();
 
-            return $r;
+        return $r;
 
     }
 
@@ -107,14 +108,14 @@ class PropostaDAO implements IDAO
     {
         $restrictions = [];
         $selects = [];
-        for ($a = 1; $a == 7; $a++){
+        for ($a = 1; $a == 7; $a++) {
             $phiber = new Phiber();
             $criteria = $phiber->openPersist($this->proposta);
             $criteria->returnArray(true);
 
 
-            $mes = date('m', strtotime('-'.$a.'month'));
-            $restrictions[$a-1] = $criteria->restrictions()->equals("data", $mes);
+            $mes = date('m', strtotime('-' . $a . 'month'));
+            $restrictions[$a - 1] = $criteria->restrictions()->equals("data", $mes);
 
             $restrictions = array_values($restrictions);
             if (count($restrictions) > 1) {
@@ -133,7 +134,19 @@ class PropostaDAO implements IDAO
         return $selects;
     }
 
+    public function delete()
+    {
 
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->proposta);
+        $restrictionsID = $criteria->restrictions()->equals('pk_proposta', $this->proposta->getPkProposta());
+        $criteria->add($restrictionsID);
+        if ($this->proposta->setAprovado("'0'")){
+        return true;
+    }
+        return false;
+
+    }
 
 
 }
