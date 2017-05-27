@@ -57,6 +57,7 @@ class MembroController
             if (isset($values['fk_usuario'])) $this->membro->setFkUsuario($values['fk_usuario']);
             if (isset($values['atuacao'])) $this->membro->setAtuacao($values['atuacao']);
             if (isset($values['funcao'])) $this->membro->setFuncao($values['funcao']);
+            if (isset($values['ativado'])) $this->membro->setAtivado($values['ativado']);
 
 
             echo $this->membro->cadastrar();
@@ -77,6 +78,7 @@ class MembroController
         $this->membro->setFkUsuario($values['fk_usuario']);
         $this->membro->setAtuacao($values['atuacao']);
         $this->membro->setFuncao($values['funcao']);
+        $this->membro->setAtivado($values['ativado']);
         if ($this->membro->atualizar()) {
             $r = new Message("Membro Alterado com Sucesso!", "sucesso", ["icone" => "check"]);
             echo $r->geraJsonMensagem();
@@ -93,6 +95,7 @@ class MembroController
         $this->membro->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
         $this->membro->setAtuacao(isset($values['atuacao']) ? $values['atuacao'] : null);
         $this->membro->setFuncao(isset($values['funcao']) ? $values['funcao'] : null);
+        $this->membro->setAtivado(isset($values['ativado']) ? $values['ativado'] : null);
 
 
         echo json_encode($this->membro->retreaveAll());

@@ -47,6 +47,9 @@ class MembroDAO implements IDAO
         if ($this->membro->getFkUsuario()) {
             $restrictions[0] = $criteria->restrictions()->equals("fk_usuario", $this->membro->getFkUsuario());
         }
+        if ($this->membro->getAtivado()) {
+            $restrictions[1] = $criteria->restrictions()->equals("ativado", $this->membro->getAtivado());
+        }
 
 
         $restrictions = array_values($restrictions);
