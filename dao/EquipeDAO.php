@@ -51,6 +51,12 @@ class EquipeDAO implements IDAO
 
         }
 
+        if ($this->equipe->getAtivado() != null) {
+            $restrictions[3] = $criteria->restrictions()
+                ->equals("pk_equipe", $this->equipe->getAtivado());
+
+        }
+
         $restrictions = array_values($restrictions);
         if (count($restrictions) > 1) {
             for ($i = 0; $i < count($restrictions) - 1; $i++) {

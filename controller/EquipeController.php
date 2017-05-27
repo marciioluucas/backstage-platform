@@ -54,6 +54,7 @@ class EquipeController
         if ($values != null) {
             if (isset($values['pk_equipe'])) $this->equipe->setPkEquipe($values['pk_equipe']);
             if (isset($values['nome'])) $this->equipe->setNome($values['nome']);
+            if (isset($values['ativado'])) $this->equipe->setAtivado($values['ativado']);
 
             echo $this->equipe->cadastrar();
         }
@@ -66,6 +67,7 @@ class EquipeController
 
         $this->equipe->setPkEquipe($values['pk_equipe']);
         $this->equipe->setNome($values['nome']);
+        $this->equipe->setAtivado($values['ativado']);
         if ($this->equipe->atualizar()) {
             $r = new Message("Equipe alterada com sucesso!", "sucesso", ["icone" => "check"]);
             echo $r->geraJsonMensagem();
@@ -77,6 +79,7 @@ class EquipeController
 
         $this->equipe->setPkEquipe(isset($values['pk_equipe']) ? $values['pk_equipe'] : null);
         $this->equipe->setNome(isset($values['nome']) ? $values['nome'] : null);
+        $this->equipe->setAtivado(isset($values['ativado']) ? $values['ativado'] : null);
 
         echo json_encode($this->equipe->retreave());
     }
