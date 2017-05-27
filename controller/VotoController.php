@@ -65,7 +65,12 @@ class VotoController
 
     public function delete($values = null)
     {
-        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+        parse_str(file_get_contents('php://input'), $_DELETE);
+        $values == null ? $values = $_DELETE : null;
+        if ($values != null) {
+            if (isset($values['pk_voto'])) $this->voto->setPkVoto($values['pk_voto']);
+        }
+        echo $this->voto->delete();
     }
 
 

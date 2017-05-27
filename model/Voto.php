@@ -130,5 +130,11 @@ class Voto
         return ["contagem" => $dao->contar()];
     }
 
+    public function delete()
+    {
+        $this->ativado = 0;
+        $dao = new VotoDAO($this);
+        return $dao->update();
+    }
 
 }
