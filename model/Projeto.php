@@ -113,7 +113,7 @@ class Projeto
     }
 
     public function atualizar(){
-        $dao = new ProjetoDAO(($this));
+        $dao = new PropostaDAO(($this));
         if ($dao->update()){
             $r = new Message("Projeto Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
             return $r->geraJsonMensagem();}
@@ -124,14 +124,19 @@ class Projeto
     }
 
     public function retreaveAll(){
-        $dao = new ProjetoDAO(($this));
+        $dao = new PropostaDAO(($this));
         return $dao->retreave();
+    }
+
+    public function listaAprovados(){
+        $dao = new PropostaDAO(($this));
+        return $dao->retreaveCondicaoCadastrar('ativado', "1");
     }
 
     public function delete()
     {
         $this->ativado = 0;
-        $dao = new ProjetoDAO($this);
+        $dao = new PropostaDAO($this);
         return $dao->update();
     }
 

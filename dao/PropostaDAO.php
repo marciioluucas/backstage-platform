@@ -95,6 +95,8 @@ class PropostaDAO implements IDAO
 
     }
 
+
+
     function retreaveCondicaoCadastrar($campo, $campoValor)
     {
         $phiber = new Phiber();
