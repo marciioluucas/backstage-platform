@@ -86,6 +86,11 @@ class EquipeController
 
     public function delete($values = null)
     {
-        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+        parse_str(file_get_contents('php://input'), $_DELETE);
+        $values == null ? $values = $_DELETE : null;
+        if ($values != null) {
+            if (isset($values['pk_equipe'])) $this->equipe->setPkEquipe($values['pk_equipe']);
+        }
+        echo $this->equipe->delete();
     }
 }

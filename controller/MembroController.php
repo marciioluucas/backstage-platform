@@ -103,7 +103,12 @@ class MembroController
 
     public function delete($values = null)
     {
-        echo "DELETE = PARAMS >>>>" . $_GET['pk_proposta'];
+        parse_str(file_get_contents('php://input'), $_DELETE);
+        $values == null ? $values = $_DELETE : null;
+        if ($values != null) {
+            if (isset($values['pk_membro'])) $this->membro->setPkMembro($values['pk_membro']);
+        }
+        echo $this->membro->delete();
     }
 
 }
