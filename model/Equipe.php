@@ -3,6 +3,7 @@ namespace backstage\model;
 
 use backstage\dao\EquipeDAO;
 use backstage\util\Message;
+use backstage\model\Proposta;
 
 /**
  * Created by PhpStorm.
@@ -83,8 +84,13 @@ class Equipe
 
         $dao = new EquipeDAO(($this));
         if ($dao->create()){
-            $r = new Message("Equipe cadastrada com sucesso!", "Sucesso", ["icone" => "check"]);
-            return $r->geraJsonMensagem();}
+            $r = new Message("Equipe cadastrada com sucesso para o Projeto!", "Sucesso", ["icone" => "check"]);
+
+            $proposta = new Proposta();
+            $proposta->aprovar();
+
+            return $r->geraJsonMensagem();
+        }
         else{
             $r = new Message("Erro inesperado ao alterar Equipe", "erro",["icone" => "error"]);
             return $r->geraJsonMensagem();

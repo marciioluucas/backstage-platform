@@ -44,6 +44,7 @@ class Proposta
      * @var
      */
 
+    private $fk_equipe;
 
     private $aprovado;
 
@@ -261,6 +262,29 @@ class Proposta
         $dao = new Voto($this->fk_usuario, $this->pk_proposta);
         return $dao->contar();
     }
+
+    public function aprovar(){
+        $this->setAprovado("'1'");
+        $dao = new PropostaDAO(($this));
+        $rSuccess = new Message(
+            "Projeto iniciado com sucesso!",
+            "sucesso",
+            ["icone" => "check"]
+        );
+        $rFailure = new Message(
+            "Ocorreu um erro ao tentar Aprovar projeto..",
+            "erro",
+            ["icone" => "error"]
+        );
+        $return = $rFailure;
+        if ($dao->update()) {
+            $return = $rSuccess;
+
+        }
+        return $return->geraJsonMensagem();
+
+    }
+
 
 
 }

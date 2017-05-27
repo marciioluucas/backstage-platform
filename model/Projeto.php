@@ -2,6 +2,7 @@
 namespace backstage\model;
 
 use backstage\dao\ProjetoDAO;
+use backstage\dao\PropostaDAO;
 use backstage\util\Message;
 
 /**
@@ -100,7 +101,7 @@ class Projeto
     //métodos do controller
 
     public function cadastrar(){
-        $dao = new ProjetoDAO(($this));
+        $dao = new PropostaDAO(($this));
         if ($dao->create()){
             $r = new Message("Projeto cadastrado com sucesso!", "Sucesso", ["icone" => "check"]);
             return $r->geraJsonMensagem();}
