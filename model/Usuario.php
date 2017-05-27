@@ -21,6 +21,23 @@ class Usuario
     private $email;
     private $ativado;
     private $senha;
+    private $nivel;
+
+    /**
+     * @return mixed
+     */
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    /**
+     * @param mixed $nivel
+     */
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+    }
 
     /**
      * @return mixed

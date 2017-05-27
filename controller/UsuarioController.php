@@ -72,6 +72,7 @@ class UsuarioController
             if(isset($values['email'])) $this->usuario->setEmail($values['email']);
             if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if(isset($values['nome'])) $this->usuario->setNome($values['nome']);
+            if(isset($values['nivel'])) $this->usuario->setNivel($values['nivel']);
             if(isset($values['matricula'])) $this->usuario->setMatricula($values['matricula']);
 //            echo $values['email'];
             echo $this->usuario->cadastrar();
@@ -89,6 +90,7 @@ class UsuarioController
             if (isset($values['email'])) $this->usuario->setEmail($values['email']);
             if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if (isset($values['nome'])) $this->usuario->setNome($values['nome']);
+            if (isset($values['nivel'])) $this->usuario->setNivel($values['nivel']);
             if (isset($values['matricula'])) $this->usuario->setMatricula($values['matricula']);
             echo $this->usuario->atualizar();
         }
@@ -112,6 +114,7 @@ class UsuarioController
         $this->usuario->setEmail(isset($values['email']) ? $values['email'] : null);
         $this->usuario->setNome(isset($values['nome']) ? $values['nome'] : null);
         $this->usuario->setMatricula(isset($values['matricula']) ? $values['matricula'] : null);
+        $this->usuario->setNivel(isset($values['nivel']) ? $values['nivel'] : null);
         echo json_encode($this->usuario->retreave());
     }
 
