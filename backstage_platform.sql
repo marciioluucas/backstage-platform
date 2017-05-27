@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 26-Maio-2017 às 18:57
+-- Generation Time: 27-Maio-2017 às 19:24
 -- Versão do servidor: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
@@ -28,7 +28,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `equipe` (
   `pk_equipe` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL
+  `nome` varchar(255) NOT NULL,
+  `ativado` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -42,7 +43,8 @@ CREATE TABLE `membro` (
   `fk_equipe` int(11) NOT NULL,
   `funcao` varchar(50) NOT NULL,
   `fk_usuario` int(20) NOT NULL,
-  `is_ocupado` tinyint(4) NOT NULL DEFAULT '0'
+  `is_ocupado` tinyint(4) NOT NULL DEFAULT '0',
+  `ativado` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -54,7 +56,8 @@ CREATE TABLE `membro` (
 CREATE TABLE `projeto` (
   `fk_equipe` int(11) NOT NULL,
   `fk_proposta` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0'
+  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `ativado` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -97,7 +100,8 @@ CREATE TABLE `usuario` (
 CREATE TABLE `voto` (
   `pk_voto` int(11) NOT NULL,
   `fk_usuario` int(20) NOT NULL,
-  `fk_proposta` int(11) NOT NULL
+  `fk_proposta` int(11) NOT NULL,
+  `ativado` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
