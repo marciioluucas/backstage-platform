@@ -32,6 +32,8 @@ class Voto
      */
     private $fk_proposta;
 
+    private $ativado;
+
     /**
      * Voto constructor.
      * @param $fk_usuario
@@ -43,8 +45,21 @@ class Voto
         $this->fk_proposta = $fk_proposta;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getAtivado()
+    {
+        return $this->ativado;
+    }
 
-
+    /**
+     * @param mixed $ativado
+     */
+    public function setAtivado($ativado)
+    {
+        $this->ativado = $ativado;
+    }
 
     /**
      * @return mixed

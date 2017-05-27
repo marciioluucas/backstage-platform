@@ -45,7 +45,6 @@ class Proposta
      */
 
 
-
     private $aprovado;
 
     private $ativado;
@@ -67,7 +66,6 @@ class Proposta
     }
 
 
-
     /**
      * @return mixed
      */
@@ -85,7 +83,6 @@ class Proposta
     }
 
 
-
     /**
      * @return mixed
      */
@@ -97,7 +94,6 @@ class Proposta
     /**
      * @return mixed
      */
-
 
 
     /**
@@ -199,11 +195,11 @@ class Proposta
 
         $dao = new PropostaDAO(($this));
 
-        if ($dao->create()){
+        if ($dao->create()) {
             $r = new Message("Proposta Criada com sucesso!", "Sucesso", ["icone" => "check"]);
-            return $r->geraJsonMensagem();}
-        else{
-            $r = new Message("Erro inesperado ao alterar Proposta", "erro",["icone" => "error"]);
+            return $r->geraJsonMensagem();
+        } else {
+            $r = new Message("Erro inesperado ao alterar Proposta", "erro", ["icone" => "error"]);
             return $r->geraJsonMensagem();
         }
     }
@@ -230,11 +226,11 @@ class Proposta
 
 
         $dao = new PropostaDAO(($this));
-        if ($dao->update()){
+        if ($dao->update()) {
             $r = new Message("Projeto Alterado com sucesso!", "Sucesso", ["icone" => "check"]);
-            return $r->geraJsonMensagem();}
-        else{
-            $r = new Message("Erro inesperado ao alterar Projeto", "erro",["icone" => "error"]);
+            return $r->geraJsonMensagem();
+        } else {
+            $r = new Message("Erro inesperado ao alterar Projeto", "erro", ["icone" => "error"]);
             return $r->geraJsonMensagem();
         }
     }
@@ -252,15 +248,17 @@ class Proposta
         return $dao->delete();
     }
 
-    public function retreavePorData(){
+    public function retreavePorData()
+    {
 
         $dao = new PropostaDAO(($this));
         return $dao->retreavePorData();
     }
 
 
-    public function contaVoto(){
-        $dao = new Voto($this->fk_usuario,$this->pk_proposta);
+    public function contaVoto()
+    {
+        $dao = new Voto($this->fk_usuario, $this->pk_proposta);
         return $dao->contar();
     }
 

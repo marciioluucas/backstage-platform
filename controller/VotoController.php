@@ -57,6 +57,7 @@ class VotoController
             if (isset($values['pk_voto'])) $this->voto->setPkVoto($values['pk_voto']);
             if (isset($values['fk_usuario'])) $this->voto->setFkUsuario($values['fk_usuario']);
             if (isset($values['fk_proposta'])) $this->voto->setFkProposta($values['fk_proposta']);
+            if (isset($values['ativado'])) $this->voto->setAtivado($values['ativado']);
 
             echo $this->voto->cadastrar();
         }
