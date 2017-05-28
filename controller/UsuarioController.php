@@ -68,7 +68,6 @@ class UsuarioController
     {
         $values == null ? $values = $_POST : null;
         if ($values != null) {
-            if(isset($values['login'])) $this->usuario->setLogin($values['login']);
             if(isset($values['email'])) $this->usuario->setEmail($values['email']);
             if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if(isset($values['nome'])) $this->usuario->setNome($values['nome']);
@@ -110,7 +109,6 @@ class UsuarioController
     {
 
         $this->usuario->setPkUsuario(isset($values['pk_usuario']) ? $values['pk_usuario'] : null);
-        $this->usuario->setLogin(isset($values['login']) ? $values['login'] : null);
         $this->usuario->setEmail(isset($values['email']) ? $values['email'] : null);
         $this->usuario->setNome(isset($values['nome']) ? $values['nome'] : null);
         $this->usuario->setMatricula(isset($values['matricula']) ? $values['matricula'] : null);

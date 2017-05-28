@@ -25,7 +25,7 @@ class VotoController
     public function __construct($args, $requestedMethod)
     {
         $this->voto = new Voto($args['fk_proposta']);
-        if(isset($args['fk_usuario'])){
+        if(isset($args['fk_usuario'])) {
             $this->voto = new Voto($args['fk_proposta'], $args['fk_usuario']);
         }
 

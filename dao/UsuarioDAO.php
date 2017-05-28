@@ -63,10 +63,6 @@ class UsuarioDAO implements IDAO
             $restrictions[4] = $criteria->restrictions()
                 ->like("matricula", $this->usuario->getMatricula());
         }
-        if ($this->usuario->getLogin() != null) {
-            $restrictions[5] = $criteria->restrictions()
-                ->like("login", $this->usuario->getLogin());
-        }
 
         if ($this->usuario->getNivel() != null) {
             $restrictions[6] = $criteria->restrictions()
@@ -95,14 +91,14 @@ class UsuarioDAO implements IDAO
 
     }
 
-    function retreaveCondicaoLoginExistenteCadastrar()
+    function retreaveCondicaoMatriculaExistenteCadastrar()
     {
 
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
 
         $restriction = $criteria->restrictions()
-            ->equals("login", $this->usuario->getLogin());
+            ->equals("matricula", $this->usuario->getMatricula());
 
         $criteria->add($restriction);
         return $criteria->select();
@@ -129,14 +125,14 @@ class UsuarioDAO implements IDAO
         return $criteria->select();
     }
 
-    function retreaveCondicaoLoginExistenteAlterar()
+    function retreaveCondicaoMatriculaExistenteAlterar()
     {
 
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
 
         $restriction1 = $criteria->restrictions()
-            ->equals("login", $this->usuario->getLogin());
+            ->equals("matricula", $this->usuario->getMatricula());
 
         $restriction2 = $criteria->restrictions()
             ->different("pk_usuario", $this->usuario->getPkUsuario());
@@ -153,7 +149,7 @@ class UsuarioDAO implements IDAO
         $criteria = $phiber->openPersist($this->usuario);
 
         $restriction1 = $criteria->restrictions()
-            ->equals("email", $this->usuario->getLogin());
+            ->equals("email", $this->usuario->getEmail());
 
         $restriction2 = $criteria->restrictions()
             ->different("pk_usuario", $this->usuario->getPkUsuario());

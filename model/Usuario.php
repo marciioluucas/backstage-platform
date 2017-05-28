@@ -17,7 +17,6 @@ class Usuario
     private $pk_usuario;
     private $nome;
     private $matricula;
-    private $login;
     private $email;
     private $ativado;
     private $senha;
@@ -87,21 +86,6 @@ class Usuario
         $this->matricula = $matricula;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLogin()
-    {
-        return $this->login;
-    }
-
-    /**
-     * @param mixed $login
-     */
-    public function setLogin($login)
-    {
-        $this->login = $login;
-    }
 
     /**
      * @return mixed
@@ -171,10 +155,6 @@ class Usuario
             return $msg->geraJsonMensagem();
         }
 
-        if (empty($this->getLogin())) {
-            $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "error"]);
-            return $msg->geraJsonMensagem();
-        }
         if (empty($this->getMatricula())) {
             $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
@@ -182,8 +162,8 @@ class Usuario
 
         $dao = new UsuarioDAO($this);
 
-        if (count($dao->retreaveCondicaoLoginExistenteCadastrar()) != 0) {
-            $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
+        if (count($dao->retreaveCondicaoMatriculaExistenteCadastrar()) != 0) {
+            $msg = new Message("Matrícula já utilizada, tente utilizar outra.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
         $dao2 = new UsuarioDAO($this);
@@ -230,18 +210,14 @@ class Usuario
             return $msg->geraJsonMensagem();
         }
 
-        if (empty($this->getLogin())) {
-            $msg = new Message("Login deve ser preenchida", "erro", ["icone" => "error"]);
-            return $msg->geraJsonMensagem();
-        }
         if (empty($this->getMatricula())) {
             $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
 //
         $dao = new UsuarioDAO($this);
-        if (count($dao->retreaveCondicaoLoginExistenteAlterar()) > 0) {
-            $msg = new Message("Login já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
+        if (count($dao->retreaveCondicaoMatriculaExistenteAlterar()) > 0) {
+            $msg = new Message("Matrícula já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
         $dao2 = new UsuarioDAO($this);
