@@ -107,6 +107,11 @@ class PropostaController
         echo json_encode($this->proposta->retreavePorData());
     }
 
+    public function retreavePorUsuario()
+    {
+        echo json_encode($this->proposta->retreavePorUsuario());
+    }
+
 
 
     public function delete($values = null)

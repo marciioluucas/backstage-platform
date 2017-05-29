@@ -106,6 +106,33 @@ class PropostaDAO implements IDAO
         return $criteria->select();
     }
 
+    function retreavePorUsuario(){
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->proposta);
+        $restrictions = [];
+        $restrictions[0] = $criteria->restrictions()->equals("ativado", 1);
+
+        if($this->proposta->getFkUsuario() != null) {
+            $restrictions[1] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
+        }
+
+        $restrictions = array_values($restrictions);
+        if (count($restrictions) > 1) {
+            for ($i = 0; $i < count($restrictions) - 1; $i++) {
+                $criteria->add($criteria->restrictions()
+                    ->and($restrictions[$i], $restrictions[$i + 1]));
+            }
+        } else {
+            if (!empty($restrictions)) {
+                $criteria->add($restrictions[0]);
+            }
+        }
+        $criteria->returnArray(true);
+        $r = $criteria->select();
+
+        return $r;
+    }
+
     function retreavePorData()
     {
         $restrictions = [];

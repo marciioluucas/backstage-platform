@@ -256,6 +256,11 @@ class Proposta
         return $dao->retreavePorData();
     }
 
+    public function retreavePorUsuario(){
+        $dao = new PropostaDAO(($this));
+        return $dao->retreavePorUsuario();
+    }
+
 
     public function contaVoto()
     {
