@@ -96,14 +96,21 @@ class PropostaDAO implements IDAO
     }
 
 
-
-    function retreaveCondicaoCadastrar($campo, $campoValor)
-    {
+    function retreavePorTitulo(){
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
-        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
-        $criteria->add($restriction);
+        $restrictions[0] = $criteria->restrictions()->like("titulo",$this->proposta->getTitulo());
+        $criteria->add($restrictions);
         return $criteria->select();
+    }
+
+    function retreaveCondicaoCadastrar($campo, $campoValor)
+        {
+            $phiber = new Phiber();
+            $criteria = $phiber->openPersist($this->proposta);
+            $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+            $criteria->add($restriction);
+            return $criteria->select();
     }
 
     function retreavePorUsuario(){
