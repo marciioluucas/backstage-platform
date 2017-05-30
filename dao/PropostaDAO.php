@@ -13,6 +13,8 @@ use backstage\util\Message;
 use phiber\Phiber;
 use backstage\model\Proposta;
 use backstage\model\Usuario;
+use backstage\dao\VotoDAO;
+
 
 class PropostaDAO implements IDAO
 {
@@ -96,30 +98,32 @@ class PropostaDAO implements IDAO
     }
 
 
-    function retreavePorTitulo(){
+    function retreavePorTitulo()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
-        $restrictions[0] = $criteria->restrictions()->like("titulo",$this->proposta->getTitulo());
+        $restrictions = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
         $criteria->add($restrictions);
         return $criteria->select();
     }
 
     function retreaveCondicaoCadastrar($campo, $campoValor)
-        {
-            $phiber = new Phiber();
-            $criteria = $phiber->openPersist($this->proposta);
-            $restriction = $criteria->restrictions()->equals($campo, $campoValor);
-            $criteria->add($restriction);
-            return $criteria->select();
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->proposta);
+        $restriction = $criteria->restrictions()->equals($campo, $campoValor);
+        $criteria->add($restriction);
+        return $criteria->select();
     }
 
-    function retreavePorUsuario(){
+    function retreavePorUsuario()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->proposta);
         $restrictions = [];
         $restrictions[0] = $criteria->restrictions()->equals("ativado", 1);
 
-        if($this->proposta->getFkUsuario() != null) {
+        if ($this->proposta->getFkUsuario() != null) {
             $restrictions[1] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
         }
 
@@ -170,6 +174,26 @@ class PropostaDAO implements IDAO
         return $selects;
     }
 
+    public function listarPorVoto()
+    {
+        $this->proposta->setAtivado(1);
+        $selectPropostas = $this->retreave();
+        $propostasComVotos = [];
+        $cont = [];
+        for ($i = 0; $i < count($selectPropostas); $i++) {
+            $voto = new Voto($selectPropostas[$i]['pk_proposta']);
+            $propostasComVotos[$i] = $selectPropostas[$i];
+            $propostasComVotos[$i]['contagem'] .= $voto->contar();
+        }
+
+        arsort($propostasComVotos);
+        $propostasFinal = [];
+        for ($j = 0; $j < 10; $j++) {
+            $propostasFinal[$j] = $propostasComVotos[$j];
+        }
+        return $propostasFinal;
+    }
+
     public function delete()
     {
 
@@ -177,9 +201,9 @@ class PropostaDAO implements IDAO
         $criteria = $phiber->openPersist($this->proposta);
         $restrictionsID = $criteria->restrictions()->equals('pk_proposta', $this->proposta->getPkProposta());
         $criteria->add($restrictionsID);
-        if ($this->proposta->setAprovado("'0'")){
-        return true;
-    }
+        if ($this->proposta->setAprovado("'0'")) {
+            return true;
+        }
         return false;
 
     }

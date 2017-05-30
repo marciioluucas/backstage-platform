@@ -272,6 +272,11 @@ class Proposta
         return $dao->contar();
     }
 
+    public function listarPorVoto(){
+        $dao = new PropostaDAO(($this));
+        return $dao->listarPorVoto();
+    }
+
     public function aprovar(){
         $this->setAprovado("'1'");
         $dao = new PropostaDAO(($this));
