@@ -139,9 +139,19 @@ class PropostaDAO implements IDAO
             }
         }
         $criteria->returnArray(true);
-        $r = $criteria->select();
+        $selectPropostas = $criteria->select();
 
-        return $r;
+        $propostasFinal = [];
+        $cont = [];
+        for ($i = 0; $i < count($selectPropostas); $i++) {
+            $voto = new Voto($selectPropostas[$i]['pk_proposta']);
+            $usuario = new Usuario();
+            $usuario->setPkUsuario($selectPropostas[$i]['fk_usuario']);
+            $propostasFinal[$i] = $selectPropostas[$i];
+            $propostasFinal[$i]['contagem'] = $voto->contar();
+            $propostasFinal[$i]['autor'] = $usuario->retreaveByPk();
+        }
+        return $propostasFinal;
     }
 
     function retreavePorData()
@@ -182,8 +192,11 @@ class PropostaDAO implements IDAO
         $cont = [];
         for ($i = 0; $i < count($selectPropostas); $i++) {
             $voto = new Voto($selectPropostas[$i]['pk_proposta']);
+            $usuario = new Usuario();
+            $usuario->setPkUsuario($selectPropostas[$i]['fk_usuario']);
             $propostasComVotos[$i] = $selectPropostas[$i];
             $propostasComVotos[$i]['contagem'] = $voto->contar();
+            $propostasComVotos[$i]['usuario'] = $usuario->retreaveByPk();
         }
 
 //        arsort($propostasComVotos);

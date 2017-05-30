@@ -103,6 +103,18 @@ class UsuarioDAO implements IDAO
         $criteria->add($restriction);
         return $criteria->select();
     }
+function retreaveByPk()
+    {
+
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+
+        $restriction = $criteria->restrictions()
+            ->equals("pk_usuario", $this->usuario->getPkUsuario());
+
+        $criteria->add($restriction);
+        return $criteria->select();
+    }
 
     function retreaveParaAlterar() {
         $phiber = new Phiber();

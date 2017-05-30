@@ -59,7 +59,6 @@ class PropostaController
         $values == null ? $values = $_POST : null;
         if ($values != null) {
             if (isset($values['titulo'])) $this->proposta->setTitulo($values['titulo']);
-            $this->proposta->setData(date('Y-M-D'));
             if (isset($values['descricao'])) $this->proposta->setDescricao($values['descricao']);
             if (isset($values['fk_usuario'])) $this->proposta->setFkUsuario($values['fk_usuario']);
 

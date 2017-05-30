@@ -249,6 +249,11 @@ class Usuario
         return $dao->retreave();
     }
 
+    public function retreaveByPk() {
+        $dao = new UsuarioDAO($this);
+        return $dao->retreaveByPk();
+    }
+
     public function delete()
     {
         $this->ativado = "'0'";

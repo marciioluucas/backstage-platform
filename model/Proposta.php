@@ -1,4 +1,5 @@
 <?php
+
 namespace backstage\model;
 
 use backstage\dao\PropostaDAO;
@@ -174,7 +175,7 @@ class Proposta
 
     public function cadastrar()
     {
-
+        $this->data = date('Y-m-d');
 
         if (empty($this->getTitulo())) {
             $msg = new Message("Preencha um Título para sua proposta!", "erro", ["icone" => "clean"]);
@@ -256,12 +257,14 @@ class Proposta
         return $dao->retreavePorData();
     }
 
-    public function retreavePorUsuario(){
+    public function retreavePorUsuario()
+    {
         $dao = new PropostaDAO(($this));
         return $dao->retreavePorUsuario();
     }
 
-    public function retreavePorTitulo(){
+    public function retreavePorTitulo()
+    {
         $dao = new PropostaDAO(($this));
         return $dao->retreavePorTitulo();
     }
@@ -272,12 +275,14 @@ class Proposta
         return $dao->contar();
     }
 
-    public function listarPorVoto(){
+    public function listarPorVoto()
+    {
         $dao = new PropostaDAO(($this));
         return $dao->listarPorVoto();
     }
 
-    public function aprovar(){
+    public function aprovar()
+    {
         $this->setAprovado("'1'");
         $dao = new PropostaDAO(($this));
         $rSuccess = new Message(
@@ -298,7 +303,6 @@ class Proposta
         return $return->geraJsonMensagem();
 
     }
-
 
 
 }
