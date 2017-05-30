@@ -183,15 +183,15 @@ class PropostaDAO implements IDAO
         for ($i = 0; $i < count($selectPropostas); $i++) {
             $voto = new Voto($selectPropostas[$i]['pk_proposta']);
             $propostasComVotos[$i] = $selectPropostas[$i];
-            $propostasComVotos[$i]['contagem'] .= $voto->contar();
+            $propostasComVotos[$i]['contagem'] = $voto->contar();
         }
 
-        arsort($propostasComVotos);
-        $propostasFinal = [];
-        for ($j = 0; $j < 10; $j++) {
-            $propostasFinal[$j] = $propostasComVotos[$j];
-        }
-        return $propostasFinal;
+//        arsort($propostasComVotos);
+//        $propostasFinal = [];
+//        for ($j = 0; $j < 10; $j++) {
+//            $propostasFinal[$j] = $propostasComVotos[$j];
+//        }
+        return $propostasComVotos;
     }
 
     public function delete()

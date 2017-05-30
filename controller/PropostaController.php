@@ -39,7 +39,13 @@ class PropostaController
         }
 
         if ($requestmethod == 'GET') {
-            $this->listar($args);
+
+            if($args['method'] == "listarPorVoto"){
+                $this->listaPorVoto();
+            }
+            if(!isset($args['method'])){
+                $this->listar($args);
+            }
         }
 
         if ($requestmethod == 'DELETE') {
@@ -53,11 +59,9 @@ class PropostaController
         $values == null ? $values = $_POST : null;
         if ($values != null) {
             if (isset($values['titulo'])) $this->proposta->setTitulo($values['titulo']);
-            if (isset($values['data'])) $this->proposta->setData($values['data']);
-            if (isset($values['aprovado'])) $this->proposta->setAprovado($values['aprovado']);
+            $this->proposta->setData(date('Y-M-D'));
             if (isset($values['descricao'])) $this->proposta->setDescricao($values['descricao']);
             if (isset($values['fk_usuario'])) $this->proposta->setFkUsuario($values['fk_usuario']);
-            if (isset($values['pk_proposta'])) $this->proposta->setPkProposta($values['pk_proposta']);
 
             echo $this->proposta->cadastrar();
         }
@@ -101,13 +105,6 @@ class PropostaController
     }
 
     public function listaPorVoto(){
-        $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
-        $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
-        $this->proposta->setAprovado(isset($values['aprovado']) ? $values['aprovado'] : null);
-        $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
-        $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
-        $this->proposta->setPkProposta(isset($values['pk_proposta']) ? $values['pk_proposta'] : null);
-
         echo json_encode($this->proposta->listarPorVoto());
 
     }

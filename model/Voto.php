@@ -127,7 +127,7 @@ class Voto
 
     public function contar() {
         $dao = new VotoDAO($this);
-        return ["contagem" => $dao->contar()];
+        return $dao->contar();
     }
 
     public function delete()
