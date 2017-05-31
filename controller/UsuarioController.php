@@ -122,10 +122,10 @@ class UsuarioController
     }
 
     public function logar() {
-            if(isset($_POST['email'])) $this->usuario->setEmail($_POST['email']);
-            if(isset($_POST['senha'])) $this->usuario->setSenha($_POST['senha']);
-            if(isset($_POST['matricula'])) $this->usuario->setMatricula($_POST['matricula']);
-            echo json_encode($this->usuario->logar());
+        echo json_encode($_POST);
+//            if(isset($_POST['email'])) $this->usuario->setEmail($_POST['email']);
+//            if(isset($_POST['senha'])) $this->usuario->setSenha($_POST['senha']);
+//            echo json_encode($this->usuario->logar());
     }
 
     public function retreaveGraphUsuarioAtivo(){

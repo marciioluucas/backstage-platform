@@ -138,6 +138,9 @@ class Usuario
     }
 
 
+
+
+
     public function cadastrar()
     {
 
@@ -272,20 +275,19 @@ class Usuario
     {
         $dao = new UsuarioDAO($this);
         $dao2 = new UsuarioDAO($this);
+        $select = "";
         if ($dao->logar()) {
             if (!empty($this->email)) {
-                $dao2->retreaveBy("email", $this->email);
+                $select = $dao2->retreaveBy("email", $this->email);
             }
-            if (!empty($this->matricula) and empty($this->email)) {
-                $dao2->retreaveBy("matricula", $this->matricula);
-            }
+
             $jwt = JWTWrapper::encode([
                 'expiracao' => 15,
                 'dominio' => 'localhost',
                 'dados' => [
-                    'pk_usuario' => $this->pk_usuario,
-                    'nome' => $this->nome,
-                    'nivel' => $this->nivel
+                    'pk_usuario' => $select['pk_usuario'],
+                    'nome' => $select['nome'],
+                    'nivel' => $select['nivel']
                 ]
             ]);
             return

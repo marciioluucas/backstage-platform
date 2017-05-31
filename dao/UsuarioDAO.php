@@ -84,7 +84,7 @@ class UsuarioDAO implements IDAO
 
         $criteria->returnArray(true);
         $slct = $criteria->select();
-        if($criteria->rowCount() == 1) {
+        if ($criteria->rowCount() == 1) {
             return [$slct];
         }
         return $slct;
@@ -103,7 +103,8 @@ class UsuarioDAO implements IDAO
         $criteria->add($restriction);
         return $criteria->select();
     }
-function retreaveByPk()
+
+    function retreaveByPk()
     {
 
         $phiber = new Phiber();
@@ -129,7 +130,8 @@ function retreaveByPk()
         return $criteria->select();
     }
 
-    function retreaveParaAlterar() {
+    function retreaveParaAlterar()
+    {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
 
@@ -205,20 +207,13 @@ function retreaveByPk()
         $restriction = "";
 
 
-
         $restrictionSenha = $criteria->restrictions()
             ->equals("senha", $this->usuario->getSenha());
 
-        if(!empty($this->usuario->getMatricula()) and empty($this->usuario->getEmail())){
-            $restriction = $criteria->restrictions()
-                ->equals("matricula", $this->usuario->getMatricula());
 
-        }
+        $restriction = $criteria->restrictions()
+            ->equals("email", $this->usuario->getEmail());
 
-        if(!empty($this->usuario->getEmail()) and empty($this->usuario->getMatricula())){
-            $restriction = $criteria->restrictions()
-                ->equals("email", $this->usuario->getEmail());
-        }
 
         $cond = $criteria->restrictions()->and($restriction, $restrictionSenha);
 
@@ -243,7 +238,7 @@ function retreaveByPk()
         $criteria->returnArray(true);
         $slct = $criteria->select();
         $qntReg = count($slct);
-        if($qntReg == 1){
+        if ($qntReg == 1) {
             return [$slct];
         }
         return $slct;
