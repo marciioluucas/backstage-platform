@@ -3,7 +3,7 @@
 namespace backstage\model;
 
 use backstage\dao\UsuarioDAO;
-use backstage\dao\VotoDAO;
+use backstage\util\JWTWrapper;
 use backstage\util\Message;
 
 /**
@@ -21,8 +21,6 @@ class Usuario
     private $ativado;
     private $senha;
     private $nivel;
-
-
 
 
     /**
@@ -158,11 +156,6 @@ class Usuario
             return $msg->geraJsonMensagem();
         }
 
-        if (empty($this->getMatricula())) {
-            $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "error"]);
-            return $msg->geraJsonMensagem();
-        }
-
         $dao = new UsuarioDAO($this);
 
         if (count($dao->retreaveCondicaoMatriculaExistenteCadastrar()) != 0) {
@@ -175,15 +168,14 @@ class Usuario
             $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
-        if($dao->create()){
-        $r = new Message(
-            "Usuario cadastrado com sucesso",
-            "sucesso",
-            ["icone" => "check"]
-        );
-        return $r->geraJsonMensagem();
-    }
-        else{
+        if ($dao->create()) {
+            $r = new Message(
+                "Usuario cadastrado com sucesso",
+                "sucesso",
+                ["icone" => "check"]
+            );
+            return $r->geraJsonMensagem();
+        } else {
 
             $r = new Message(
                 "Erro ao criar Usuario",
@@ -192,7 +184,7 @@ class Usuario
             );
             return $r->geraJsonMensagem();
 
-    }
+        }
     }
 
     public function atualizar()
@@ -213,10 +205,6 @@ class Usuario
             return $msg->geraJsonMensagem();
         }
 
-        if (empty($this->getMatricula())) {
-            $msg = new Message("Matricula deve ser preenchida", "erro", ["icone" => "error"]);
-            return $msg->geraJsonMensagem();
-        }
 //
         $dao = new UsuarioDAO($this);
         if (count($dao->retreaveCondicaoMatriculaExistenteAlterar()) > 0) {
@@ -229,14 +217,14 @@ class Usuario
             $msg = new Message("Email já utilizado, tente utilizar outro.", "erro", ["icone" => "error"]);
             return $msg->geraJsonMensagem();
         }
-        if($dao->update()){
-        $r = new Message(
-            "Usuario alterado com sucesso",
-            "sucesso",
-            ["icone" => "check"]
-        );
-        return $r->geraJsonMensagem();}
-        else{
+        if ($dao->update()) {
+            $r = new Message(
+                "Usuario alterado com sucesso",
+                "sucesso",
+                ["icone" => "check"]
+            );
+            return $r->geraJsonMensagem();
+        } else {
             $r = new Message(
                 "Erro ao Alterar Usuario",
                 "erro",
@@ -252,7 +240,8 @@ class Usuario
         return $dao->retreave();
     }
 
-    public function retreaveByPk() {
+    public function retreaveByPk()
+    {
         $dao = new UsuarioDAO($this);
         return $dao->retreaveByPk();
     }
@@ -282,27 +271,53 @@ class Usuario
     public function logar()
     {
         $dao = new UsuarioDAO($this);
+        $dao2 = new UsuarioDAO($this);
         if ($dao->logar()) {
-            return json_encode(["isPermitido" => true]);
+            if (!empty($this->email)) {
+                $dao2->retreaveBy("email", $this->email);
+            }
+            if (!empty($this->matricula) and empty($this->email)) {
+                $dao2->retreaveBy("matricula", $this->matricula);
+            }
+            $jwt = JWTWrapper::encode([
+                'expiracao' => 15,
+                'dominio' => 'localhost',
+                'dados' => [
+                    'pk_usuario' => $this->pk_usuario,
+                    'nome' => $this->nome,
+                    'nivel' => $this->nivel
+                ]
+            ]);
+            return
+                [
+                    'atenticado' => true,
+                    'token' => $jwt
+                ];
+
         }
-        return json_encode(["isPermitido" => false]);
+        return (new Message(
+            "Email, matrícula ou senha errados",
+            "erro", ["icone" => 'error']))->geraJsonMensagem();
     }
 
-    public function retreaveGraphUsuarioAtivo(){
+    public function retreaveGraphUsuarioAtivo()
+    {
         $this->setAtivado('1');
         $dao = new UsuarioDAO($this);
 
         return $dao->retreaveUsuarioForGraph();
     }
 
-    public function retreaveGraphUsuarioInativo(){
+    public function retreaveGraphUsuarioInativo()
+    {
         $this->setAtivado("'0'");
         $dao = new UsuarioDAO($this);
 
         return $dao->retreaveUsuarioForGraph();
     }
 
-    public function retreaveParaAlterar() {
+    public function retreaveParaAlterar()
+    {
 
         $dao = new UsuarioDAO($this);
 

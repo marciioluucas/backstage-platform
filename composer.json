@@ -3,7 +3,8 @@
   "description": "Backstage platform plataforma de fabrica de software",
   "type": "project",
   "require": {
-    "marciioluucas/phiber": "dev-master"
+    "marciioluucas/phiber": "dev-master",
+    "firebase/php-jwt": "dev-master"
   },
   "require-dev": {
     "marciioluucas/phiber": "dev-master"

@@ -31,7 +31,12 @@ class UsuarioController
         $this->usuario = new Usuario();
 //Para usar sem API;
         if ($requestMethod == 'POST') {
-            $this->cadastrar($args);
+            if(isset($args['method']) and $args['method'] == 'logar') {
+                $this->logar($args);
+            }
+            if(!isset($args['method'])) {
+                $this->cadastrar($args);
+            }
         }
 
         if ($requestMethod == 'GET') {
@@ -85,7 +90,7 @@ class UsuarioController
         if ($values != null) {
 
             if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
-
+            if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if (isset($values['email'])) $this->usuario->setEmail($values['email']);
             if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if (isset($values['nome'])) $this->usuario->setNome($values['nome']);
@@ -114,6 +119,13 @@ class UsuarioController
         $this->usuario->setMatricula(isset($values['matricula']) ? $values['matricula'] : null);
         $this->usuario->setNivel(isset($values['nivel']) ? $values['nivel'] : null);
         echo json_encode($this->usuario->retreave());
+    }
+
+    public function logar() {
+            if(isset($_POST['email'])) $this->usuario->setEmail($_POST['email']);
+            if(isset($_POST['senha'])) $this->usuario->setSenha($_POST['senha']);
+            if(isset($_POST['matricula'])) $this->usuario->setMatricula($_POST['matricula']);
+            echo json_encode($this->usuario->logar());
     }
 
     public function retreaveGraphUsuarioAtivo(){

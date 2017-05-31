@@ -4,8 +4,51 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1e7bc3c596b3794d0aa556e010b757af",
+    "content-hash": "8c52e4edb68fa263a95604277c86f0d8",
     "packages": [
+        {
+            "name": "firebase/php-jwt",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/firebase/php-jwt.git",
+                "reference": "3aa3d978973f080746b2f2f75b10d3f38cbb0557"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/3aa3d978973f080746b2f2f75b10d3f38cbb0557",
+                "reference": "3aa3d978973f080746b2f2f75b10d3f38cbb0557",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firebase\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Neuman Vong",
+                    "email": "neuman+pear@twilio.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anant Narayanan",
+                    "email": "anant@php.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
+            "homepage": "https://github.com/firebase/php-jwt",
+            "time": "2016-08-31T23:16:29+00:00"
+        },
         {
             "name": "marciioluucas/phiber",
             "version": "dev-master",
@@ -52,14 +95,15 @@
                 "php framework",
                 "php orm"
             ],
-            "time": "2017-05-23 17:55:02"
+            "time": "2017-05-23T17:55:02+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "marciioluucas/phiber": 20
+        "marciioluucas/phiber": 20,
+        "firebase/php-jwt": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

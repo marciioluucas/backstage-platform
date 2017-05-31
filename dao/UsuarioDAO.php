@@ -116,6 +116,19 @@ function retreaveByPk()
         return $criteria->select();
     }
 
+    function retreaveBy($campo, $valor)
+    {
+
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+
+        $restriction = $criteria->restrictions()
+            ->equals($campo, $valor);
+
+        $criteria->add($restriction);
+        return $criteria->select();
+    }
+
     function retreaveParaAlterar() {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
@@ -189,22 +202,29 @@ function retreaveByPk()
     {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
-
-        $restriction = $criteria->restrictions()
-            ->equals("login", $this->usuario->getLogin());
+        $restriction = "";
 
 
-        $restriction2 = $criteria->restrictions()
-            ->equals("email", $this->usuario->getEmail());
 
-        $restriction3 = $criteria->restrictions()
+        $restrictionSenha = $criteria->restrictions()
             ->equals("senha", $this->usuario->getSenha());
 
-        $condOr = $criteria->restrictions()->either($restriction, $restriction2);
-        $condAnd = $criteria->restrictions()->and($condOr, $restriction3);
+        if(!empty($this->usuario->getMatricula()) and empty($this->usuario->getEmail())){
+            $restriction = $criteria->restrictions()
+                ->equals("matricula", $this->usuario->getMatricula());
 
-        $criteria->add($condAnd);
-        if (count($criteria->select()) > 0) {
+        }
+
+        if(!empty($this->usuario->getEmail()) and empty($this->usuario->getMatricula())){
+            $restriction = $criteria->restrictions()
+                ->equals("email", $this->usuario->getEmail());
+        }
+
+        $cond = $criteria->restrictions()->and($restriction, $restrictionSenha);
+
+        $criteria->add($cond);
+        $criteria->select();
+        if ($criteria->rowCount() > 0) {
             return true;
         }
         return false;
