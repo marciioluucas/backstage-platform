@@ -1,7 +1,7 @@
 <?php
 namespace backstage\model;
 
-use backstage\dao\ProjetoDAO;
+
 use backstage\dao\PropostaDAO;
 use backstage\util\Message;
 
