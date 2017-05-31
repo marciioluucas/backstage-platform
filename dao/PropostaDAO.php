@@ -93,15 +93,24 @@ class PropostaDAO implements IDAO
         $criteria->returnArray(true);
         $selectPropostas = $criteria->select();
         $propostasFinal = [];
-        $cont = [];
-        for ($i = 0; $i < count($selectPropostas); $i++) {
-            $voto = new Voto($selectPropostas[$i]['pk_proposta']);
-            $usuario = new Usuario();
-            $usuario->setPkUsuario($selectPropostas[$i]['fk_usuario']);
-            $propostasFinal[$i] = $selectPropostas[$i];
-            $propostasFinal[$i]['contagem'] = $voto->contar();
-            $propostasFinal[$i]['autor'] = $usuario->retreaveByPk();
+        if($criteria->rowCount() > 1) {
+            for ($i = 0; $i < count($selectPropostas); $i++) {
+                $voto = new Voto($selectPropostas[$i]['pk_proposta']);
+                $usuario = new Usuario();
+                $usuario->setPkUsuario($selectPropostas[$i]['fk_usuario']);
+                $propostasFinal[$i] = $selectPropostas[$i];
+                $propostasFinal[$i]['contagem'] = $voto->contar();
+                $propostasFinal[$i]['autor'] = $usuario->retreaveByPk();
+            }
+
+            return $propostasFinal;
         }
+        $voto = new Voto($selectPropostas['pk_proposta']);
+        $usuario = new Usuario();
+        $usuario->setPkUsuario($selectPropostas['fk_usuario']);
+        $propostasFinal = $selectPropostas;
+        $propostasFinal['contagem'] = $voto->contar();
+        $propostasFinal['autor'] = $usuario->retreaveByPk();
         return $propostasFinal;
 
     }

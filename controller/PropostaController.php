@@ -40,7 +40,7 @@ class PropostaController
 
         if ($requestmethod == 'GET') {
 
-            if($args['method'] == "listarPorVoto"){
+            if(isset($args['method']) and $args['method'] == "listarPorVoto"){
                 $this->listaPorVoto();
             }
             if(!isset($args['method'])){
