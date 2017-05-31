@@ -22,6 +22,9 @@ class Usuario
     private $senha;
     private $nivel;
 
+
+
+
     /**
      * @return mixed
      */

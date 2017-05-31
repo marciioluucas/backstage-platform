@@ -110,25 +110,18 @@ class PropostaController
 
     public function retreavePorData()
     {
-        $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
+
         $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
-        $this->proposta->setAprovado(isset($values['aprovado']) ? $values['aprovado'] : null);
-        $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
-        $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
-        $this->proposta->setPkProposta(isset($values['pk_proposta']) ? $values['pk_proposta'] : null);
+
 
         echo json_encode($this->proposta->retreavePorData());
     }
 
     public function retreavePorUsuario()
     {
-        $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
-        $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
-
-        $this->proposta->setAprovado(isset($values['aprovado']) ? $values['aprovado'] : null);
-        $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
+         $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
         $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
-        $this->proposta->setPkProposta(isset($values['pk_proposta']) ? $values['pk_proposta'] : null);
+
 
         echo json_encode($this->proposta->retreavePorUsuario());
     }
@@ -136,12 +129,6 @@ class PropostaController
     public function retreavePorTitulo()
     {
         $this->proposta->setTitulo(isset($values['titulo']) ? $values['titulo'] : null);
-        $this->proposta->setData(isset($values['data']) ? $values['data'] : null);
-        $this->proposta->setAprovado(isset($values['aprovado']) ? $values['aprovado'] : null);
-        $this->proposta->setDescricao(isset($values['descricao']) ? $values['descricao'] : null);
-        $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
-        $this->proposta->setPkProposta(isset($values['pk_proposta']) ? $values['pk_proposta'] : null);
-
         echo json_encode($this->proposta->retreavePorTitulo());
     }
 

@@ -52,7 +52,7 @@ class EquipeController
         $values == null ? $values = $_POST : null;
 
         if ($values != null) {
-            if (isset($values['pk_equipe'])) $this->equipe->setPkEquipe($values['pk_equipe']);
+
             if (isset($values['nome'])) $this->equipe->setNome($values['nome']);
             if (isset($values['ativado'])) $this->equipe->setAtivado($values['ativado']);
 

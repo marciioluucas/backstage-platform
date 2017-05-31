@@ -85,7 +85,7 @@ class UsuarioController
         if ($values != null) {
 
             if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
-            if (isset($values['login'])) $this->usuario->setLogin($values['login']);
+
             if (isset($values['email'])) $this->usuario->setEmail($values['email']);
             if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if (isset($values['nome'])) $this->usuario->setNome($values['nome']);
