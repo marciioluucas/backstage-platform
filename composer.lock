@@ -47,7 +47,7 @@
             ],
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
-            "time": "2016-08-31T23:16:29+00:00"
+            "time": "2016-08-31 23:16:29"
         },
         {
             "name": "marciioluucas/phiber",
@@ -95,7 +95,7 @@
                 "php framework",
                 "php orm"
             ],
-            "time": "2017-05-23T17:55:02+00:00"
+            "time": "2017-05-23 17:55:02"
         }
     ],
     "packages-dev": [],
