@@ -216,11 +216,11 @@ class PropostaDAO implements IDAO
 
 
 
-         return usort($propostasComVotos, function ($a, $b){
+          usort($propostasComVotos, function ($a, $b){
              return $a['contagem'] < $b['contagem'];
          });
 
-
+        return $propostasComVotos;
     }
 
 
