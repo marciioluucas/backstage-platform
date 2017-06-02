@@ -121,10 +121,11 @@ class UsuarioController
         echo json_encode($this->usuario->retreave());
     }
 
-    public function logar() {
-        echo json_encode($_POST);
-//            if(isset($_POST['email'])) $this->usuario->setEmail($_POST['email']);
-//            if(isset($_POST['senha'])) $this->usuario->setSenha($_POST['senha']);
+    public function logar($values = null) {
+            isset($_POST) ? $values = $_POST : null;
+            if(isset($values['email'])) $this->usuario->setEmail($values['email']);
+            if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
+            echo json_encode($values['email']);
 //            echo json_encode($this->usuario->logar());
     }
 

@@ -204,7 +204,7 @@ class PropostaDAO implements IDAO
             $usuario->setPkUsuario($selectPropostas[$i]['fk_usuario']);
             $propostasComVotos[$i] = $selectPropostas[$i];
             $propostasComVotos[$i]['contagem'] = $voto->contar();
-            $propostasComVotos[$i]['usuario'] = $usuario->retreaveByPk();
+            $propostasComVotos[$i]['autor'] = $usuario->retreaveByPk();
         }
 
 //        arsort($propostasComVotos);
