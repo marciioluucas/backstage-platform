@@ -216,8 +216,8 @@ class PropostaDAO implements IDAO
 
 
 
-         return uasort($propostasComVotos, function ($a, $b){
-             return strnatcmp($a['contagem'], $b['contagem']);
+         return usort($propostasComVotos, function ($a, $b){
+             return $a['contagem'] < $b['contagem'];
          });
 
 
