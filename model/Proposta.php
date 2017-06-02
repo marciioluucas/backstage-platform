@@ -1,5 +1,4 @@
 <?php
-
 namespace backstage\model;
 
 use backstage\dao\PropostaDAO;
