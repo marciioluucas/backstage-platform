@@ -212,11 +212,13 @@ class PropostaDAO implements IDAO
 //        for ($j = 0; $j < 10; $j++) {
 //            $propostasFinal[$j] = $propostasComVotos[$j];
 //        }
-        function compararvotos($a, $b){
-            return strnatcmp($a['contagem'], $b['contagem']);
-        }
 
-         return uasort($propostasComVotos, 'compararvotos');
+
+
+
+         return uasort($propostasComVotos, function ($a, $b){
+             return strnatcmp($a['contagem'], $b['contagem']);
+         });
 
 
     }
