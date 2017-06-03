@@ -31,28 +31,28 @@ class UsuarioController
         $this->usuario = new Usuario();
 //Para usar sem API;
         if ($requestMethod == 'POST') {
-            if(isset($args['method']) and $args['method'] == 'logar') {
+            if (isset($args['method']) and $args['method'] == 'logar') {
                 $this->logar($args);
             }
-            if(!isset($args['method'])) {
+            if (!isset($args['method'])) {
                 $this->cadastrar($args);
             }
         }
 
         if ($requestMethod == 'GET') {
-            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioAtivo') {
+            if (isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioAtivo') {
                 $this->retreaveGraphUsuarioAtivo();
             }
 
-            if(isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioInativo') {
+            if (isset($args['method']) and $args['method'] == 'retreaveGraphUsuarioInativo') {
                 $this->retreaveGraphUsuarioInativo();
             }
 
-            if(isset($args['method']) and $args['method'] == 'retreaveParaAlterar') {
+            if (isset($args['method']) and $args['method'] == 'retreaveParaAlterar') {
                 $this->retreaveParaAlterar($args);
             }
 
-            if(!isset($args['method'])) {
+            if (!isset($args['method'])) {
                 $this->listar($args);
             }
         }
@@ -73,11 +73,11 @@ class UsuarioController
     {
         $values == null ? $values = $_POST : null;
         if ($values != null) {
-            if(isset($values['email'])) $this->usuario->setEmail($values['email']);
-            if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
-            if(isset($values['nome'])) $this->usuario->setNome($values['nome']);
-            if(isset($values['nivel'])) $this->usuario->setNivel($values['nivel']);
-            if(isset($values['matricula'])) $this->usuario->setMatricula($values['matricula']);
+            if (isset($values['email'])) $this->usuario->setEmail($values['email']);
+            if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
+            if (isset($values['nome'])) $this->usuario->setNome($values['nome']);
+            if (isset($values['nivel'])) $this->usuario->setNivel($values['nivel']);
+            if (isset($values['matricula'])) $this->usuario->setMatricula($values['matricula']);
 //            echo $values['email'];
             echo $this->usuario->cadastrar();
         }
@@ -90,7 +90,7 @@ class UsuarioController
         if ($values != null) {
 
             if (isset($values['pk_usuario'])) $this->usuario->setPkUsuario($values['pk_usuario']);
-            if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
+            if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if (isset($values['email'])) $this->usuario->setEmail($values['email']);
             if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
             if (isset($values['nome'])) $this->usuario->setNome($values['nome']);
@@ -121,23 +121,26 @@ class UsuarioController
         echo json_encode($this->usuario->retreave());
     }
 
-    public function logar($values = null) {
-            isset($_POST) ? $values = $_POST : null;
-            if(isset($values['email'])) $this->usuario->setEmail($values['email']);
-            if(isset($values['senha'])) $this->usuario->setSenha($values['senha']);
-            echo json_encode($values['email']);
-//            echo json_encode($this->usuario->logar());
+    public function logar($values = null)
+    {
+        $values == null ? $values = $_POST : null;
+        if (isset($values['email'])) $this->usuario->setEmail($values['email']);
+        if (isset($values['senha'])) $this->usuario->setSenha($values['senha']);
+        echo $this->usuario->logar();
     }
 
-    public function retreaveGraphUsuarioAtivo(){
+    public function retreaveGraphUsuarioAtivo()
+    {
         echo json_encode($this->usuario->retreaveGraphUsuarioAtivo());
     }
 
-    public function retreaveGraphUsuarioInativo(){
+    public function retreaveGraphUsuarioInativo()
+    {
         echo json_encode($this->usuario->retreaveGraphUsuarioInativo());
     }
 
-    public function retreaveParaAlterar($values = null) {
+    public function retreaveParaAlterar($values = null)
+    {
         $this->usuario->setPkUsuario($values['pk_usuario']);
         echo json_encode($this->usuario->retreaveParaAlterar());
     }

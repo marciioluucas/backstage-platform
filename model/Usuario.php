@@ -291,10 +291,10 @@ class Usuario
                 ]
             ]);
             return
-                [
-                    'atenticado' => true,
+                json_encode([
+                    'autenticado' => true,
                     'token' => $jwt
-                ];
+                ]);
 
         }
         return (new Message(

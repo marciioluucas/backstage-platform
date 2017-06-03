@@ -3,10 +3,10 @@
     "language": "pt_br",
     "link": {
       "database_technology": "mysql",
-      "database_name": "backstage_platform",
-      "url": "mysql:host=localhost;dbname=backstage_platform",
-      "user": "root",
-      "password": "",
+      "database_name": "u806284756_backs",
+      "url": "mysql:host=mysql.hostinger.com;dbname=u806284756_backs",
+      "user": "u806284756_backs",
+      "password": "mlro1215",
       "connection_cache": true
     },
     "log": false,

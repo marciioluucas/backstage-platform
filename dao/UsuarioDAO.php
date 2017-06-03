@@ -204,7 +204,6 @@ class UsuarioDAO implements IDAO
     {
         $phiber = new Phiber();
         $criteria = $phiber->openPersist($this->usuario);
-        $restriction = "";
 
 
         $restrictionSenha = $criteria->restrictions()
