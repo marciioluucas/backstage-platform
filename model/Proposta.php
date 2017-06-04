@@ -303,5 +303,10 @@ class Proposta
 
     }
 
+    public  function listarUsuarioLogado(){
+        $dao = new PropostaDAO(($this));
+        return $dao->listarUsuarioLogado();
+    }
+
 
 }

@@ -132,6 +132,13 @@ class PropostaController
         echo json_encode($this->proposta->retreavePorTitulo());
     }
 
+    public function listarUsuarioLogado(){
+
+        $this->proposta->setFkUsuario(Isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
+
+        echo json_encode($this->proposta->listarUsuarioLogado());
+    }
+
 
 
     public function delete($values = null)
