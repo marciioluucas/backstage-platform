@@ -66,7 +66,7 @@ class UsuarioDAO implements IDAO
 
         if ($this->usuario->getNivel() != null) {
             $restrictions[6] = $criteria->restrictions()
-                ->like("nivel", $this->usuario->getNivel());
+                ->equals("nivel", $this->usuario->getNivel());
         }
 
 
