@@ -44,7 +44,9 @@ class PropostaController
                 $this->listaPorVoto();
             }
             if(isset($args['method']) and $args['method'] == "listarUsuarioLogado"){
-                $this->listarUsuarioLogado();
+                if(isset($args['pk_usuario'])){
+                    $this->listarUsuarioLogado();
+                }
             }
             if(!isset($args['method'])){
                 $this->listar($args);
