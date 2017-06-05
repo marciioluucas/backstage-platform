@@ -44,7 +44,8 @@ class PropostaController
                 $this->listaPorVoto();
             }
             if(isset($args['method']) and $args['method'] == "listarUsuarioLogado"){
-                if(isset($args['pk_usuario'])){
+                if(isset($args['fk_usuario'])){
+                    echo $args['fk_usuario'];
                     $this->listarUsuarioLogado();
                 }
             }
@@ -139,7 +140,7 @@ class PropostaController
 
     public function listarUsuarioLogado(){
 
-        $this->proposta->setFkUsuario(isset($values['pk_usuario']) ? $values['pk_usuario'] : null);
+        $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
 
         echo json_encode($this->proposta->listarUsuarioLogado());
     }
