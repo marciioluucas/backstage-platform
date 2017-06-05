@@ -145,32 +145,8 @@ class PropostaDAO implements IDAO
             $restrictions[1] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
         }
 
-        $restrictions = array_values($restrictions);
-        if (count($restrictions) > 1) {
-            for ($i = 0; $i < count($restrictions) - 1; $i++) {
-                $criteria->add($criteria->restrictions()
-                    ->and($restrictions[$i], $restrictions[$i + 1]));
-            }
-        } else {
-            if (!empty($restrictions)) {
-                $criteria->add($restrictions[0]);
-            }
-        }
-        $criteria->returnArray(true);
-        $r = $criteria->select();
-
-        return $r;
-    }
-
-    function listarUsuarioLogado()
-    {
-        $phiber = new Phiber();
-        $criteria = $phiber->openPersist($this->proposta);
-        $restrictions = [];
-        $restrictions[0] = $criteria->restrictions()->equals("ativado", 1);
-
-        if ($this->proposta->getFkUsuario() != null) {
-            $restrictions[1] = $criteria->restrictions()->equals("fk_usuario", $this->proposta->getFkUsuario());
+        if($this->proposta->getTitulo() != null ){
+            $restrictions[2] = $criteria->restrictions()->like("titulo", $this->proposta->getTitulo());
         }
 
         $restrictions = array_values($restrictions);
