@@ -45,7 +45,7 @@ class PropostaController
             }
             if(isset($args['method']) and $args['method'] == "listarUsuarioLogado"){
                 if(isset($args['fk_usuario'])){
-                    $this->listarUsuarioLogado();
+                    $this->listarUsuarioLogado($args);
                 }
             }
             if(!isset($args['method'])){
@@ -137,7 +137,7 @@ class PropostaController
         echo json_encode($this->proposta->retreavePorTitulo());
     }
 
-    public function listarUsuarioLogado(){
+    public function listarUsuarioLogado($values = null){
 
         $this->proposta->setFkUsuario(isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
 
