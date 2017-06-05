@@ -137,7 +137,7 @@ class PropostaController
 
     public function listarUsuarioLogado(){
 
-        $this->proposta->setFkUsuario(Isset($values['fk_usuario']) ? $values['fk_usuario'] : null);
+        $this->proposta->setFkUsuario(isset($values['pk_usuario']) ? $values['pk_usuario'] : null);
 
         echo json_encode($this->proposta->listarUsuarioLogado());
     }
