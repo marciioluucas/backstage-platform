@@ -45,7 +45,6 @@ class PropostaController
             }
             if(isset($args['method']) and $args['method'] == "listarUsuarioLogado"){
                 if(isset($args['fk_usuario'])){
-                    echo $args['fk_usuario'];
                     $this->listarUsuarioLogado();
                 }
             }
