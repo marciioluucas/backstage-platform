@@ -162,7 +162,9 @@ class PropostaDAO implements IDAO
         }
         $criteria->returnArray(true);
         $r = $criteria->select();
-
+        if($criteria->rowCount() == 1) {
+            return [$r];
+        }
         return $r;
     }
 
