@@ -3,7 +3,9 @@
 namespace backstage\model;
 
 use backstage\dao\UsuarioDAO;
+use backstage\util\Arquivo;
 use backstage\util\JWTWrapper;
+use backstage\util\Mail;
 use backstage\util\Message;
 
 /**
@@ -136,9 +138,6 @@ class Usuario
     {
         $this->ativado = $ativado;
     }
-
-
-
 
 
     public function cadastrar()
@@ -324,5 +323,29 @@ class Usuario
         $dao = new UsuarioDAO($this);
 
         return $dao->retreaveParaAlterar();
+    }
+
+    public function recuperarSenha()
+    {
+        $dao = new UsuarioDAO($this);
+        if ($dao->emailExistente()) {
+            $usuario = $dao->retreaveBy("email", $this->getEmail());
+            Mail::$usuarioRemetente = "alfred@backstage.ifapps-morrinhos.com";
+            Mail::$senhaRemetente = "mlro1215";
+            Mail::$nomeRemetente = "Alfred, o mordomo do Backstage.";
+            Mail::$assunto = "Você solicitou um lembrete de senha?";
+            Mail::$destinatarios = [
+                ["endereco" => $usuario['email'], "nome" => $usuario['nome']]
+            ];
+            $email = Arquivo::ler('../util/templates/emails/recuperar-senha/recuperacao-senha.html');
+            $email = Arquivo::substituirOcorrencias(["{{senha}}"],[$usuario['senha']],$email);
+            Mail::$conteudo = $email;
+            if(Mail::enviar()){
+                return (new Message("Email enviado com sucesso","sucesso",["icone"=>"check"]));
+            }
+        }
+
+        return (new Message("Erro ao enviar email","erro",["icone"=>"error"]));
+
     }
 }

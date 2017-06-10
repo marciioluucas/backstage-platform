@@ -243,4 +243,19 @@ class UsuarioDAO implements IDAO
         return $slct;
 
     }
+
+    function emailExistente()
+    {
+        $phiber = new Phiber();
+        $criteria = $phiber->openPersist($this->usuario);
+        $restriction = $criteria->restrictions()
+            ->equals("email", $this->usuario->getEmail());
+        $criteria->add($restriction);
+        $criteria->select();
+        if ($criteria->rowCount() == 1) {
+            return true;
+        }
+        return false;
+    }
+
 }

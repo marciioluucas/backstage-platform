@@ -4,7 +4,9 @@
   "type": "project",
   "require": {
     "marciioluucas/phiber": "dev-master",
-    "firebase/php-jwt": "dev-master"
+    "firebase/php-jwt": "dev-master",
+    "phpmailer/phpmailer": "dev-master",
+    "league/oauth2-google": "dev-master"
   },
   "require-dev": {
     "marciioluucas/phiber": "dev-master"
